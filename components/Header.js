@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-class GlobalNav extends React.Component {
+class Header extends React.Component {
 
   render() {
     const { user } = this.props
@@ -22,4 +22,4 @@ class GlobalNav extends React.Component {
   }
 }
 
-export default GlobalNav
+export default Header

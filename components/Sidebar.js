@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-class GlobalNav extends React.Component {
+class Sidebar extends React.Component {
 
   render() {
 
@@ -31,4 +31,4 @@ class GlobalNav extends React.Component {
       </aside>)
     }
   }
-  export default GlobalNav
+  export default Sidebar
