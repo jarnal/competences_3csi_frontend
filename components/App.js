@@ -1,4 +1,3 @@
-/*globals COURSES:true */
 import React from 'react'
 import Dashboard from '../routes/Dashboard/components/Dashboard'
 import Header from './Header'
