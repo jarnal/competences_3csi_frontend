@@ -1,4 +1,4 @@
-# Projet compétence 3CSI Front End
+# Projet compétences 3CSI Front End
 
 Ce projet a pour finalité la gestion des compétences d'un étudiant.
 
