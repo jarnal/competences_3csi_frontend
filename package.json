@@ -1,7 +1,7 @@
 {
   "name": "projet_competences_3csi_frontend",
   "version": "1.0.0",
-  "description": "Application front end sous reactJS permettant la gestion de competences des etudiants",
+  "description": "Application permettant la gestion de competences etudiants",
   "scripts": {
     "start": "node server.js"
   },
