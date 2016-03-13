@@ -17,6 +17,7 @@ const rootRoute = {
     ]
   } ]
 }
+/*te565st*/
 
 render(
   <Router history={browserHistory} routes={rootRoute} />,
