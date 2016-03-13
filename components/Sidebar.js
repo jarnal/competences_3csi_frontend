@@ -1,14 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router'
-const activeColor = '#3c8dbc';
-const styles = {}
-styles.link = {
-}
-
-styles.activeLink = {
-  ...styles.link,
-  color: 'dark'
-}
 
 class GlobalNav extends React.Component {
 

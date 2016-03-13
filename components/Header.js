@@ -8,10 +8,10 @@ class GlobalNav extends React.Component {
 
     return (
       <header className="main-header">
-        <a href="index2.html" className="logo">
+        <Link to="/" className="logo">
           <span className="logo-mini"><b>A</b>S</span>
           <span className="logo-lg"><b>Admin</b> Skill</span>
-        </a>
+        </Link>
         <nav className="navbar navbar-static-top" role="navigation">
           <a href="#" className="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span className="sr-only">Toggle navigation</span>
