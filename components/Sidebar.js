@@ -21,7 +21,7 @@ class Sidebar extends React.Component {
             <li className="header">MENU</li>
             <li><Link to="/"><i className="fa fa-home" /> <span>Tableau de bord</span></Link></li>
             <li><Link to="/competences"><i className="fa fa-cog" /> <span>Compétences</span></Link></li>
-            <li><Link to="/evaluer"><i className="fa fa-users" /> <span>Evaluer</span></Link></li>
+            <li><Link to="/evaluations"><i className="fa fa-users" /> <span>Evaluations</span></Link></li>
             <li><Link to="/examens"><i className="fa fa-file-text-o" /> <span>Examens</span></Link></li>
             <li><Link to="/bilans"><i className="fa fa-pie-chart" /> <span>Bilans</span></Link></li>
             <li><Link to="/groupes"><i className="fa fa-connectdevelop" /> <span>Groupes</span></Link></li>
