@@ -2,7 +2,7 @@
 
 Ce projet a pour finalité la gestion des compétences d'un étudiant.
 
-Ceci est la partie front end, elle est censée récupérer les données d'un serveur et de les afficher dynamiquement les données.
+Ceci est la partie front end, elle est censée récupérer les données d'un serveur et d'afficher dynamiquement les données.
 
 La structure est adaptée d'un exemple de react-router
 https://github.com/reactjs/react-router/tree/master/examples/huge-apps
