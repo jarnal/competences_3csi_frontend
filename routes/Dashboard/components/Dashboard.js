@@ -1,7 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router'
-import Tableau from './Tableau'
-
 class Dashboard extends React.Component {
   render() {
     return (
@@ -13,7 +11,7 @@ class Dashboard extends React.Component {
           </h1>
         </section>
         <section className="content" style={{ minHeight: 550 }}>
-          <Tableau />{/* Contenu */}
+          {/* Contenu */}
         </section>
       </div>
     )
