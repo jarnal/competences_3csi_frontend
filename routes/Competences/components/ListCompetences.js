@@ -41,7 +41,7 @@ class ListCompetences extends React.Component {
             </div>{/* /.box-header */}
             <div className="box-body">
               <div className="row">
-                <div className="col-md-11 col-xs-11 col-lg-11">
+                <div className="col-md-11 col-xs-12 col-lg-11">
                   <div className="form-group">
                     <select className="form-control select2" style={{width: '100%'}}>
                       <option>PHP Initiation</option>
@@ -54,9 +54,9 @@ class ListCompetences extends React.Component {
                     </select>
                   </div>{/* /.form-group */}
                 </div>{/* /.col */}
-                <div className="col-md-1 col-xs-1 col-lg-1">
+                <div className="col-md-1 col-xs-12 col-lg-1">
                   <div className="form-group">
-                    <button className="btn btn-default pull-right"><i className="fa fa-plus" /></button>
+                    <button className="btn btn-default pull-right"><i className="fa fa-plus" /> </button>
                   </div>{/* /.form-group */}
                 </div>{/* /.col */}
                 <div className="col-md-12 col-xs-12 col-lg-12">
