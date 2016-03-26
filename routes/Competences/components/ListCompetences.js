@@ -22,6 +22,10 @@ const selectRowProp = {
   clickToSelect: true  // enable click to select
 };
 
+const options = {
+  noDataText: "Aucune competence trouvée"
+};
+
 class ListCompetences extends React.Component {
   render() {
     return (
@@ -62,7 +66,10 @@ class ListCompetences extends React.Component {
                     striped={true}
                     hover={true}
                     selectRow={selectRowProp}
-                    search={true}>
+                    searchPlaceholder="Rechercher"
+                    search={true}
+                    noDataText="test"
+                    options={options}>
                     <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Competence ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="name" dataSort={true}>Nom de la compétence</TableHeaderColumn>
                   </BootstrapTable>
