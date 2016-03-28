@@ -16,6 +16,7 @@ Technologies principales utilisées :
 
 * react
 * react-router
+* react-bootstrap-table
 * admin-lte
 * webpack
 
