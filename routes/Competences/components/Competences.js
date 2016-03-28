@@ -1,5 +1,6 @@
 import React from 'react'
 import ListCompetences from './ListCompetences'
+
 class Competences extends React.Component {
   render() {
     return (
