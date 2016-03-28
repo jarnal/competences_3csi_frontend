@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
+import activeComponent from 'react-router-active-component'
+
+var NavLink = activeComponent('li')
 
 class Sidebar extends React.Component {
 
@@ -19,13 +22,13 @@ class Sidebar extends React.Component {
           </div>
           <ul className="sidebar-menu">
             <li className="header">MENU</li>
-            <li><Link to="/"><i className="fa fa-home" /> <span>Tableau de bord</span></Link></li>
-            <li><Link to="/competences"><i className="fa fa-cog" /> <span>Compétences</span></Link></li>
-            <li><Link to="/evaluations"><i className="fa fa-users" /> <span>Evaluations</span></Link></li>
-            <li><Link to="/examens"><i className="fa fa-file-text-o" /> <span>Examens</span></Link></li>
-            <li><Link to="/bilans"><i className="fa fa-pie-chart" /> <span>Bilans</span></Link></li>
-            <li><Link to="/groupes"><i className="fa fa-connectdevelop" /> <span>Groupes</span></Link></li>
-            <li><Link to="/matieres"><i className="fa fa-lightbulb-o" /> <span>Matières</span></Link></li>
+            <NavLink to="/" onlyActiveOnIndex><i className="fa fa-home" /> <span>Tableau de bord</span></NavLink>
+            <NavLink to="/competences"><i className="fa fa-cog" /> <span>Compétences</span></NavLink>
+            <NavLink to="/evaluations"><i className="fa fa-users" /> <span>Evaluations</span></NavLink>
+            <NavLink to="/examens"><i className="fa fa-file-text-o" /> <span>Examens</span></NavLink>
+            <NavLink to="/bilans"><i className="fa fa-pie-chart" /> <span>Bilans</span></NavLink>
+            <NavLink to="/groupes"><i className="fa fa-connectdevelop" /> <span>Groupes</span></NavLink>
+            <NavLink to="/matieres"><i className="fa fa-lightbulb-o" /> <span>Matières</span></NavLink>
           </ul>
         </section>
       </aside>)
