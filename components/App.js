@@ -9,7 +9,7 @@ class App extends React.Component {
       <div>
         <Header />
         <Sidebar />
-        {this.props.children || <Dashboard />}
+        {this.props.children || <Dashboard />} {/*Affichage par defaut le tableau de bord*/}
       </div>
     )
   }
