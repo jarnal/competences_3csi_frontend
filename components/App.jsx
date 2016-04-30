@@ -1,7 +1,7 @@
 import React from 'react'
-import Dashboard from '../routes/Dashboard/components/Dashboard'
-import Header from './Header'
-import Sidebar from './Sidebar'
+import Dashboard from '../routes/Dashboard/components/Dashboard.jsx'
+import Header from './Header.jsx'
+import Sidebar from './Sidebar.jsx'
 
 class App extends React.Component {
   render() {

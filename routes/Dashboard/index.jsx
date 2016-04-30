@@ -1,8 +1,8 @@
 module.exports = {
-  path: 'groupes',
+  path: 'dashboard',
   getComponent(location, cb) {
     require.ensure([], (require) => {
-      cb(null, require('./components/Groupes'))
+      cb(null, require('./components/Dashbord.jsx'))
     })
   }
 }

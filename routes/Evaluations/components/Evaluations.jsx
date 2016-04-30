@@ -1,14 +1,13 @@
 import React from 'react'
-import ListCompetences from './ListCompetences'
-
-class Competences extends React.Component {
+import WidgetEvaluations from './WidgetEvaluations.jsx'
+class Evaluations extends React.Component {
   render() {
     return (
       <div className="content-wrapper">
         <section className="content-header">
           <h1>
-            Gestionnaire de compétences
-            <small>Toutes les compétences par section</small>
+            Evaluations
+            <small>En Construction...</small>
             <div className="form-group col-md-2 col-xs-12 col-lg-2 pull-right">
               <select className="form-control select2" style={{width: '100%'}}>
                 <option>3CSI</option>
@@ -21,7 +20,7 @@ class Competences extends React.Component {
         <section className="content" style={{ minHeight: 550 }}>
           <div className="row">
             <div className="col-xs-12">
-              <ListCompetences />
+              <WidgetEvaluations />
             </div>{/* /.row (main row) */}
           </div>
         </section>
@@ -30,4 +29,4 @@ class Competences extends React.Component {
   }
 }
 
-module.exports = Competences
+module.exports = Evaluations

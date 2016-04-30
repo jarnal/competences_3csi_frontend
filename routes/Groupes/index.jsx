@@ -1,8 +1,8 @@
 module.exports = {
-  path: 'matieres',
+  path: 'groupes',
   getComponent(location, cb) {
     require.ensure([], (require) => {
-      cb(null, require('./components/Matieres'))
+      cb(null, require('./components/Groupes.jsx'))
     })
   }
 }

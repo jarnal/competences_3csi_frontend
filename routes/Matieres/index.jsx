@@ -1,8 +1,8 @@
 module.exports = {
-  path: 'examens',
+  path: 'matieres',
   getComponent(location, cb) {
     require.ensure([], (require) => {
-      cb(null, require('./components/Examens'))
+      cb(null, require('./components/Matieres.jsx'))
     })
   }
 }

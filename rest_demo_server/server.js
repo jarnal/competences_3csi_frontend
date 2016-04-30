@@ -1,18 +1,23 @@
 var express = require('express');
 var app = express();
-var fs = require("fs");
 
+var classe = `{
+  "class": [
+    "3CSI",
+    "MS2I",
+    "SN"
+  ]
+}
+`
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-app.get('/listUsers', function (req, res) {
-   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-       console.log( data );
-       res.end( data );
-   });
+app.get('/class', function (req, res) {
+  res.type('text/json'); // set content-type
+  res.send(classe)
 })
 
 var server = app.listen(8081, function () {

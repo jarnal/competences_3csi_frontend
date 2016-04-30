@@ -1,5 +1,7 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
+import Selectt from 'react-select'
+
 
 const Competences = [];
 
@@ -26,45 +28,61 @@ const options = {
   noDataText: "Aucune competence trouvée"
 };
 
-var UserGist = React.createClass({
-  getInitialState: function() {
-    return {
-      username: 'Chargement...',
-      lastGistUrl: ''
-    };
-  },
+/*var UserGist = React.createClass({
+getInitialState: function() {
+return {
+username: 'Chargement...',
+lastGistUrl: ''
+};
+},
 
-  componentDidMount: function() {
-    this.serverRequest = $.get(this.props.source, function (result) {
-      var lastGist = result[0];
-      this.setState({
-        username: lastGist.owner.login,
-        lastGistUrl: lastGist.html_url
-      });
-    }.bind(this));
-  },
-
-  componentWillUnmount: function() {
-    this.serverRequest.abort();
-  },
-
-  render: function() {
-    return (
-      <div>
-        {this.state.username}s last gist is
-        <a href={this.state.lastGistUrl}>here</a>.
-      </div>
-    );
-  }
+componentDidMount: function() {
+this.serverRequest = $.get(this.props.source, function (result) {
+console.log(result[0].class);
+var lastGist = result[0];
+this.setState({
+username: lastGist.class[0],
+lastGistUrl: lastGist.class
 });
+}.bind(this));
+},
+
+componentWillUnmount: function() {
+this.serverRequest.abort();
+},
+
+render: function() {
+return (
+<div>
+{this.state.username}s last gist is
+<a href={this.state.lastGistUrl}>here</a>.
+</div>
+);
+}
+});
+
+
+var option = [
+{ value: 'one', label: 'One' },
+{ value: 'two', label: 'Two' }
+];
+
+*/
+
 
 class ListCompetences extends React.Component {
 
   render() {
     return (
       <div>
-        <UserGist source="https://api.github.com/users/octocat/gists" />
-        {/* Left col */}
+        {/*<Selectt ClassName="form-control Select"
+          name="form-field-name"
+          options={option}
+          />
+
+        <UserGist source="http://localhost:8081/class" />
+        */
+        /* Left col */}
         <section className="col-lg-7 connectedSortable">
           {/* Listes Competences */}
           <div className="box box-primary">

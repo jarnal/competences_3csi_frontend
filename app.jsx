@@ -5,14 +5,14 @@ const rootRoute = {
   component: 'div',
   childRoutes: [ {
     path: '/',
-    component: require('./components/App'),
+    component: require('./components/App.jsx'),
     childRoutes: [
-      require('./routes/Bilans'),
-      require('./routes/Competences'),
-      require('./routes/Evaluations'),
-      require('./routes/Examens'),
-      require('./routes/Groupes'),
-      require('./routes/Matieres')
+      require('./routes/Bilans/index.jsx'),
+      require('./routes/Competences/index.jsx'),
+      require('./routes/Evaluations/index.jsx'),
+      require('./routes/Examens/index.jsx'),
+      require('./routes/Groupes/index.jsx'),
+      require('./routes/Matieres/index.jsx')
     ]
   } ]
 }
