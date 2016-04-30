@@ -19,6 +19,7 @@ Technologies principales utilisées :
 * react-bootstrap-table
 * admin-lte
 * webpack
+* babel-loader
 
 ### Installation
 
