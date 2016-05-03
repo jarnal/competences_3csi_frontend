@@ -1,6 +1,6 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import Selectt from 'react-select'
+import Select from 'react-select'
 
 
 const Competences = [];
@@ -24,65 +24,64 @@ const selectRowProp = {
   clickToSelect: true  // enable click to select
 };
 
-const options = {
+const options_table = {
   noDataText: "Aucune competence trouvée"
 };
 
-/*var UserGist = React.createClass({
-getInitialState: function() {
-return {
-username: 'Chargement...',
-lastGistUrl: ''
-};
-},
+var ListClass = React.createClass({
+  getInitialState: function() {
+    return {
+      ListClass: 'Chargement...'
+    };
+  },
 
-componentDidMount: function() {
-this.serverRequest = $.get(this.props.source, function (result) {
-console.log(result[0].class);
-var lastGist = result[0];
-this.setState({
-username: lastGist.class[0],
-lastGistUrl: lastGist.class
-});
-}.bind(this));
-},
+  componentDidMount: function() {
+    this.serverRequest = $.get(this.props.source, function (result) {
+      console.log(result.class[0]);
+      var ListClass = result.class[0];
+      this.setState({
+        ListClass: ListClass
+      });
+    }.bind(this));
+  },
 
-componentWillUnmount: function() {
-this.serverRequest.abort();
-},
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
 
-render: function() {
-return (
-<div>
-{this.state.username}s last gist is
-<a href={this.state.lastGistUrl}>here</a>.
-</div>
-);
-}
+  render: function() {
+    return (
+      <div>
+        {this.state.ListClass}
+      </div>
+    );
+  }
 });
 
-
-var option = [
-{ value: 'one', label: 'One' },
-{ value: 'two', label: 'Two' }
+var options = [
+    { value: 'one', label: 'One' },
+    { value: 'two', label: 'Two' }
 ];
 
-*/
-
+function logChange(val) {
+    console.log("Selected: " + val);
+}
 
 class ListCompetences extends React.Component {
 
   render() {
     return (
       <div>
-        {/*<Selectt ClassName="form-control Select"
-          name="form-field-name"
-          options={option}
+        <Select
+          name="form-field-name form-control select2"
+          value="one"
+          options={options}
+          onChange={logChange}
           />
 
-        <UserGist source="http://localhost:8081/class" />
-        */
-        /* Left col */}
+        <ListClass source="http://localhost:8081/class" />
+
+        {/* Left col */}
         <section className="col-lg-7 connectedSortable">
           {/* Listes Competences */}
           <div className="box box-primary">
@@ -121,7 +120,7 @@ class ListCompetences extends React.Component {
                     searchPlaceholder="Rechercher"
                     search={true}
                     noDataText="test"
-                    options={options}>
+                    options={options_table}>
                     <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Competence ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="name" dataSort={true}>Nom de la compétence</TableHeaderColumn>
                   </BootstrapTable>
