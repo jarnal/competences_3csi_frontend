@@ -1,11 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router'
 import activeComponent from 'react-router-active-component'
-
+import auth from '../routes/auth/Auth.jsx'
 var NavLink = activeComponent('li')
 
 class Sidebar extends React.Component {
-
   render() {
 
     return (
@@ -17,7 +16,7 @@ class Sidebar extends React.Component {
             </div>
             <div className="pull-left info">
               <p>Thomas Sebbane</p>
-              <span style={{fontSize: 11}}><a href="#"><i className="fa fa-sign-out" /> Déconnexion</a></span>
+              <Link to="/logout"><span style={{fontSize: 11}}><i className="fa fa-sign-out" /> Déconnexion</span></Link>
             </div>
           </div>
           <ul className="sidebar-menu">
