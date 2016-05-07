@@ -83,15 +83,15 @@ const NoMatch = React.createClass({
   render(
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={requireAuth}>
-        <Route path="/bilans" component={Bilans}/>
-        <Route path="/competences" component={Competences}/>
-        <Route path="/evaluations" component={Evaluations}/>
-        <Route path="/examens" component={Examens}/>
-        <Route path="/groupes" component={Groupes}/>
-        <Route path="/matieres" component={Matieres}/>
+        <Route path="bilans" component={Bilans}/>
+        <Route path="competences" component={Competences}/>
+        <Route path="evaluations" component={Evaluations}/>
+        <Route path="examens" component={Examens}/>
+        <Route path="groupes" component={Groupes}/>
+        <Route path="matieres" component={Matieres}/>
       </Route>
-      <Route path="/login" component={Login} />
-      <Route path="/logout" component={Logout} />
+      <Route path="login" component={Login} />
+      <Route path="logout" component={Logout} />
       <Route path="*" component={NoMatch}/>
     </Router>,
     document.getElementById('container')
