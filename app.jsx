@@ -9,16 +9,24 @@ import Examens from './routes/Examens/Examens.jsx'
 import Groupes from './routes/Groupes/Groupes.jsx'
 import Matieres from './routes/Matieres/Matieres.jsx'
 
-render(
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <Route path="/bilans" component={Bilans}/>
-      <Route path="/competences" component={Competences}/>
-      <Route path="/evaluations" component={Evaluations}/>
-      <Route path="/examens" component={Examens}/>
-      <Route path="/groupes" component={Groupes}/>
-      <Route path="/matieres" component={Matieres}/>
-    </Route>
-  </Router>,
-  document.getElementById('container')
-)
+const NoMatch = React.createClass({
+  render(){
+    return(
+      <div>Cette page n'existe pas</div>
+    )
+  }});
+
+  render(
+    <Router history={browserHistory}>
+      <Route path="/" component={App}>
+        <Route path="/bilans" component={Bilans}/>
+        <Route path="/competences" component={Competences}/>
+        <Route path="/evaluations" component={Evaluations}/>
+        <Route path="/examens" component={Examens}/>
+        <Route path="/groupes" component={Groupes}/>
+        <Route path="/matieres" component={Matieres}/>
+      </Route>
+      <Route path="*" component={NoMatch}/>
+    </Router>,
+    document.getElementById('container')
+  )
