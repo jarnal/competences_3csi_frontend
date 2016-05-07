@@ -1,5 +1,5 @@
 import React from 'react'
-import Dashboard from '../routes/Dashboard/components/Dashboard.jsx'
+import Dashboard from '../routes/Dashboard/Dashboard.jsx'
 import Header from './Header.jsx'
 import Sidebar from './Sidebar.jsx'
 
