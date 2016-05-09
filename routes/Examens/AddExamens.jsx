@@ -39,7 +39,9 @@ var DateSelect = React.createClass({
         selected={this.state.startDate}
         onChange={this.handleChange}
         className="form-control"
-        dateFormat="DD/MM/YYYY" />;
+        dateFormat="DD/MM/YYYY"
+        id="date"
+        required />;
   }
 });
 
@@ -89,7 +91,8 @@ class AddExamens extends React.Component {
     var formData = {
       nom: document.getElementById('nom_examen').value,
       description: document.getElementById('description').value,
-      competences: CompetencesSelected
+      competences: CompetencesSelected,
+      date : document.getElementById('date').value
     };
     console.log(JSON.stringify(formData));
     $.ajax({
