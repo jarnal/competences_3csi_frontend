@@ -1,6 +1,9 @@
 import React from 'react'
 import SkyLight from 'react-skylight'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const Competences = [];
 
@@ -16,6 +19,30 @@ function addCompetences(quantity) {
 }
 
 addCompetences(50);
+
+var DateSelect = React.createClass({
+
+  getInitialState: function() {
+    return {
+      startDate: moment()
+    };
+  },
+
+  handleChange: function(date) {
+    this.setState({
+      startDate: date
+    });
+  },
+
+  render: function() {
+    return <DatePicker
+        selected={this.state.startDate}
+        onChange={this.handleChange}
+        className="form-control"
+        dateFormat="DD/MM/YYYY" />;
+  }
+});
+
 var CompetencesSelected = [];
 function onRowSelect(row, isSelected){
   if(isSelected){
@@ -107,8 +134,14 @@ class AddExamens extends React.Component {
                     <input type="examen" className="form-control" id="nom_examen" placeholder="Nom de l'examen" required/>
                   </div>
                   <div className="form-group">
+                    <label>Date de l'examen</label>
+                    {" "}
+                    <br />
+                    <DateSelect />
+                  </div>
+                  <div className="form-group">
                     <label>Description</label>
-                    <textarea className="form-control" id="description" rows={3} placeholder="Veuillez saisir une description ..." style={{maxWidth:'100%', height: '200px'}} defaultValue={""} required/>
+                    <textarea className="form-control" id="description" rows={3} placeholder="Veuillez saisir une description ..." style={{maxWidth:'100%', height: '110px'}} defaultValue={""} required/>
                   </div>
                 </div>
                 <div className="col-xs-12 col-md-6 col-lg-6">
