@@ -114,7 +114,7 @@ class AddExamens extends React.Component {
       top: 'initial',
       marginLeft: '-40%',
       zIndex: '2000',
-      height: '75%',
+      height: 'auto',
       overflow: 'auto'
     };
     return (
