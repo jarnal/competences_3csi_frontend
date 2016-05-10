@@ -21,7 +21,9 @@ var ListCompetences = React.createClass({
 
     //
     getInitialState () {
-        return {multi: false, competences: []};
+        return {multi: false,
+            competences: []
+        };
     },
 
     //
@@ -76,8 +78,12 @@ var ListCompetences = React.createClass({
                             <div className="row">
                                 <div className="col-md-11 col-xs-12 col-lg-11">
                                     <div className="form-group">
-                                        <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
-                                                      labelKey="name" loadOptions={this.getMatieres}/>
+                                        <Select.Async
+                                            value={this.state.value}
+                                            onChange={this.onChange}
+                                            valueKey="id"
+                                            clearable ={false}
+                                            labelKey="name" loadOptions={this.getMatieres}/>
                                     </div>
                                     {/* /.form-group */}
                                 </div>
@@ -85,43 +91,43 @@ var ListCompetences = React.createClass({
                                 <div className="col-md-1 col-xs-12 col-lg-1">
                                     <div className="form-group">
                                         <button className="btn btn-default pull-right"><i className="fa fa-plus"/>
-                                        </button>
-                                    </div>
-                                    {/* /.form-group */}
+                                    </button>
                                 </div>
-                                {/* /.col */}
-                                <div className="col-md-12 col-xs-12 col-lg-12">
-                                    <BootstrapTable
-                                        data={this.state.competences}
-                                        height="250"
-                                        striped={true}
-                                        hover={true}
-                                        selectRow={selectRowProp}
-                                        searchPlaceholder="Rechercher"
-                                        search={true}
-                                        noDataText="test"
-                                        options={options_table}>
-                                        <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Competence
-                                            ID</TableHeaderColumn>
-                                        <TableHeaderColumn dataField="name" dataSort={true}>Nom de la
-                                            compétence</TableHeaderColumn>
-                                    </BootstrapTable>
-
-                                </div>
+                                {/* /.form-group */}
                             </div>
-                            {/* /.row */}
+                            {/* /.col */}
+                            <div className="col-md-12 col-xs-12 col-lg-12">
+                                <BootstrapTable
+                                    data={this.state.competences}
+                                    height="250"
+                                    striped={true}
+                                    hover={true}
+                                    selectRow={selectRowProp}
+                                    searchPlaceholder="Rechercher"
+                                    search={true}
+                                    noDataText="test"
+                                    options={options_table}>
+                                    <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Competence
+                                        ID</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="name" dataSort={true}>Nom de la
+                                        compétence</TableHeaderColumn>
+                                </BootstrapTable>
+
+                            </div>
                         </div>
-                        {/* /.box-body */}
-                        <div className="box-footer clearfix no-border">
-                            <button className="btn btn-default col-md-12 col-xs-12">Ajouter une compétence</button>
-                        </div>
+                        {/* /.row */}
                     </div>
-                    {/* /.box */}
-                </section>
-                {/* /.Left col */}
-            </div>
-        )
-    }
+                    {/* /.box-body */}
+                    <div className="box-footer clearfix no-border">
+                        <button className="btn btn-default col-md-12 col-xs-12">Ajouter une compétence</button>
+                    </div>
+                </div>
+                {/* /.box */}
+            </section>
+            {/* /.Left col */}
+        </div>
+    )
+}
 });
 
 export default ListCompetences

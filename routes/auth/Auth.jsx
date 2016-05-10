@@ -1,5 +1,7 @@
-var SERVER_BASE_URL = "http://192.168.100.10/web/app_dev.php/api/";
-var SERVER_OAUTH_URL = "http://192.168.100.10/web/app_dev.php/oauth/v2/token";
+import config from '../../configuration.js'
+
+var SERVER_BASE_URL = config.server_base_url;
+var SERVER_OAUTH_URL = config.server_oauth_url;
 
 /**
  *
