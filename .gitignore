@@ -4,3 +4,4 @@ public/.idea/
 .idea
 .vagrant
 .DS_Store
+configuration.js
