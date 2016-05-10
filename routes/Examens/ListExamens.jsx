@@ -41,7 +41,6 @@ class ListExamens extends React.Component {
         return (
             <BootstrapTable
                 data={ this.state.examens }
-                remote={ true }
                 search={true}
                 pagination={ true }
                 fetchInfo={ { dataTotalSize: this.props.totalDataSize } }
