@@ -36,12 +36,12 @@ var DateSelect = React.createClass({
 
   render: function() {
     return <DatePicker
-        selected={this.state.startDate}
-        onChange={this.handleChange}
-        className="form-control"
-        dateFormat="DD/MM/YYYY"
-        id="date"
-        required />;
+      selected={this.state.startDate}
+      onChange={this.handleChange}
+      className="form-control"
+      dateFormat="DD/MM/YYYY"
+      id="date"
+      required />;
   }
 });
 
@@ -94,24 +94,31 @@ class AddExamens extends React.Component {
       competences: CompetencesSelected,
       date : document.getElementById('date').value
     };
-    console.log(JSON.stringify(formData));
-    $.ajax({
-      type: "POST",
-      url: "http://localhost/test/test.php",
-      data: formData,
-      jsonp: "callback",
-      dataType: "jsonp",
-      cache: false,
-      success: function(data) {
-        console.log(data);
-        this.refs.simpleDialog.hide()
-        alert(data);
-      },
+    if(formData.competences.length == 0)
+    {
+      return alert("Veuillez saisir une competences")
+    }
+    else{
+      console.log(JSON.stringify(formData));
+      $.ajax({
+        type: "POST",
+        url: "http://localhost/test/test.php",
+        data: JSON.stringify(formData),
+        jsonp: "callback",
+        dataType: "jsonp",
+        cache: false,
+        success(data) {
+          console.log(data);
+          this.props.simpleDialog.hide()
+          alert(data);
+        },
 
-      complete : function(data, statut){
-
-      }
-    });
+        error(resultat, statut, erreur){
+          alert("Erreur veuillez ressayer")
+          this.props.simpleDialog.hide()
+        }
+      });
+    }
   }
 
   render() {
