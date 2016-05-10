@@ -88,27 +88,6 @@ function loggedIn() {
   return !!getToken();
 }
 
-/**
- *
- */
-function getUsers()
-{
-    $.ajax({
-        type: "GET",
-        url: "http://192.168.100.10/web/app_dev.php/api/matiere/",
-        dataType: "json",
-        data: {
-            "access_token": localStorage.getItem('tok')
-        },
-        success:function( pResponse ){
-            console.log(pResponse);
-        },
-        error:function(error){
-            console.log(error);
-        }
-    });
-}
-
 module.exports = {
 
   login: login,
