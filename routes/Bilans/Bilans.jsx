@@ -5,10 +5,7 @@ class Bilans extends React.Component {
     return (
       <div className="content-wrapper">
         <section className="content-header">
-          <h1>
-            Bilans
-            <small>En construction...</small>
-          </h1>
+          <h1>Bilans</h1>
         </section>
         <section className="content" style={{ minHeight: 550 }}>
           {/* contenu */}
