@@ -2,21 +2,153 @@ import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import CompetenceEvaluations from './WidgetComponents/CompetenceEvaluations.jsx'
 import UserEvaluations from './WidgetComponents/UserEvaluations.jsx'
+import AttributionEvaluations from './WidgetComponents/AttributionEvaluations.jsx'
+import ListCompetences from '../Competences/ListCompetences.jsx'
 
 class WidgetEvaluations extends React.Component {
 
+    //
     constructor(props) {
         super(props);
         this.state = {
-            group: null
-        }
+            group: 3,
+            users_selected: [],
+            competences_selected: [],
+            evaluation_rows: []
+        };
+
+        this.onUserSelect = this.onUserSelect.bind(this);
+        this.onUserSelectAll = this.onUserSelectAll.bind(this);
+        this.onCompetenceSelect = this.onCompetenceSelect.bind(this);
+        this.onCompetenceSelectAll = this.onCompetenceSelectAll.bind(this);
     }
 
+    //
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         this.setState({
             group: nextProps.group
         });
+    }
+
+    //
+    updateEvaluationRows(){
+        var users_selected = this.state.users_selected;
+        var competences_selected = this.state.competences_selected;
+
+        var evaluationRows = [];
+        var user, competence;
+        for(var i=0; i<=users_selected.length-1; i++){
+            user = users_selected[i];
+            for(var j=0; j<=competences_selected.length-1; j++){
+                competence = competences_selected[j];
+                evaluationRows.push({
+                    user_id: user.id,
+                    user_name: user.name,
+                    competence_id: competence.id,
+                    competence_name: competence.name,
+                    evaluation: "1- Non acquis"
+                })
+            }
+        }
+
+        console.log(evaluationRows);
+        this.setState({
+            evaluation_rows: evaluationRows
+        });
+    }
+
+    //
+    getUserSelectRowProp() {
+        return {
+            mode: 'checkbox',
+            clickToSelect: true,
+            onSelect: this.onUserSelect,
+            onSelectAll: this.onUserSelectAll
+        };
+    }
+
+    //
+    onUserSelect(row, isSelected) {
+        var users_selected = this.state.users_selected;
+        if (isSelected) {
+            users_selected.push(row);
+        }
+        else {
+            var unselected = users_selected.indexOf(row);
+            if (unselected != -1) {
+                users_selected.splice(unselected, 1);
+            }
+        }
+
+        this.setState({
+            users_selected: users_selected
+        });
+        this.updateEvaluationRows();
+    }
+
+    //
+    onUserSelectAll(isSelected, currentDisplayAndSelectedData) {
+        var users_selected = this.state.users_selected;
+        if (isSelected) {
+            for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
+                users_selected.push(currentDisplayAndSelectedData[i]);
+            }
+        }
+        else {
+            users_selected = [];
+        }
+
+        this.setState({
+            users_selected: users_selected
+        });
+        this.updateEvaluationRows()
+    }
+
+    //
+    getCompetenceSelectRowProp() {
+        return {
+            mode: 'checkbox',
+            clickToSelect: true,
+            onSelect: this.onCompetenceSelect,
+            onSelectAll: this.onCompetenceSelectAll
+        };
+    }
+
+    //
+    onCompetenceSelect(row, isSelected) {
+        var competences_selected = this.state.competences_selected;
+        if (isSelected) {
+            competences_selected.push(row);
+        }
+        else {
+            var unselected = competences_selected.indexOf(row);
+            if (unselected != -1) {
+                competences_selected.splice(unselected, 1);
+            }
+        }
+
+        this.setState({
+            competences_selected: competences_selected
+        });
+        this.updateEvaluationRows();
+    }
+
+    //
+    onCompetenceSelectAll(isSelected, currentDisplayAndSelectedData) {
+        var competences_selected = this.state.competences_selected;
+        if (isSelected) {
+            for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
+                competences_selected.push(currentDisplayAndSelectedData[i]);
+            }
+        }
+        else {
+            competences_selected = [];
+        }
+
+        this.setState({
+            competences_selected: competences_selected
+        });
+        this.updateEvaluationRows();
     }
 
     render() {
@@ -34,7 +166,7 @@ class WidgetEvaluations extends React.Component {
                         </ul>
                         <div className="tab-content">
                             <div className="tab-pane active" id="tab_1">
-                                <UserEvaluations group={this.state.group}/>
+                                <UserEvaluations selectRowProp={this.getUserSelectRowProp()} group={this.state.group}/>
                                 <div className="box-footer">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
                                        className="collapsed btn btn-primary pull-right"
@@ -43,6 +175,7 @@ class WidgetEvaluations extends React.Component {
                             </div>
                             {/* /.tab-pane */}
                             <div className="tab-pane" id="tab_2">
+                                <ListCompetences selectRowProp={this.getCompetenceSelectRowProp()} />
                                 <div className="box-footer">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
                                        className="collapsed btn btn-default pull-left"
@@ -54,21 +187,7 @@ class WidgetEvaluations extends React.Component {
                             </div>
                             {/* /.tab-pane */}
                             <div className="tab-pane" id="tab_3">
-                                {/*                <div className="box-body">
-                                 <BootstrapTable
-                                 data={Competences}
-                                 height="250"
-                                 striped={true}
-                                 hover={true}
-                                 selectRow={selectRowProp}
-                                 searchPlaceholder="Rechercher"
-                                 search={false}
-                                 noDataText="test"
-                                 options={options}>
-                                 <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Competence ID</TableHeaderColumn>
-                                 <TableHeaderColumn dataField="name" dataSort={true}>Nom de la compétence</TableHeaderColumn>
-                                 </BootstrapTable>
-                                 </div>*/}
+                                <AttributionEvaluations evaluations={this.state.evaluation_rows}/>
                             </div>
                             {/* /.tab-pane */}
                         </div>

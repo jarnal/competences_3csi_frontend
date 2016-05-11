@@ -2,15 +2,6 @@ import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import GroupService from '../../../services/GroupService.js'
 
-const selectRowProp = {
-    mode: 'checkbox',
-    clickToSelect: true  // enable click to select
-};
-
-const options = {
-    noDataText: "Aucun utilisateur trouvée"
-};
-
 class UserEvaluations extends React.Component {
 
     constructor(props) {
@@ -23,7 +14,9 @@ class UserEvaluations extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.getUsers(nextProps.group.id);
+        if(this.props.group && this.props.group.id != nextProps.group.id){
+            this.getUsers(nextProps.group.id);
+        }
     }
 
     getUsers(groupID){
@@ -45,11 +38,10 @@ class UserEvaluations extends React.Component {
                     height="250"
                     striped={true}
                     hover={true}
-                    selectRow={selectRowProp}
+                    selectRow={this.props.selectRowProp}
                     searchPlaceholder="Rechercher"
                     search={true}
-                    noDataText="test"
-                    options={options}>
+                    noDataText="Aucun utilisateur trouvé">
                     <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Utilisateur
                         ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="name" dataSort={true}>Nom de l'utilisateur</TableHeaderColumn>

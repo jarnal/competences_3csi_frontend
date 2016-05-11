@@ -3,24 +3,12 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import Select from 'react-select'
 import MatiereService from '../../services/MatiereService.js'
 
-const options_table = {
-    noDataText: "Aucune competence trouvée"
-};
-
-function logChange(val) {
-    console.log("Selected: " + val);
-}
-var selectRowPropDefault = {
-    mode: 'checkbox',
-    clickToSelect: true
-};
 var ListCompetences = React.createClass({
 
     //
     getInitialState () {
         return {multi: false,
             competences: [],
-            selectRowProp: selectRowPropDefault,
             addCompetence: false
         };
     },
@@ -104,8 +92,7 @@ var ListCompetences = React.createClass({
                     selectRow={this.props.selectRowProp}
                     searchPlaceholder="Rechercher"
                     search={true}
-                    noDataText="test"
-                    options={options_table}>
+                    noDataText="Aucune competence trouvé">
                     <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Competence
                         ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="name" dataSort={true}>Nom de la
