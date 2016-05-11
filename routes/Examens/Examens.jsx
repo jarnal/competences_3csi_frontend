@@ -1,7 +1,6 @@
 import React from 'react'
-import ListExamens from './store/ListExamensStore.jsx'
+import ListExamens from './ListExamens.jsx'
 import AddExamens from './AddExamens.jsx'
-import ClassSelector from '../../components/store/ClassSelector.jsx'
 
 var Examens = React.createClass({
 
@@ -37,7 +36,7 @@ var Examens = React.createClass({
                                         <div className="row">
                                             <div className="col-md-12 col-xs-12 col-lg-12">
                                                 <AddExamens />
-                                                <ListExamens sizePerPage={ 5 }/>
+                                                <ListExamens />
                                             </div>
                                         </div>
                                         {/* /.row */}

@@ -3,22 +3,8 @@ import SkyLight from 'react-skylight'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
+import ListCompetences from '../Competences/ListCompetences.jsx'
 import 'react-datepicker/dist/react-datepicker.css'
-
-const Competences = [];
-
-function addCompetences(quantity) {
-  const startId = Competences.length;
-  for (let i = 0; i < quantity; i++) {
-    const id = startId + i;
-    Competences.push({
-      id: id+5,
-      name: 'Nom de la Competence ' + id+5
-    });
-  }
-}
-
-addCompetences(50);
 
 var DateSelect = React.createClass({
 
@@ -45,40 +31,41 @@ var DateSelect = React.createClass({
   }
 });
 
+var selectRowProp = {
+    mode: 'checkbox',
+    clickToSelect: true,
+    onSelect: onRowSelect,
+    onSelectAll: onSelectAll
+};
+
 var CompetencesSelected = [];
 function onRowSelect(row, isSelected){
-  if(isSelected){
-    CompetencesSelected.push(row.id);
-  }
-  else{
-    var unselected = CompetencesSelected.indexOf(row.id);
-    if(unselected != -1) {
-      CompetencesSelected.splice(unselected, 1);
-    }
-  }
+      if(isSelected){
+        CompetencesSelected.push(row.id);
+        console.log(CompetencesSelected);
+      }
+      else{
+        var unselected = CompetencesSelected.indexOf(row.id);
+        if(unselected != -1) {
+          CompetencesSelected.splice(unselected, 1);
+        }
+        console.log(CompetencesSelected);
+      }
 }
 
-function onSelectAll(isSelected){
-  if(isSelected){
-    for (var competence in Competences) {
-      CompetencesSelected.push(Competences[competence].id);
+function onSelectAll(isSelected, currentDisplayAndSelectedData){
+    if(isSelected){
+        for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
+            CompetencesSelected.push(currentDisplayAndSelectedData[i].id);
+          console.log(CompetencesSelected);
+        }
     }
-  }
-  else{
-    CompetencesSelected = [];
-  }
+    else {
+        CompetencesSelected = [];
+        console.log(CompetencesSelected);
+    }
 }
 
-const selectRowProp = {
-  mode: 'checkbox',
-  clickToSelect: true,  // enable click to select
-  onSelect: onRowSelect,
-  onSelectAll: onSelectAll
-};
-
-const options_table = {
-  noDataText: "Aucune competence trouvée"
-};
 
 class AddExamens extends React.Component {
   constructor(props){
@@ -127,14 +114,14 @@ class AddExamens extends React.Component {
       top: 'initial',
       marginLeft: '-40%',
       zIndex: '2000',
-      height: '75%',
+      height: 'auto',
       overflow: 'auto'
     };
     return (
       <div>
         <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouveau examen</button>
 
-        <SkyLight dialogStyles={style} hideOnOverlayClicked ref="simpleDialog" onChange={this.handleChange} title="Nouveau examen">
+        <SkyLight dialogStyles={style} hideOnOverlayClicked ref="simpleDialog" onChange={this.handleChange} title="Nouvelle examen">
           <form action="" onSubmit={this.handleSubmit}>
             <div style={{overflow:'auto', height:'inherit'}}>
               <div className="box-body" style={{overflow: 'auto'}}>
@@ -155,19 +142,7 @@ class AddExamens extends React.Component {
                   </div>
                 </div>
                 <div className="col-xs-12 col-md-6 col-lg-6">
-                  <BootstrapTable
-                    data={Competences}
-                    height="250"
-                    striped={true}
-                    hover={true}
-                    selectRow={selectRowProp}
-                    searchPlaceholder="Rechercher"
-                    search={true}
-                    noDataText="test"
-                    options={options_table}>
-                    <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Competence ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField="name" dataSort={true}>Nom de la compétence</TableHeaderColumn>
-                  </BootstrapTable>
+                    <ListCompetences addCompetence={false} selectRowProp={selectRowProp}/>
                 </div>
               </div>
             </div>
