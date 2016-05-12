@@ -8,7 +8,7 @@ class Bilans extends React.Component {
             <h1>
               Bilans
               <small>En construction...</small>
-              <small>Todo...3</small>
+              <small>Todo...</small>
               <div className="form-group col-md-2 col-xs-12 col-lg-2 pull-right">
                   <select className="form-control select2" style={{width: '100%'}}>
                       <option>3CSI</option>
