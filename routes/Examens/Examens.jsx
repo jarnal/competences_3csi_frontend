@@ -1,8 +1,37 @@
 import React from 'react'
 import ListExamens from './ListExamens.jsx'
 import AddExamens from './AddExamens.jsx'
+import Select from 'react-select'
+import GroupService from '../../services/GroupService.js'
 
-var Examens = React.createClass({
+class Examens extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {groups: [], value: ""};
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    //
+    onChange(value) {
+        console.log(this);
+        this.setState({
+            value: value
+        });
+    }
+
+    //
+    getGroups(input, callback) {
+
+        GroupService.getAll(function (result) {
+            var data = {
+                options: result["groups"],
+                complete: false
+            };
+            callback(null, data);
+        });
+
+    }
 
     render() {
         return (
@@ -11,12 +40,9 @@ var Examens = React.createClass({
                     <h1>
                         Examens
                         <small>En Construction...</small>
-                        <div className="form-group col-md-2 col-xs-12 col-lg-2 pull-right">
-                            <select className="form-control select2" style={{width: '100%'}}>
-                                <option>3CSI</option>
-                                <option>MS2I</option>
-                                <option>SN</option>
-                            </select>
+                        <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right">
+                            <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
+                                clearable={false}      labelKey="name" loadOptions={this.getGroups}/>
                         </div>
                         {/* /.form-group */}
                     </h1>
@@ -25,7 +51,7 @@ var Examens = React.createClass({
                     <div className="row">
                         <div className="col-xs-12">
                             {/* Left col */}
-                            <section className="col-lg-7 connectedSortable">
+                            <section className="col-lg-12 connectedSortable">
                                 {/* Listes Examens */}
                                 <div className="box box-primary">
                                     <div className="box-header with-border">
@@ -53,7 +79,6 @@ var Examens = React.createClass({
             </div>
         )
     }
-})
-;
+}
 
 module.exports = Examens;
