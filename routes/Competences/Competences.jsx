@@ -1,7 +1,11 @@
 import React from 'react'
 import ListCompetences from './ListCompetences.jsx'
+import Select from 'react-select'
+import GroupService from '../../services/GroupService.js'
+import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class Competences extends React.Component {
+
     render() {
         return (
             <div className="content-wrapper">
@@ -9,13 +13,7 @@ class Competences extends React.Component {
                     <h1>
                         Gestionnaire de compétences
                         <small>Toutes les compétences par section</small>
-                        <div className="form-group col-md-2 col-xs-12 col-lg-2 pull-right">
-                            <select className="form-control select2" style={{width: '100%'}}>
-                                <option>3CSI</option>
-                                <option>MS2I</option>
-                                <option>SN</option>
-                            </select>
-                        </div>{/* /.form-group */}
+                        <SelectGroupes />
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
