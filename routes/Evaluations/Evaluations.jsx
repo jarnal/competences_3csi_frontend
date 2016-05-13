@@ -10,6 +10,7 @@ class Evaluations extends React.Component {
         this.state = {groups: [], value: ""};
 
         this.onChange = this.onChange.bind(this);
+        this.getGroups = this.getGroups.bind(this);
     }
 
     //
@@ -22,15 +23,15 @@ class Evaluations extends React.Component {
 
     //
     getGroups(input, callback) {
-
+        var that = this;
         GroupService.getAll(function (result) {
             var data = {
                 options: result["groups"],
                 complete: false
             };
             callback(null, data);
+            //that.onChange(result["groups"][3]);
         });
-
     }
 
     //

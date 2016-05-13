@@ -31,54 +31,26 @@ var DateSelect = React.createClass({
   }
 });
 
-var selectRowProp = {
-    mode: 'checkbox',
-    clickToSelect: true,
-    onSelect: onRowSelect,
-    onSelectAll: onSelectAll
-};
-
-var CompetencesSelected = [];
-function onRowSelect(row, isSelected){
-      if(isSelected){
-        CompetencesSelected.push(row.id);
-        console.log(CompetencesSelected);
-      }
-      else{
-        var unselected = CompetencesSelected.indexOf(row.id);
-        if(unselected != -1) {
-          CompetencesSelected.splice(unselected, 1);
-        }
-        console.log(CompetencesSelected);
-      }
-}
-
-function onSelectAll(isSelected, currentDisplayAndSelectedData){
-    if(isSelected){
-        for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
-            CompetencesSelected.push(currentDisplayAndSelectedData[i].id);
-          console.log(CompetencesSelected);
-        }
-    }
-    else {
-        CompetencesSelected = [];
-        console.log(CompetencesSelected);
-    }
-}
-
-
 class AddExamens extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+        competences_selected: []
+    };
+    this.onCompetenceSelect = this.onCompetenceSelect.bind(this);
+    this.onCompetenceSelectAll = this.onCompetenceSelectAll.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event){
     event.preventDefault();
+    var competences_selected = this.state.competences_selected;
+    console.log(competences_selected);
     // Fetch form values.
     var formData = {
       nom: document.getElementById('nom_examen').value,
       description: document.getElementById('description').value,
-      competences: CompetencesSelected,
+      competences: competences_selected,
       date : document.getElementById('date').value
     };
     if(formData.competences.length == 0)
@@ -106,6 +78,52 @@ class AddExamens extends React.Component {
         }
       });
     }
+  }
+
+  //
+  getCompetenceSelectRowProp() {
+      return {
+          mode: 'checkbox',
+          clickToSelect: true,
+          onSelect: this.onCompetenceSelect,
+          onSelectAll: this.onCompetenceSelectAll
+      };
+  }
+
+  //
+  onCompetenceSelect(row, isSelected) {
+      var competences_selected = this.state.competences_selected;
+      if (isSelected) {
+          competences_selected.push(row);
+      }
+      else {
+          var unselected = competences_selected.indexOf(row);
+          if (unselected != -1) {
+              competences_selected.splice(unselected, 1);
+          }
+      }
+
+      this.setState({
+          competences_selected: competences_selected
+      });
+      console.log(this.state.competences_selected);
+  }
+
+  //
+  onCompetenceSelectAll(isSelected, currentDisplayAndSelectedData) {
+      var competences_selected = this.state.competences_selected;
+      if (isSelected) {
+          for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
+              competences_selected.push(currentDisplayAndSelectedData[i]);
+          }
+      }
+      else {
+          competences_selected = [];
+      }
+
+      this.setState({
+          competences_selected: competences_selected
+      });
   }
 
   render() {
@@ -142,7 +160,7 @@ class AddExamens extends React.Component {
                   </div>
                 </div>
                 <div className="col-xs-12 col-md-6 col-lg-6">
-                    <ListCompetences addCompetence={false} selectRowProp={selectRowProp}/>
+                    <ListCompetences selectRowProp={this.getCompetenceSelectRowProp()}/>
                 </div>
               </div>
             </div>
