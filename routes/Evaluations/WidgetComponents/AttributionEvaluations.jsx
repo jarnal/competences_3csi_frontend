@@ -1,11 +1,22 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import TypeNoteService from '../../../services/TypeNoteService.js'
+import EvaluationService from '../../../services/EvaluationService.js'
 
 const cellEditProp = {
     mode: 'click',
-    blurToSave: true
+    blurToSave: true,
+    afterSaveCell: onAfterSaveCell
 };
+
+function onAfterSaveCell(row, cellName, cellValue) {
+    console.log(row);
+    console.log(`Save cell ${cellName} with value ${cellValue}`);
+
+    EvaluationService.post(row, function(result){
+        console.log(result);
+    });
+}
 
 class AttributionEvaluations extends React.Component {
 
@@ -15,6 +26,8 @@ class AttributionEvaluations extends React.Component {
             noteTypes: []
         };
         this.getTypeNotes();
+
+        this.submit = this.submit.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -36,16 +49,19 @@ class AttributionEvaluations extends React.Component {
         });
     }
 
+    submit(){
+        console.log(this.props.evaluations);
+    }
+
     render() {
         return (
-            <div className="box-body col-xs-5">
+            <div className="box-body col-xs-12">
                 <BootstrapTable
                     data={this.props.evaluations}
                     cellEdit={cellEditProp}
                     height="250"
                     striped={true}
                     hover={true}
-                    //selectRow={this.props.selectRowProp}
                     searchPlaceholder="Rechercher"
                     search={true}
                     noDataText="Aucun utilisateur trouvé">
@@ -55,8 +71,9 @@ class AttributionEvaluations extends React.Component {
                     <TableHeaderColumn dataField="competence_id" dataSort={true} hidden={true}>Utilisateur
                         ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="competence_name" editable={false} dataSort={true}>Compétence</TableHeaderColumn>
-                    <TableHeaderColumn dataField='evaluation' editable={ { type: 'select', options: { values: this.state.noteTypes } } }>Evaluation</TableHeaderColumn>
+                    <TableHeaderColumn dataField='type_note_label' editable={ { type: 'select', options: { values: this.state.noteTypes } } }>Evaluation</TableHeaderColumn>
                 </BootstrapTable>
+                <button onClick={this.submit} className="collapsed btn btn-primary pull-right">Envoyer</button>
             </div>
         )
     }

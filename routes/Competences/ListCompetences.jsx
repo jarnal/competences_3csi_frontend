@@ -49,11 +49,11 @@ var ListCompetences = React.createClass({
     //
     render: function () {
         return (
-            <div>
+            <div className="box-body col-md-12 col-xs-12 col-lg-12">
                 {this.props.addCompetence
                     ?
                     <div>
-                        <div className="col-md-11 col-xs-12 col-lg-11">
+                        <div className="">
                             <div className="form-group">
                                 <Select.Async
                                     value={this.state.value}
@@ -72,7 +72,7 @@ var ListCompetences = React.createClass({
                     </div>
                 </div>
                 :
-                <div className="col-md-12 col-xs-12 col-lg-12">
+                <div className="box-body col-md-12 col-xs-12 col-lg-12">
                     <div className="form-group">
                         <Select.Async
                             value={this.state.value}
@@ -83,7 +83,7 @@ var ListCompetences = React.createClass({
                     </div>
                 </div>
             }
-            <div className="col-md-12 col-xs-12 col-lg-12">
+            <div>
                 <BootstrapTable
                     data={this.state.competences}
                     height="250"

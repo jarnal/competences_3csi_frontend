@@ -44,6 +44,25 @@ function getUserCompetences(id, callback){
 
 /**
  *
+ * @param $userList
+ * @param $competenceList
+ */
+function getUserListCompetenceEvaluation($userList, $competenceList, callback) {
+    var url = Config.server_base_url + "user/";
+    url += "ulist/" + JSON.stringify($userList) + "/";
+    url += "clist/" + JSON.stringify($competenceList);
+    url += "?access_token=" + Auth.getToken();
+
+    $.get(
+        url,
+        function (result) {
+            callback(result);
+        }
+    );
+}
+
+/**
+ *
  */
 function getUser(id){
 
@@ -73,6 +92,7 @@ function deleteUser(){
 
 module.exports = {
     getAll: getAllUsers,
+    getUserListCompetenceEvaluation:getUserListCompetenceEvaluation,
     get: getUser,
     post: postUser,
     put: putUser,

@@ -4,6 +4,7 @@ import CompetenceEvaluations from './WidgetComponents/CompetenceEvaluations.jsx'
 import UserEvaluations from './WidgetComponents/UserEvaluations.jsx'
 import AttributionEvaluations from './WidgetComponents/AttributionEvaluations.jsx'
 import ListCompetences from '../Competences/ListCompetences.jsx'
+import UserService from '../../services/UserService.js'
 
 class WidgetEvaluations extends React.Component {
 
@@ -35,25 +36,11 @@ class WidgetEvaluations extends React.Component {
         var users_selected = this.state.users_selected;
         var competences_selected = this.state.competences_selected;
 
-        var evaluationRows = [];
-        var user, competence;
-        for(var i=0; i<=users_selected.length-1; i++){
-            user = users_selected[i];
-            for(var j=0; j<=competences_selected.length-1; j++){
-                competence = competences_selected[j];
-                evaluationRows.push({
-                    user_id: user.id,
-                    user_name: user.name,
-                    competence_id: competence.id,
-                    competence_name: competence.name,
-                    evaluation: "1- Non acquis"
-                })
-            }
-        }
-
-        console.log(evaluationRows);
-        this.setState({
-            evaluation_rows: evaluationRows
+        var that = this;
+        UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, function(result){
+            that.setState({
+                evaluation_rows: result
+            });
         });
     }
 
@@ -71,10 +58,10 @@ class WidgetEvaluations extends React.Component {
     onUserSelect(row, isSelected) {
         var users_selected = this.state.users_selected;
         if (isSelected) {
-            users_selected.push(row);
+            users_selected.push(row.id);
         }
         else {
-            var unselected = users_selected.indexOf(row);
+            var unselected = users_selected.indexOf(row.id);
             if (unselected != -1) {
                 users_selected.splice(unselected, 1);
             }
@@ -91,7 +78,7 @@ class WidgetEvaluations extends React.Component {
         var users_selected = this.state.users_selected;
         if (isSelected) {
             for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
-                users_selected.push(currentDisplayAndSelectedData[i]);
+                users_selected.push(currentDisplayAndSelectedData[i].id);
             }
         }
         else {
@@ -118,10 +105,10 @@ class WidgetEvaluations extends React.Component {
     onCompetenceSelect(row, isSelected) {
         var competences_selected = this.state.competences_selected;
         if (isSelected) {
-            competences_selected.push(row);
+            competences_selected.push(row.id);
         }
         else {
-            var unselected = competences_selected.indexOf(row);
+            var unselected = competences_selected.indexOf(row.id);
             if (unselected != -1) {
                 competences_selected.splice(unselected, 1);
             }
@@ -138,7 +125,7 @@ class WidgetEvaluations extends React.Component {
         var competences_selected = this.state.competences_selected;
         if (isSelected) {
             for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
-                competences_selected.push(currentDisplayAndSelectedData[i]);
+                competences_selected.push(currentDisplayAndSelectedData[i].id);
             }
         }
         else {
@@ -188,90 +175,16 @@ class WidgetEvaluations extends React.Component {
                             {/* /.tab-pane */}
                             <div className="tab-pane" id="tab_3">
                                 <AttributionEvaluations evaluations={this.state.evaluation_rows}/>
+                                <div className="box-footer">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                       className="collapsed btn btn-default pull-left"
+                                       aria-expanded="false">Précédent</a>
+                                </div>
                             </div>
                             {/* /.tab-pane */}
                         </div>
                         {/* /.tab-content */}
                     </div>
-                    {/*          <div className="box-group" id="accordion">
-                     <div className="panel box box-primary">
-                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" className>
-                     <div className="box-header with-border">
-                     <h4 className="box-title">
-                     Selection des utilisateurs
-                     </h4>
-                     </div>
-                     </a>
-                     <div id="collapseOne" className="panel-collapse collapse in" aria-expanded="true">
-                     <div className="box-body">
-                     <BootstrapTable
-                     data={Competences}
-                     height="250"
-                     striped={true}
-                     hover={true}
-                     selectRow={selectRowProp}
-                     searchPlaceholder="Rechercher"
-                     search={true}
-                     noDataText="test"
-                     options={options}>
-                     <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Competence ID</TableHeaderColumn>
-                     <TableHeaderColumn dataField="name" dataSort={true}>Nom de la compétence</TableHeaderColumn>
-                     </BootstrapTable>
-                     </div>
-                     <div className="box-footer">
-                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" className="collapsed btn btn-primary pull-right" aria-expanded="false">Suivant</a>
-                     </div>
-                     </div>
-                     </div>
-                     <div className="panel box box-primary">
-                     <div className="box-header with-border">
-                     <h4 className="box-title">
-                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" className="collapsed" aria-expanded="false">
-                     Selection des competences
-                     </a>
-                     </h4>
-                     </div>
-                     <div id="collapseTwo" className="panel-collapse collapse" aria-expanded="false" style={{height: 0}}>
-                     <div className="box-body">
-                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                     wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                     eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                     assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                     nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                     farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                     labore sustainable VHS.
-                     </div>
-                     <div className="box-footer">
-                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" className="collapsed btn btn-default pull-left" aria-expanded="false">Précédent</a>
-                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" className="collapsed btn btn-primary pull-right" aria-expanded="false">Suivant</a>
-                     </div>
-                     </div>
-                     </div>
-                     <div className="panel box box-primary">
-                     <div className="box-header with-border">
-                     <h4 className="box-title">
-                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" className="collapsed" aria-expanded="false">
-                     Attribution des competences
-                     </a>
-                     </h4>
-                     </div>
-                     <div id="collapseThree" className="panel-collapse collapse" aria-expanded="false" style={{height: 0}}>
-                     <div className="box-body">
-                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                     wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                     eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                     assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                     nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                     farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                     labore sustainable VHS.
-                     </div>
-                     <div className="box-footer">
-                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" className="collapsed btn btn-default pull-left" aria-expanded="false">Précédent</a>
-                     <button type="submit" className="btn btn-success pull-right">Sauvegarder</button>
-                     </div>
-                     </div>
-                     </div>
-                     </div>*/}
                 </section>
                 {/* /.Left col */}
             </div>

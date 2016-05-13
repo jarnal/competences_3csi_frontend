@@ -32,7 +32,7 @@ class UserEvaluations extends React.Component {
 
     render() {
         return (
-            <div className="box-body col-xs-5">
+            <div className="box-body col-xs-12">
                 <BootstrapTable
                     data={this.state.users}
                     height="250"
