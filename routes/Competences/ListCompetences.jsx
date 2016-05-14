@@ -24,8 +24,10 @@ var ListCompetences = React.createClass({
 
     componentDidMount() {
         this.setState({
-            screenHeight: $(window).height() - $("#competences-table").offset().top - 201 + "px"
+            screenHeight: $(window).height() - $("#competences-table").offset().top - 201 + "px",
+            value : 1
         });
+        this.getCompetences(1);// first value of selector
 
         //console.log("componentDidMount "+$(window).height())
     },
