@@ -1,6 +1,5 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import CompetenceEvaluations from './WidgetComponents/CompetenceEvaluations.jsx'
 import UserEvaluations from './WidgetComponents/UserEvaluations.jsx'
 import AttributionEvaluations from './WidgetComponents/AttributionEvaluations.jsx'
 import ListCompetences from '../Competences/ListCompetences.jsx'
