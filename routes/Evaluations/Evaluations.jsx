@@ -41,7 +41,6 @@ class Evaluations extends React.Component {
                 <section className="content-header">
                     <h1>
                         Evaluations
-                        <small>En Construction...</small>
                         <div className="form-group col-md-2 col-xs-12 col-lg-2 pull-right">
                             <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
                                           labelKey="name" loadOptions={this.getGroups}/>
@@ -49,10 +48,9 @@ class Evaluations extends React.Component {
                         {/* /.form-group */}
                     </h1>
                 </section>
-                <section className="content" style={{ minHeight: 550 }}>
+                <section className="content">
                     <div className="row">
                         <div className="col-xs-12">
-                            <div>{this.state.value.name}</div>
                             <WidgetEvaluations group={this.state.value}/>
                         </div>
                         {/* /.row (main row) */}

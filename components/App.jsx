@@ -8,10 +8,10 @@ const token = auth.getToken();
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div id="app">
         <Header />
         <Sidebar />
-        {this.props.children || <Dashboard />} {/*Affichage par defaut du tableau de bord*/}
+        {this.props.children || <Dashboard />}
       </div>
     )
   }
