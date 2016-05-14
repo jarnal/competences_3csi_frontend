@@ -56,7 +56,7 @@ class Evaluations extends React.Component {
                         </div>
                     </h1>
                 </section>
-                <section className="content">
+                <section className="content" style={{minHeight: '550px'}}>
                     <div className="row">
                         <div className="col-xs-12">
                             <WidgetEvaluations group={this.state.value}/>
