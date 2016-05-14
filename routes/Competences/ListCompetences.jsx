@@ -74,7 +74,7 @@ var ListCompetences = React.createClass({
                 {this.props.addCompetence
                     ?
                     <div>
-                        <div className="">
+                        <div className="col-md-11 col-xs-12 col-lg-11">
                             <div className="form-group">
                                 <Select.Async
                                     value={this.state.value}
@@ -87,7 +87,7 @@ var ListCompetences = React.createClass({
 
                         <div className="col-md-1 col-xs-12 col-lg-1">
                             <div className="form-group">
-                                <button className="btn btn-default pull-right"><i className="fa fa-plus"/>
+                                <button className="btn btn-block btn-default pull-right"><i className="fa fa-plus"/>
                                 </button>
                             </div>
                         </div>
