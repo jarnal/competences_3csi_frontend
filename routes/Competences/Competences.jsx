@@ -1,7 +1,39 @@
 import React from 'react'
 import ListCompetences from './ListCompetences.jsx'
+import GroupService from '../../services/GroupService.js'
+import Select from 'react-select'
 
 class Competences extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {groups: [], value: ""};
+
+        this.onChange = this.onChange.bind(this);
+        this.getGroups = this.getGroups.bind(this);
+    }
+
+    //
+    onChange(value) {
+        console.log(this);
+        this.setState({
+            value: value
+        });
+    }
+
+    //
+    getGroups(input, callback) {
+        var that = this;
+        GroupService.getAll(function (result) {
+            var data = {
+                options: result["groups"],
+                complete: false
+            };
+            callback(null, data);
+            //that.onChange(result["groups"][3]);
+        });
+    }
+
     render() {
         return (
             <div className="content-wrapper">
@@ -9,13 +41,10 @@ class Competences extends React.Component {
                     <h1>
                         Gestionnaire de compétences
                         <small>Toutes les compétences par section</small>
-                        <div className="form-group col-md-2 col-xs-12 col-lg-2 pull-right">
-                            <select className="form-control select2" style={{width: '100%'}}>
-                                <option>3CSI</option>
-                                <option>MS2I</option>
-                                <option>SN</option>
-                            </select>
-                        </div>{/* /.form-group */}
+                        <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
+                            <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
+                                clearable={false}  labelKey="name" loadOptions={this.getGroups}/>
+                        </div>
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>

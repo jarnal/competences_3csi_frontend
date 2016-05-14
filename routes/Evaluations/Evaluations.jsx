@@ -42,11 +42,10 @@ class Evaluations extends React.Component {
                     <h1>
                         Evaluations
                         <small>En Construction...</small>
-                        <div className="form-group col-md-2 col-xs-12 col-lg-2 pull-right">
+                        <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
                             <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
-                                          labelKey="name" loadOptions={this.getGroups}/>
+                                clearable={false}  labelKey="name" loadOptions={this.getGroups}/>
                         </div>
-                        {/* /.form-group */}
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
