@@ -41,11 +41,19 @@ class Evaluations extends React.Component {
                 <section className="content-header">
                     <h1>
                         Evaluations
-                        <div className="form-group col-md-2 col-xs-12 col-lg-2 pull-right">
-                            <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
-                                          labelKey="name" loadOptions={this.getGroups}/>
+                        <small>En Construction...</small>
+                        <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
+                            <Select.Async
+                                value={this.state.value}
+                                onChange={this.onChange}
+                                valueKey="id"
+                                searchingText='Chargement...'
+                                placeholder="Sélectionnez une classe"
+                                noResultsText="Aucun resultat"
+                                clearable={false}
+                                labelKey="name"
+                                loadOptions={this.getGroups}/>
                         </div>
-                        {/* /.form-group */}
                     </h1>
                 </section>
                 <section className="content">

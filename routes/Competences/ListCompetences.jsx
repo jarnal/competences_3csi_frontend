@@ -65,6 +65,10 @@ var ListCompetences = React.createClass({
 
     //
     render: function () {
+
+        var options = {
+            noDataText: 'Aucune competence trouvé'
+        }
         return (
             <div>
                 {this.props.addCompetence

@@ -1,6 +1,39 @@
 import React from 'react'
 import ListBilans from './ListBilans.jsx'
+import Select from 'react-select'
+import GroupService from '../../services/GroupService.js'
+
 class Bilans extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {groups: [], value: ""};
+
+        this.onChange = this.onChange.bind(this);
+        this.getGroups = this.getGroups.bind(this);
+    }
+
+    //
+    onChange(value) {
+        console.log(this);
+        this.setState({
+            value: value
+        });
+    }
+
+    //
+    getGroups(input, callback) {
+        var that = this;
+        GroupService.getAll(function (result) {
+            var data = {
+                options: result["groups"],
+                complete: false
+            };
+            callback(null, data);
+            //that.onChange(result["groups"][3]);
+        });
+    }
+
   render() {
     return (
       <div className="content-wrapper">
@@ -9,13 +42,18 @@ class Bilans extends React.Component {
               Bilans
               <small>En construction...</small>
               <small>Todo...</small>
-              <div className="form-group col-md-2 col-xs-12 col-lg-2 pull-right">
-                  <select className="form-control select2" style={{width: '100%'}}>
-                      <option>3CSI</option>
-                      <option>MS2I</option>
-                      <option>SN</option>
-                  </select>
-              </div>
+                  <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
+                      <Select.Async
+                          value={this.state.value}
+                          onChange={this.onChange}
+                          valueKey="id"
+                          searchingText='Chargement...'
+                          placeholder="Sélectionnez une classe"
+                          noResultsText="Aucun resultat"
+                          clearable={false}
+                          labelKey="name"
+                          loadOptions={this.getGroups}/>
+                  </div>
             </h1>
           </section>
           <section className="content" style={{ minHeight: 550 }}>

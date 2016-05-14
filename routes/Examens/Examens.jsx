@@ -40,11 +40,18 @@ class Examens extends React.Component {
                     <h1>
                         Examens
                         <small>En Construction...</small>
-                        <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right">
-                            <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
-                                clearable={false}      labelKey="name" loadOptions={this.getGroups}/>
+                        <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
+                            <Select.Async
+                                value={this.state.value}
+                                onChange={this.onChange}
+                                valueKey="id"
+                                searchingText='Chargement...'
+                                placeholder="Sélectionnez une classe"
+                                noResultsText="Aucun resultat"
+                                clearable={false}
+                                labelKey="name"
+                                loadOptions={this.getGroups}/>
                         </div>
-                        {/* /.form-group */}
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
