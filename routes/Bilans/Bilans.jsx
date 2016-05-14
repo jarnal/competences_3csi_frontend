@@ -40,8 +40,7 @@ class Bilans extends React.Component {
           <section className="content-header">
             <h1>
               Bilans
-              <small>En construction...</small>
-              <small>Todo...</small>
+              <small>Tous les bilans</small>
                   <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
                       <Select.Async
                           value={this.state.value}
@@ -61,7 +60,7 @@ class Bilans extends React.Component {
           <div className="row">
               <div className="col-xs-12">
                   {/* Left col */}
-                  <section className="col-lg-7 connectedSortable">
+                  <section className="col-lg-12 connectedSortable">
                       {/* Liste Bilans */}
                       <div className="box box-primary">
                           <div className="box-header with-border">
