@@ -13,7 +13,7 @@ var ListCompetences = React.createClass({
         };
     },
 
-    componentDidMount (value){
+    componentWillMount (value){
         this.setState({
             value: 1 // première valeur du selecteur
         });
