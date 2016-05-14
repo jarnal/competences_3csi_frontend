@@ -55,6 +55,10 @@ var ListCompetences = React.createClass({
 
     //
     render: function () {
+
+        var options = {
+            noDataText: 'Aucune competence trouvé'
+        }
         return (
             <div className="box-body col-md-12 col-xs-12 col-lg-12">
                 {this.props.addCompetence
@@ -85,8 +89,10 @@ var ListCompetences = React.createClass({
                             value={this.state.value}
                             onChange={this.onChange}
                             valueKey="id"
+                            noResultsText="Aucun resultat"
                             clearable ={false}
-                            labelKey="name" loadOptions={this.getMatieres}/>
+                            labelKey="name"
+                            loadOptions={this.getMatieres}/>
                     </div>
                 </div>
             }
@@ -99,7 +105,7 @@ var ListCompetences = React.createClass({
                     selectRow={this.props.selectRowProp}
                     searchPlaceholder="Rechercher"
                     search={true}
-                    noDataText="Aucune competence trouvé">
+                    options={options}>
                     <TableHeaderColumn dataField="id" isKey={true} dataSort={true} hidden={true}>Competence
                         ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="name" dataSort={true}>Nom de la

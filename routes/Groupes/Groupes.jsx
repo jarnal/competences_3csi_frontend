@@ -40,8 +40,16 @@ class Groupes extends React.Component {
                         Groupes
                         <small>En Construction...</small>
                         <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
-                            <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
-                                clearable={false}  labelKey="name" loadOptions={this.getGroups}/>
+                            <Select.Async
+                                value={this.state.value}
+                                onChange={this.onChange}
+                                valueKey="id"
+                                searchingText='Chargement...'
+                                placeholder="Sélectionnez une classe"
+                                noResultsText="Aucun resultat"
+                                clearable={false}
+                                labelKey="name"
+                                loadOptions={this.getGroups}/>
                         </div>
                     </h1>
                 </section>
