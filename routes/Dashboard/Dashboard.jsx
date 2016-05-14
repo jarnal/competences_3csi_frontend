@@ -10,7 +10,7 @@ class Dashboard extends React.Component {
             <small>Toutes les dernières statistiques</small>
           </h1>
         </section>
-        <section className="content" style={{ minHeight: 550 }}>
+        <section className="content">
           {/* Contenu */}
         </section>
       </div>

@@ -1,0 +1,15 @@
+#container {
+    min-height: 100%;
+}
+
+.total-height{
+    min-height: 100%;
+}
+
+#app {
+    min-height: 100%;
+}
+
+.content {
+    min-height: 100%;
+}

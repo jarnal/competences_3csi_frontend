@@ -26,31 +26,25 @@ class AttributionEvaluations extends React.Component {
             noteTypes: []
         };
         this.getTypeNotes();
-
-        this.submit = this.submit.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
 
     }
 
-    getTypeNotes(){
+    getTypeNotes() {
 
         var that = this;
-        TypeNoteService.getAll(function(result){
-            var finalList = result["type_notes"].map(function(typenote){
+        TypeNoteService.getAll(function (result) {
+            var finalList = result["type_notes"].map(function (typenote) {
                 return typenote.name
             });
             console.log(finalList);
 
             that.setState({
-                noteTypes:finalList
+                noteTypes: finalList
             })
         });
-    }
-
-    submit(){
-        console.log(this.props.evaluations);
     }
 
     render() {
@@ -59,7 +53,7 @@ class AttributionEvaluations extends React.Component {
                 <BootstrapTable
                     data={this.props.evaluations}
                     cellEdit={cellEditProp}
-                    height="250"
+                    //height="100%"
                     striped={true}
                     hover={true}
                     searchPlaceholder="Rechercher"
@@ -71,9 +65,8 @@ class AttributionEvaluations extends React.Component {
                     <TableHeaderColumn dataField="competence_id" dataSort={true} hidden={true}>Utilisateur
                         ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="competence_name" editable={false} dataSort={true}>Compétence</TableHeaderColumn>
-                    <TableHeaderColumn dataField='type_note_label' editable={ { type: 'select', options: { values: this.state.noteTypes } } }>Evaluation</TableHeaderColumn>
+                    <TableHeaderColumn dataField='type_note_label' dataSort={true} editable={ { type: 'select', options: { values: this.state.noteTypes } } }>Evaluation</TableHeaderColumn>
                 </BootstrapTable>
-                <button onClick={this.submit} className="collapsed btn btn-primary pull-right">Envoyer</button>
             </div>
         )
     }

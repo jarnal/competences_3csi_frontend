@@ -7,7 +7,8 @@ class UserEvaluations extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: []
+            users: [],
+            screenHeight: "100px"
         };
 
         this.getUsers = this.getUsers.bind(this);
@@ -17,6 +18,16 @@ class UserEvaluations extends React.Component {
         if(this.props.group && this.props.group.id != nextProps.group.id){
             this.getUsers(nextProps.group.id);
         }
+
+        this.setState({
+            screenHeight: $(window).height() - $("#user-evaluation-table").offset().top - 130 + "px"
+        });
+    }
+
+    componentDidMount() {
+        this.setState({
+            screenHeight: $(window).height() - $("#user-evaluation-table").offset().top - 130 + "px"
+        });
     }
 
     getUsers(groupID){
@@ -32,10 +43,10 @@ class UserEvaluations extends React.Component {
 
     render() {
         return (
-            <div className="box-body col-xs-12">
+            <div id="user-evaluation-table">
                 <BootstrapTable
                     data={this.state.users}
-                    height="250"
+                    height={this.state.screenHeight}
                     striped={true}
                     hover={true}
                     selectRow={this.props.selectRowProp}
