@@ -1,7 +1,7 @@
 import React from 'react'
 import ListBilans from './ListBilans.jsx'
 import Select from 'react-select'
-import GroupService from '../../services/GroupService.js'
+import GroupService from '../../../services/GroupService.js'
 
 class Bilans extends React.Component {
 

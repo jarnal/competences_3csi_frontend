@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
-import GroupService from '../../services/GroupService.js'
+import GroupService from '../../../services/GroupService.js'
 
 class Matieres extends React.Component {
 
