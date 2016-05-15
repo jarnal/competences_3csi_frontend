@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, browserHistory, Route, withRouter , IndexRoute } from 'react-router'
+import { Router, browserHistory, Route, withRouter , IndexRedirect } from 'react-router'
 import auth from './routes/auth/Auth.jsx'
 import App from './components/App.jsx'
 
@@ -92,7 +92,7 @@ render(
             ?
             <Router history={browserHistory}>
                 <Route path="/" component={App} onEnter={requireAuth}>
-                    <IndexRoute to="dashboard" />
+                    <IndexRedirect to="dashboard" />
                     <Route path="dashboard" component={intervenant_Dashboard}/>
                     <Route path="bilans" component={intervenant_Bilans}/>
                     <Route path="competences" component={intervenant_Competences}/>
@@ -108,7 +108,7 @@ render(
             :
             <Router history={browserHistory}>
                 <Route path="/" component={App} onEnter={requireAuth}>
-                    <IndexRoute to="dashboard" />
+                    <IndexRedirect to="dashboard" />
                     <Route path="dashboard" component={etudiant_Dashboard}/>
                     <Route path="bilans" component={etudiant_Bilans}/>
                     <Route path="evaluations" component={etudiant_Evaluations}/>
