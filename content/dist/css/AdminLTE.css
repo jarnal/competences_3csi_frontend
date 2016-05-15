@@ -2452,6 +2452,7 @@ a:focus {
   background: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
+  height: 100%;
 }
 .nav-tabs-custom > .nav-tabs {
   margin: 0;

@@ -8,27 +8,43 @@ const options_table = {
 function logChange(val) {
     console.log("Selected: " + val);
 }
+
 var ListBilans = React.createClass({
     //
+    competences : null,
+    currentCompetence : null,
     getInitialState () {
         return {multi: false, competences: []};
     },
     //
-    onChange (value) {
+    onMatiereChange (value) {
         this.setState({
             value: value
         });
-        this.getCompetences(value.id);
-    },
-    //
-    getCompetences: function (matiereID) {
         var that = this;
-        MatiereService.getCompetences(matiereID, function (result) {
+        MatiereService.getCompetences(value.id, function (result) {
             console.log(result);
-            that.setState({
-                competences: result
-            })
+            that.competences = result;
+            if(result.length > 0){
+              document.getElementById('divCompetence').hidden = false;
+            }
+            else{
+              document.getElementById('divCompetence').hidden = true;
+            }
         });
+    },
+    onCompetenceChange (value) {
+        this.currentCompetence = value;
+    },
+
+
+    //
+    getCompetences: function (input, callback) {
+        var data = {
+            options: this.competences,
+            complete: false
+        };
+        callback(null, data);
     },
     //
     getMatieres: function (input, callback) {
@@ -37,33 +53,32 @@ var ListBilans = React.createClass({
                 options: result["matieres"],
                 complete: false
             };
+            console.log(result["matieres"]);
             callback(null, data);
         });
+
+
     },
     //
     render: function () {
         return (
             <div>
-                {/* Left col */}
-                <section className="col-lg-7 connectedSortable">
-                    {/* Listes Competences */}
-                    {/* /.box-header */}
+                <section className="col-lg-12 connectedSortable">
+                    {/* Listes Bilans */}
                     <div className="box-body">
                         <div className="row">
                             <div className="col-md-11 col-xs-12 col-lg-11">
                                 <div className="form-group">
                                     <h4>Matière :</h4>
-                                    <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
+                                    <Select.Async id="selectMatiere" value={this.state.value} onChange={this.onMatiereChange} valueKey="id"
                                         labelKey="name" loadOptions={this.getMatieres}/>
                                 </div>
-                                <div className="form-group">
+                                <div className="form-group" hidden id="divCompetence">
                                     <h4>Compétence :</h4>
-                                    <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
+                                    <Select.Async id="selectCompetence" value={this.currentCompetence} onChange={this.onCompetenceChange} valueKey="id"
                                         labelKey="name" loadOptions={this.getCompetences}/>
                                 </div>
-                                {/* /.form-group */}
                             </div>
-                            {/* /.col */}
                             <div className="col-md-12 col-xs-12 col-lg-12">
                                 <BootstrapTable
                                     data={this.state.competences}
@@ -81,12 +96,8 @@ var ListBilans = React.createClass({
                                 </BootstrapTable>
                             </div>
                         </div>
-                        {/* /.row */}
                     </div>
-                    {/* /.box-body */}
-                    {/* /.box */}
                 </section>
-                {/* /.Left col */}
             </div>
         )
     }
