@@ -15,7 +15,7 @@ class Sidebar extends React.Component {
               <img src={require('../content/dist/img/avatar5.png')} className="img-circle" alt="User Image" />
             </div>
             <div className="pull-left info">
-              <p>Thomas Sebbane</p>
+              <p>{localStorage.getItem('us_name')}</p>
               <Link to="/logout"><span style={{fontSize: 11}}><i className="fa fa-sign-out" /> Déconnexion</span></Link>
             </div>
           </div>
