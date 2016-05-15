@@ -1,6 +1,6 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import ExamenService from '../../services/ExamenService.js'
+import ExamenService from '../../../services/ExamenService.js'
 
 function DescValidator(value) {
     if (!value) {

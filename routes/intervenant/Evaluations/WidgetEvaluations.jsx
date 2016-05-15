@@ -1,9 +1,10 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
+import CompetenceEvaluations from './WidgetComponents/CompetenceEvaluations.jsx'
 import UserEvaluations from './WidgetComponents/UserEvaluations.jsx'
 import AttributionEvaluations from './WidgetComponents/AttributionEvaluations.jsx'
 import ListCompetences from '../Competences/ListCompetences.jsx'
-import UserService from '../../services/UserService.js'
+import UserService from '../../../services/UserService.js'
 
 class WidgetEvaluations extends React.Component {
 
@@ -14,35 +15,13 @@ class WidgetEvaluations extends React.Component {
             group: 3,
             users_selected: [],
             competences_selected: [],
-            evaluation_rows: [],
-            screenHeight: "100px"
+            evaluation_rows: []
         };
 
         this.onUserSelect = this.onUserSelect.bind(this);
         this.onUserSelectAll = this.onUserSelectAll.bind(this);
         this.onCompetenceSelect = this.onCompetenceSelect.bind(this);
         this.onCompetenceSelectAll = this.onCompetenceSelectAll.bind(this);
-        this.handleResize = this.handleResize.bind(this);
-    }
-
-    handleResize(e) {
-        this.setState({
-            screenHeight: $(window).height() - $("#testtest").offset().top - 20
-        });
-        console.log("handleResize")
-    }
-
-    componentDidMount() {
-        window.addEventListener('resize', this.handleResize);
-
-        var that = this;
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            that.setState({
-                screenHeight: $(window).height() - $("#testtest").offset().top - 20
-            });
-        });
-
-        this.handleResize(null);
     }
 
     //
@@ -163,9 +142,9 @@ class WidgetEvaluations extends React.Component {
         return (
             <div>
                 {/* Left col */}
-                <section  id="testtest" style={{height: this.state.screenHeight + 'px'}} className="col-lg-12 connectedSortable">
-                    <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
-                        <ul id="myTabs" className="nav nav-tabs" role="tablist">
+                <section className="col-lg-12 connectedSortable">
+                    <div className="nav-tabs-custom">
+                        <ul className="nav nav-tabs">
                             <li className="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Selection des
                                 utilisateurs</a></li>
                             <li className><a href="#tab_2" data-toggle="tab" aria-expanded="false">Selection des
@@ -173,37 +152,33 @@ class WidgetEvaluations extends React.Component {
                             <li><a href="#tab_3" data-toggle="tab">Attribution des compétences</a></li>
                         </ul>
                         <div className="tab-content">
-                            <div role="tabpanel" className="tab-pane active" id="tab_1">
-                                <div className="box-body col-xs-12 table-container">
-                                    <UserEvaluations selectRowProp={this.getUserSelectRowProp()} group={this.state.group}/>
-                                </div>
+                            <div className="tab-pane active" id="tab_1">
+                                <UserEvaluations selectRowProp={this.getUserSelectRowProp()} group={this.state.group}/>
                                 <div className="box-footer">
-                                    <button onClick={function(){
-                                        $('#myTabs a[href="#tab_2"]').tab('show')
-                                    }} className="btn btn-primary pull-right">Suivant</button>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                                       className="collapsed btn btn-primary pull-right"
+                                       aria-expanded="false">Suivant</a>
                                 </div>
                             </div>
                             {/* /.tab-pane */}
-                            <div role="tabpanel" className="tab-pane" id="tab_2">
-                                <div className="box-body col-xs-12 table-container">
-                                    <ListCompetences selectRowProp={this.getCompetenceSelectRowProp()} />
-                                </div>
+                            <div className="tab-pane" id="tab_2">
+                                <ListCompetences selectRowProp={this.getCompetenceSelectRowProp()} />
                                 <div className="box-footer">
-                                    <button onClick={function(){
-                                        $('#myTabs a[href="#tab_1"]').tab('show')
-                                    }} className="btn btn-default pull-left">Précédent</button>
-                                    <button onClick={function(){
-                                        $('#myTabs a[href="#tab_3"]').tab('show')
-                                    }} className="btn btn-primary pull-right">Suivant</button>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                       className="collapsed btn btn-default pull-left"
+                                       aria-expanded="false">Précédent</a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                                       className="collapsed btn btn-primary pull-right"
+                                       aria-expanded="false">Suivant</a>
                                 </div>
                             </div>
                             {/* /.tab-pane */}
-                            <div role="tabpanel" className="tab-pane" id="tab_3">
+                            <div className="tab-pane" id="tab_3">
                                 <AttributionEvaluations evaluations={this.state.evaluation_rows}/>
                                 <div className="box-footer">
-                                    <button onClick={function(){
-                                        $('#myTabs a[href="#tab_2"]').tab('show')
-                                    }} className="btn btn-default pull-left">Précédent</button>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                       className="collapsed btn btn-default pull-left"
+                                       aria-expanded="false">Précédent</a>
                                 </div>
                             </div>
                             {/* /.tab-pane */}

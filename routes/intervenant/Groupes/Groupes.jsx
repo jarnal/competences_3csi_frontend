@@ -1,8 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
-import GroupService from '../../services/GroupService.js'
-
-class Matieres extends React.Component {
+import GroupService from '../../../services/GroupService.js'
+class Groupes extends React.Component {
 
     constructor(props) {
         super(props);
@@ -38,7 +37,7 @@ class Matieres extends React.Component {
             <div className="content-wrapper">
                 <section className="content-header">
                     <h1>
-                        Matieres
+                        Groupes
                         <small>En Construction...</small>
                         <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
                             <Select.Async
@@ -62,4 +61,4 @@ class Matieres extends React.Component {
     }
 }
 
-module.exports = Matieres
+module.exports = Groupes

@@ -1,7 +1,10 @@
 import React from 'react'
+import WidgetEvaluations from './WidgetEvaluations.jsx'
 import Select from 'react-select'
-import GroupService from '../../services/GroupService.js'
-class Groupes extends React.Component {
+import GroupService from '../../../services/GroupService.js'
+import SelectGroupes from '../components/SelectGroupes.jsx'
+
+class Evaluations extends React.Component {
 
     constructor(props) {
         super(props);
@@ -32,33 +35,33 @@ class Groupes extends React.Component {
         });
     }
 
+    //
     render() {
         return (
             <div className="content-wrapper">
                 <section className="content-header">
                     <h1>
-                        Groupes
+                        Evaluations
                         <small>En Construction...</small>
                         <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
-                            <Select.Async
-                                value={this.state.value}
-                                onChange={this.onChange}
-                                valueKey="id"
-                                searchingText='Chargement...'
-                                placeholder="Sélectionnez une classe"
-                                noResultsText="Aucun resultat"
-                                clearable={false}
-                                labelKey="name"
-                                loadOptions={this.getGroups}/>
+                            <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
+                                        clearable={false}  labelKey="name" loadOptions={this.getGroups}/>
                         </div>
+                        {/* /.form-group */}
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
-                    {/* contenu */}
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <div>{this.state.value.name}</div>
+                            <WidgetEvaluations group={this.state.value}/>
+                        </div>
+                        {/* /.row (main row) */}
+                    </div>
                 </section>
             </div>
         )
     }
 }
 
-module.exports = Groupes
+module.exports = Evaluations

@@ -1,14 +1,13 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import GroupService from '../../../services/GroupService.js'
+import GroupService from '../../../../services/GroupService.js'
 
 class UserEvaluations extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            users: [],
-            screenHeight: "100px"
+            users: []
         };
 
         this.getUsers = this.getUsers.bind(this);
@@ -18,16 +17,6 @@ class UserEvaluations extends React.Component {
         if(this.props.group && this.props.group.id != nextProps.group.id){
             this.getUsers(nextProps.group.id);
         }
-
-        this.setState({
-            screenHeight: $(window).height() - $("#user-evaluation-table").offset().top - 130 + "px"
-        });
-    }
-
-    componentDidMount() {
-        this.setState({
-            screenHeight: $(window).height() - $("#user-evaluation-table").offset().top - 130 + "px"
-        });
     }
 
     getUsers(groupID){
@@ -43,10 +32,10 @@ class UserEvaluations extends React.Component {
 
     render() {
         return (
-            <div id="user-evaluation-table">
+            <div className="box-body col-xs-12">
                 <BootstrapTable
                     data={this.state.users}
-                    height={this.state.screenHeight}
+                    height="250"
                     striped={true}
                     hover={true}
                     selectRow={this.props.selectRowProp}

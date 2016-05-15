@@ -1,9 +1,8 @@
 import React from 'react'
-import WidgetEvaluations from './WidgetEvaluations.jsx'
 import Select from 'react-select'
-import GroupService from '../../services/GroupService.js'
+import GroupService from '../../../services/GroupService.js'
 
-class Evaluations extends React.Component {
+class Matieres extends React.Component {
 
     constructor(props) {
         super(props);
@@ -34,13 +33,12 @@ class Evaluations extends React.Component {
         });
     }
 
-    //
     render() {
         return (
             <div className="content-wrapper">
                 <section className="content-header">
                     <h1>
-                        Evaluations
+                        Matieres
                         <small>En Construction...</small>
                         <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
                             <Select.Async
@@ -56,17 +54,12 @@ class Evaluations extends React.Component {
                         </div>
                     </h1>
                 </section>
-                <section className="content" style={{minHeight: '550px'}}>
-                    <div className="row">
-                        <div className="col-xs-12">
-                            <WidgetEvaluations group={this.state.value}/>
-                        </div>
-                        {/* /.row (main row) */}
-                    </div>
+                <section className="content" style={{ minHeight: 550 }}>
+                    {/* contenu */}
                 </section>
             </div>
         )
     }
 }
 
-module.exports = Evaluations
+module.exports = Matieres
