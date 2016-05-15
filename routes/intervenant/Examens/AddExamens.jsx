@@ -148,12 +148,12 @@ class AddExamens extends React.Component {
             top: 'initial',
             marginLeft: '-40%',
             zIndex: '2000',
-            height: '100%', 
+            height: '100%',
             overflow: 'auto'
         };
         return (
             <div>
-                <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouveau examen</button>
+                <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouvelle examen</button>
 
                 <SkyLight afterClose={this._executeAfterModalClose} onOverlayClicked={this._executeOnOverlayClicked} dialogStyles={style} hideOnOverlayClicked ref="simpleDialog" onChange={this.handleChange} title="Nouvelle examen">
                     <form action="" onSubmit={this.handleSubmit}>
