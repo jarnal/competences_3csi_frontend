@@ -2,7 +2,7 @@ import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import UserEvaluations from './WidgetComponents/UserEvaluations.jsx'
 import AttributionEvaluations from './WidgetComponents/AttributionEvaluations.jsx'
-import ListCompetences from '../Competences/ListCompetences.jsx'
+import ListCompetences from '../components/ListCompetences.jsx'
 import UserService from '../../../services/UserService.js'
 
 class WidgetEvaluations extends React.Component {

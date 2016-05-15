@@ -34,8 +34,6 @@ function login(nom, mdp, callback) {
  */
 function logout() {
   delete localStorage.tok
-  if (cb) cb()
-    this.onChange(false)
 }
 
 /**
