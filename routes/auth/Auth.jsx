@@ -21,7 +21,6 @@ function login(nom, mdp, callback) {
       localStorage.setItem('us_api_key', pResponse.api_key);
       localStorage.setItem('us_name', pResponse.user_name);
       localStorage.setItem('us_role', pResponse.user_role);
-
       retrieveTokenFromServer(callback);
     },
     error:function(error){

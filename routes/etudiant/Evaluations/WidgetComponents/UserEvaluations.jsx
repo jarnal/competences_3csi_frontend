@@ -1,6 +1,6 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import GroupService from '../../../services/GroupService.js'
+import GroupService from '../../../../services/GroupService.js'
 
 class UserEvaluations extends React.Component {
 

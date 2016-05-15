@@ -1,14 +1,20 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, browserHistory, Route, withRouter  } from 'react-router'
+import { Router, browserHistory, Route, withRouter , IndexRoute } from 'react-router'
 import auth from './routes/auth/Auth.jsx'
 import App from './components/App.jsx'
-import Bilans from './routes/Bilans/Bilans.jsx'
-import Competences from './routes/Competences/Competences.jsx'
-import Evaluations from './routes/Evaluations/Evaluations.jsx'
-import Examens from './routes/Examens/Examens.jsx'
-import Groupes from './routes/Groupes/Groupes.jsx'
-import Matieres from './routes/Matieres/Matieres.jsx'
+
+import intervenant_Dashboard from './routes/intervenant/Dashboard/Dashboard.jsx'
+import intervenant_Bilans from './routes/intervenant/Bilans/Bilans.jsx'
+import intervenant_Competences from './routes/intervenant/Competences/Competences.jsx'
+import intervenant_Evaluations from './routes/intervenant/Evaluations/Evaluations.jsx'
+import intervenant_Examens from './routes/intervenant/Examens/Examens.jsx'
+import intervenant_Groupes from './routes/intervenant/Groupes/Groupes.jsx'
+import intervenant_Matieres from './routes/intervenant/Matieres/Matieres.jsx'
+
+import etudiant_Dashboard from './routes/etudiant/Dashboard/Dashboard.jsx'
+import etudiant_Bilans from './routes/etudiant/Bilans/Bilans.jsx'
+import etudiant_Evaluations from './routes/etudiant/Evaluations/Evaluations.jsx'
 
 function requireAuth(nextState, replace) {
     if (!auth.loggedIn()) {
@@ -44,7 +50,7 @@ const Login = withRouter(
 
             auth.login(email, pass, (loggedIn) => {
                 if (!loggedIn)
-                    return this.setState({error: true})
+                return this.setState({error: true})
 
                 const { location } = this.props
 
@@ -80,20 +86,38 @@ const Logout = React.createClass({
         return <p>You are now logged out</p>
     }
 });
-
 render(
-    <Router history={browserHistory}>
-        <Route path="/" component={App} onEnter={requireAuth}>
-            <Route path="bilans" component={Bilans}/>
-            <Route path="competences" component={Competences}/>
-            <Route path="evaluations" component={Evaluations}/>
-            <Route path="examens" component={Examens}/>
-            <Route path="groupes" component={Groupes}/>
-            <Route path="matieres" component={Matieres}/>
-        </Route>
-        <Route path="login" component={Login}/>
-        <Route path="logout" component={Logout}/>
-        <Route path="*" component={NoMatch}/>
-    </Router>,
+    <div>
+        { localStorage.getItem('us_role') == 'ROLE_INTERVENANT'
+            ?
+            <Router history={browserHistory}>
+                <Route path="/" component={App} onEnter={requireAuth}>
+                    <IndexRoute to="dashboard" />
+                    <Route path="dashboard" component={intervenant_Dashboard}/>
+                    <Route path="bilans" component={intervenant_Bilans}/>
+                    <Route path="competences" component={intervenant_Competences}/>
+                    <Route path="evaluations" component={intervenant_Evaluations}/>
+                    <Route path="examens" component={intervenant_Examens}/>
+                    <Route path="groupes" component={intervenant_Groupes}/>
+                    <Route path="matieres" component={intervenant_Matieres}/>
+                </Route>
+                <Route path="login" component={Login}/>
+                <Route path="logout" component={Logout}/>
+                <Route path="*" component={NoMatch}/>
+            </Router>
+            :
+            <Router history={browserHistory}>
+                <Route path="/" component={App} onEnter={requireAuth}>
+                    <IndexRoute to="dashboard" />
+                    <Route path="dashboard" component={etudiant_Dashboard}/>
+                    <Route path="bilans" component={etudiant_Bilans}/>
+                    <Route path="evaluations" component={etudiant_Evaluations}/>
+                </Route>
+                <Route path="login" component={Login}/>
+                <Route path="logout" component={Logout}/>
+                <Route path="*" component={NoMatch}/>
+            </Router>
+        }
+    </div>,
     document.getElementById('container')
 );

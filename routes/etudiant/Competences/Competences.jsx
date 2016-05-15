@@ -1,7 +1,7 @@
 import React from 'react'
 import ListCompetences from './ListCompetences.jsx'
 import Select from 'react-select'
-import GroupService from '../../services/GroupService.js'
+import GroupService from '../../../services/GroupService.js'
 import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class Competences extends React.Component {

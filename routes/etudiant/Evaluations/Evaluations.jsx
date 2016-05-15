@@ -1,7 +1,7 @@
 import React from 'react'
 import WidgetEvaluations from './WidgetEvaluations.jsx'
 import Select from 'react-select'
-import GroupService from '../../services/GroupService.js'
+import GroupService from '../../../services/GroupService.js'
 import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class Evaluations extends React.Component {

@@ -1,12 +1,12 @@
 import React from 'react'
 import Select from 'react-select'
-import GroupService from '../../services/GroupService.js'
+import GroupService from '../../../services/GroupService.js'
 class SelectGroupes extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {groups: [], value: ""};
-
+        console.log(localStorage.getItem('us_role'));
         this.onChange = this.onChange.bind(this);
         this.getGroups = this.getGroups.bind(this);
     }

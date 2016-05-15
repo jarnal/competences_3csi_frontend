@@ -4,7 +4,7 @@ import CompetenceEvaluations from './WidgetComponents/CompetenceEvaluations.jsx'
 import UserEvaluations from './WidgetComponents/UserEvaluations.jsx'
 import AttributionEvaluations from './WidgetComponents/AttributionEvaluations.jsx'
 import ListCompetences from '../Competences/ListCompetences.jsx'
-import UserService from '../../services/UserService.js'
+import UserService from '../../../services/UserService.js'
 
 class WidgetEvaluations extends React.Component {
 

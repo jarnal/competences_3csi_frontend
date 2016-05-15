@@ -1,7 +1,7 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import Select from 'react-select'
-import MatiereService from '../../services/MatiereService.js'
+import MatiereService from '../../../services/MatiereService.js'
 
 var ListCompetences = React.createClass({
 
