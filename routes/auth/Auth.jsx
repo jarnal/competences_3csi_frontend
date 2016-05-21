@@ -24,7 +24,7 @@ function login(nom, mdp, callback) {
       retrieveTokenFromServer(callback);
     },
     error:function(error){
-      console.log(error);
+      callback(false);
     }
   });
 }
@@ -35,7 +35,6 @@ function login(nom, mdp, callback) {
 function logout() {
   delete localStorage.tok
 }
-
 /**
  *
  */
@@ -57,7 +56,6 @@ function retrieveTokenFromServer(callback) {
       callback(true);
     },
     error:function(error){
-      console.log(error);
     }
   });
 }
@@ -84,6 +82,7 @@ function getToken(){
  *
  */
 function loggedIn() {
+  console.log("tok:" + localStorage.getItem("tok"));
   return !!getToken();
 }
 

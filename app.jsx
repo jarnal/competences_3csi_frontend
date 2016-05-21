@@ -38,6 +38,7 @@ const Login = withRouter(
 
         getInitialState() {
             return {
+                loggedIn: auth.loggedIn(),
                 error: false
             }
         },
@@ -49,8 +50,10 @@ const Login = withRouter(
             const pass = this.refs.pass.value
 
             auth.login(email, pass, (loggedIn) => {
-                if (!loggedIn)
-                return this.setState({error: true})
+                console.log("Ca passe");
+                if (!loggedIn){
+                  return this.setState({ error: true} )
+                }
 
                 const { location } = this.props
 
@@ -86,11 +89,11 @@ const Login = withRouter(
                     <br/>
                     <div>
                       <button className="btn btn-primary btn-block btn-flat" type="submit">Login</button>
-                      {this.state.error && (
-                          <p>Bad login information</p>
-                      )}
                     </div>
                     <br/>
+                    {this.state.error && (
+                      <p>Bad login information</p>
+                    )}
                   </form>
                 </div>
               </div>
