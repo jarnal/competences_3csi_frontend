@@ -6,29 +6,24 @@ class SelectGroupes extends React.Component {
     constructor(props) {
         super(props);
         this.state = {groups: [], value: ""};
-        console.log(localStorage.getItem('us_role'));
         this.onChange = this.onChange.bind(this);
         this.getGroups = this.getGroups.bind(this);
     }
 
     //
     onChange(value) {
-        console.log(this);
-        this.setState({
-            value: value
-        });
+        this.props.callback(value);
+        this.setState({ value: value });
     }
 
     //
     getGroups(input, callback) {
-        var that = this;
         GroupService.getAll(function (result) {
             var data = {
                 options: result["groups"],
                 complete: false
             };
             callback(null, data);
-            //that.onChange(result["groups"][3]);
         });
     }
 
@@ -42,4 +37,4 @@ class SelectGroupes extends React.Component {
     }
 }
 
-module.exports = SelectGroupes
+module.exports = SelectGroupes;

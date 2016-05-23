@@ -44,6 +44,34 @@ function getGroupUsers(id, callback){
 
 /**
  *
+ * @param id
+ * @param callback
+ */
+function getGroupMatieres(id, callback){
+    $.get(
+        getFinalURL(id, "matieres"),
+        function (result) {
+            callback(result);
+        }
+    );
+}
+
+/**
+ *
+ * @param id
+ * @param callback
+ */
+function getGroupExamens(id, callback){
+    $.get(
+        getFinalURL(id, "examens"),
+        function (result) {
+            callback(result);
+        }
+    );
+}
+
+/**
+ *
  */
 function getGroup(id){
 
@@ -74,6 +102,8 @@ function deleteGroup(){
 module.exports = {
     getAll: getAllGroups,
     getUsers: getGroupUsers,
+    getMatieres: getGroupMatieres,
+    getExamens: getGroupExamens,
     get: getGroup,
     post: postGroup,
     put: putGroup,

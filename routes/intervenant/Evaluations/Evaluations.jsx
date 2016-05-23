@@ -31,7 +31,6 @@ class Evaluations extends React.Component {
                 complete: false
             };
             callback(null, data);
-            //that.onChange(result["groups"][3]);
         });
     }
 

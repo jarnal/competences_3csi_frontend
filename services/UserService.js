@@ -47,10 +47,24 @@ function getUserCompetences(id, callback){
  * @param $userList
  * @param $competenceList
  */
-function getUserListCompetenceEvaluation($userList, $competenceList, callback) {
-    var url = Config.server_base_url + "user/";
-    url += "ulist/" + JSON.stringify($userList) + "/";
-    url += "clist/" + JSON.stringify($competenceList);
+function getUserListCompetenceEvaluation(userList, competenceList, callback) {
+    var url = Config.server_base_url + "user/evaluations/";
+    url += "ulist/" + JSON.stringify(userList) + "/";
+    url += "clist/" + JSON.stringify(competenceList);
+    url += "?access_token=" + Auth.getToken();
+
+    $.get(
+        url,
+        function (result) {
+            callback(result);
+        }
+    );
+}
+
+function getUserListWithEvaluationByGroupAndExamen(groupID, examenID, callback) {
+    var url = Config.server_base_url + "user/evaluations/";
+    url += "group/" + JSON.stringify(groupID) + "/";
+    url += "examen/" + JSON.stringify(examenID);
     url += "?access_token=" + Auth.getToken();
 
     $.get(
@@ -93,6 +107,7 @@ function deleteUser(){
 module.exports = {
     getAll: getAllUsers,
     getUserListCompetenceEvaluation:getUserListCompetenceEvaluation,
+    getUserListWithEvaluationByGroupAndExamen:getUserListWithEvaluationByGroupAndExamen,
     get: getUser,
     post: postUser,
     put: putUser,

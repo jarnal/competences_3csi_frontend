@@ -58,7 +58,7 @@ class WidgetEvaluations extends React.Component {
         var competences_selected = this.state.competences_selected;
 
         var that = this;
-        UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, function(result){
+        UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, "examens", function(result){
             that.setState({
                 evaluation_rows: result
             });
