@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import ListCompetences from '../Competences/ListCompetences.jsx'
 import 'react-datepicker/dist/react-datepicker.css'
+import ExamenService from '../../../services/ExamenService'
 
 var DateSelect = React.createClass({
 
@@ -32,71 +33,77 @@ var DateSelect = React.createClass({
 });
 
 class AddExamens extends React.Component {
+
+    // -
     constructor(props){
         super(props);
         this.state = {
-            competences_selected: []
+            competences_selected: [],
+            group: null
         };
         this.onCompetenceSelect = this.onCompetenceSelect.bind(this);
         this.onCompetenceSelectAll = this.onCompetenceSelectAll.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this._executeAfterModalClose = this._executeAfterModalClose.bind(this);
         this._executeOnOverlayClicked = this._executeOnOverlayClicked.bind(this);
+        this._executeAfterModalOpen = this._executeAfterModalOpen.bind(this);
     }
 
+    // -
     handleSubmit(event){
         event.preventDefault();
+
         var competences_selected = this.state.competences_selected;
         var competences_tab = [];
-        console.log(competences_selected);
+
         for (var i = 0; i < competences_selected.length; i++) {
             competences_tab.push(competences_selected[i].id);
         }
+
         var formData = {
             nom: document.getElementById('nom_examen').value,
             description: document.getElementById('description').value,
             competences: competences_tab,
             date : document.getElementById('date').value
         };
+
         if(formData.competences.length == 0)
         {
             return alert("Veuillez saisir une competences")
         }
         else{
-            console.log(JSON.stringify(formData));
-            $.ajax({
-                type: "POST",
-                url: "http://localhost/test/test.php",
-                data: JSON.stringify(formData),
-                jsonp: "callback",
-                dataType: "jsonp",
-                cache: false,
-                success(data) {
-                    console.log(data);
-                    alert(data);
-                },
+            formData.group_id = this.state.group.id;
 
-                error(resultat, statut, erreur){
-                    alert("Erreur veuillez ressayer")
-                }
+            var that = this;
+            ExamenService.post(formData, function(result){
+                console.log(result);
+                that.refs.simpleDialog.hide();
+                that.props.newElementCallback();
             });
-
         }
     }
 
+    _executeAfterModalOpen(){
+        this.setState({
+            group: this.props.group
+        });
+    }
+
+    // -
     _executeAfterModalClose(){
         this.setState({
             competences_selected: []
         });
     }
 
+    // -
     _executeOnOverlayClicked(){
         this.setState({
             competences_selected: []
         });
     }
 
-    //
+    // -
     getCompetenceSelectRowProp() {
         return {
             mode: 'checkbox',
@@ -142,6 +149,12 @@ class AddExamens extends React.Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            group: nextProps.group
+        });
+    }
+
     render() {
         var style = {
             width: '80%',
@@ -155,7 +168,16 @@ class AddExamens extends React.Component {
             <div>
                 <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouvelle examen</button>
 
-                <SkyLight afterClose={this._executeAfterModalClose} onOverlayClicked={this._executeOnOverlayClicked} dialogStyles={style} hideOnOverlayClicked ref="simpleDialog" onChange={this.handleChange} title="Nouvelle examen">
+                <SkyLight
+                    afterClose={this._executeAfterModalClose}
+                    onOverlayClicked={this._executeOnOverlayClicked}
+                    afterOpen={this._executeAfterModalOpen}
+                    dialogStyles={style}
+                    hideOnOverlayClicked
+                    ref="simpleDialog"
+                    onChange={this.handleChange}
+                    title="Nouvel examen"
+                >
                     <form action="" onSubmit={this.handleSubmit}>
                         <div style={{overflow:'auto', height:'inherit'}}>
                             <div className="box-body" style={{overflow: 'auto'}}>
@@ -176,7 +198,13 @@ class AddExamens extends React.Component {
                                     </div>
                                 </div>
                                 <div className="col-xs-12 col-md-6 col-lg-6">
-                                    <ListCompetences selectRowProp={this.getCompetenceSelectRowProp()}/>
+                                    <ListCompetences
+                                        selectRowProp={this.getCompetenceSelectRowProp()}
+                                        group={this.state.group}
+                                        mode="evaluations_libres"
+                                        examenCallback={this.onExamenSelect}
+                                        isIntervenant={true}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -192,5 +220,4 @@ class AddExamens extends React.Component {
 }
 
 AddExamens.displayName = 'Example';
-
-module.exports = AddExamens
+module.exports = AddExamens;

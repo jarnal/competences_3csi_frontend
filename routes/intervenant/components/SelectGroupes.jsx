@@ -10,28 +10,47 @@ class SelectGroupes extends React.Component {
         this.getGroups = this.getGroups.bind(this);
     }
 
-    //
-    onChange(value) {
-        this.props.callback(value);
-        this.setState({ value: value });
+    componentDidMount(){
+        this.getGroups();
     }
 
     //
-    getGroups(input, callback) {
+    onChange(value) {
+        localStorage.setItem("sgroup", JSON.stringify(value));
+        this.setState({ value: value });
+
+        if(this.props.callback){
+            this.props.callback(value);
+        }
+    }
+
+    //
+    getGroups() {
+        var that = this;
         GroupService.getAll(function (result) {
-            var data = {
-                options: result["groups"],
-                complete: false
-            };
-            callback(null, data);
+            var previousSelectedGroup = JSON.parse(localStorage.getItem("sgroup"));
+            if(previousSelectedGroup && that.props.callback != null) {
+                that.props.callback(previousSelectedGroup);
+            }
+
+            that.setState({
+                groups: result["groups"],
+                value: previousSelectedGroup
+            })
         });
     }
 
     render() {
         return (
             <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
-                <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
-                    clearable={false}  labelKey="name" loadOptions={this.getGroups}/>
+                <Select
+                    value={this.state.value}
+                    onChange={this.onChange}
+                    valueKey="id"
+                    clearable={false}
+                    labelKey="name"
+                    options={this.state.groups}
+                />
             </div>
         )
     }

@@ -4,6 +4,10 @@ import UserEvaluations from './WidgetComponents/UserEvaluations.jsx'
 import AttributionEvaluations from './WidgetComponents/AttributionEvaluations.jsx'
 import ListCompetences from '../Competences/ListCompetences.jsx'
 import UserService from '../../../services/UserService.js'
+import EvaluationAutoService from '../../../services/EvaluationAutoService.js'
+import EvaluationIntervenantService from '../../../services/EvaluationIntervenantService.js'
+import EvaluationExamenService from '../../../services/EvaluationExamenService.js'
+import Auth from '../../auth/Auth.jsx'
 
 class WidgetEvaluations extends React.Component {
 
@@ -11,7 +15,7 @@ class WidgetEvaluations extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            group: 3,
+            group: null,
             users_selected: [],
             competences_selected: [],
             evaluation_rows: [],
@@ -22,47 +26,76 @@ class WidgetEvaluations extends React.Component {
         this.onUserSelectAll = this.onUserSelectAll.bind(this);
         this.onCompetenceSelect = this.onCompetenceSelect.bind(this);
         this.onCompetenceSelectAll = this.onCompetenceSelectAll.bind(this);
-        this.handleResize = this.handleResize.bind(this);
-    }
-
-    handleResize(e) {
-        this.setState({
-            screenHeight: $(window).height() - $("#testtest").offset().top - 20
-        });
-        console.log("handleResize")
-    }
-
-    componentDidMount() {
-        window.addEventListener('resize', this.handleResize);
-
-        var that = this;
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            that.setState({
-                screenHeight: $(window).height() - $("#testtest").offset().top - 20
-            });
-        });
-
-        this.handleResize(null);
+        this.onExamenSelect = this.onExamenSelect.bind(this);
+        this.onAfterSaveCell = this.onAfterSaveCell.bind(this);
     }
 
     //
     componentWillReceiveProps(nextProps) {
         this.setState({
-            group: nextProps.group
+            group: nextProps.group,
+            isIntervenant: nextProps.isIntervenant
         });
+
+        if(!nextProps.isIntervenant){
+            var userID = Auth.getUserInfo().user_id;
+            this.state.users_selected = [userID];
+        }
     }
 
     //
-    updateEvaluationRows(){
+    updateEvaluationRows() {
         var users_selected = this.state.users_selected;
         var competences_selected = this.state.competences_selected;
 
+        // -
+        if (users_selected.length <= 0|| competences_selected.length <= 0)
+            return;
+
         var that = this;
-        UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, "examens", function(result){
-            that.setState({
-                evaluation_rows: result
-            });
-        });
+        switch (this.props.mode) {
+            case "evaluations_libres":
+                UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, function (result) {
+                    that.setState({
+                        evaluation_rows: result
+                    });
+                });
+                break;
+            default:
+                // -
+                if (this.state.examen_id == null)
+                    return;
+
+                UserService.getUserListCompetenceEvaluationByExamen(this.state.examen_id, users_selected, competences_selected, function (result) {
+                    that.setState({
+                        evaluation_rows: result
+                    });
+                });
+                break;
+        }
+    }
+
+    onAfterSaveCell(row, cellName, cellValue) {
+        var that = this;
+        switch (this.props.mode) {
+            case "evaluations_libres":
+                if(this.props.isIntervenant){
+                    EvaluationIntervenantService.post(row, function (result) {
+                        console.log(result);
+                    });
+                } else {
+                    EvaluationAutoService.post(row, function (result) {
+                        console.log(result);
+                    });
+                }
+                break;
+            default:
+                row.examen_id = that.state.examen_id;
+                EvaluationExamenService.post(row, function (result) {
+                    console.log(result);
+                });
+                break;
+        }
     }
 
     //
@@ -141,7 +174,7 @@ class WidgetEvaluations extends React.Component {
         this.updateEvaluationRows();
     }
 
-    //
+    // -
     onCompetenceSelectAll(isSelected, currentDisplayAndSelectedData) {
         var competences_selected = this.state.competences_selected;
         if (isSelected) {
@@ -159,59 +192,89 @@ class WidgetEvaluations extends React.Component {
         this.updateEvaluationRows();
     }
 
+    // -
+    onExamenSelect(value) {
+        console.log(value);
+        this.setState({
+            examen_id: value
+        });
+    }
+
     render() {
+
+        //if (this.props.is_intervenant) {
+
         return (
-            <div>
-                {/* Left col */}
-                <section  id="testtest" style={{height: this.state.screenHeight + 'px'}} className="col-lg-12 connectedSortable">
-                    <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
-                        <ul id="myTabs" className="nav nav-tabs" role="tablist">
-                            <li className="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Selection des
-                                utilisateurs</a></li>
-                            <li className><a href="#tab_2" data-toggle="tab" aria-expanded="false">Selection des
-                                compétences</a></li>
-                            <li><a href="#tab_3" data-toggle="tab">Attribution des compétences</a></li>
-                        </ul>
-                        <div className="tab-content">
-                            <div role="tabpanel" className="tab-pane active" id="tab_1">
-                                <div className="box-body col-xs-12 table-container">
-                                    <UserEvaluations selectRowProp={this.getUserSelectRowProp()} group={this.state.group}/>
-                                </div>
-                                <div className="box-footer">
-                                    <button onClick={function(){
+            <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
+                <ul id="myTabs" className="nav nav-tabs" role="tablist">
+                    {this.props.isIntervenant
+                        ?
+                        <li className="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Selection des
+                            utilisateurs</a></li>
+                        :
+                        null
+                    }
+                    <li className><a href="#tab_2" data-toggle="tab" aria-expanded="false">Selection des
+                        compétences</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">Attribution des compétences</a></li>
+                </ul>
+                <div className="tab-content">
+                    {this.props.isIntervenant
+                        ?
+                        <div role="tabpanel" className="tab-pane active" id="tab_1">
+                            <div className="box-body col-xs-12 table-container">
+                                <UserEvaluations
+                                    selectRowProp={this.getUserSelectRowProp()}
+                                    group={this.state.group}
+                                    mode={this.props.mode}
+                                />
+                            </div>
+                            <div className="box-footer">
+                                <button onClick={function(){
                                         $('#myTabs a[href="#tab_2"]').tab('show')
-                                    }} className="btn btn-primary pull-right">Suivant</button>
-                                </div>
+                                    }} className="btn btn-primary pull-right">Suivant
+                                </button>
                             </div>
-                            {/* /.tab-pane */}
-                            <div role="tabpanel" className="tab-pane" id="tab_2">
-                                <div className="box-body col-xs-12 table-container">
-                                    <ListCompetences selectRowProp={this.getCompetenceSelectRowProp()} />
-                                </div>
-                                <div className="box-footer">
-                                    <button onClick={function(){
-                                        $('#myTabs a[href="#tab_1"]').tab('show')
-                                    }} className="btn btn-default pull-left">Précédent</button>
-                                    <button onClick={function(){
-                                        $('#myTabs a[href="#tab_3"]').tab('show')
-                                    }} className="btn btn-primary pull-right">Suivant</button>
-                                </div>
-                            </div>
-                            {/* /.tab-pane */}
-                            <div role="tabpanel" className="tab-pane" id="tab_3">
-                                <AttributionEvaluations evaluations={this.state.evaluation_rows}/>
-                                <div className="box-footer">
-                                    <button onClick={function(){
-                                        $('#myTabs a[href="#tab_2"]').tab('show')
-                                    }} className="btn btn-default pull-left">Précédent</button>
-                                </div>
-                            </div>
-                            {/* /.tab-pane */}
                         </div>
-                        {/* /.tab-content */}
+                        :
+                        null
+                    }
+                    <div role="tabpanel" className={this.props.isIntervenant ? "tab-pane" : "tab-pane active" } id="tab_2">
+                        <div className="box-body col-xs-12 table-container">
+                            <ListCompetences
+                                selectRowProp={this.getCompetenceSelectRowProp()}
+                                group={this.state.group}
+                                mode={this.props.mode}
+                                examenCallback={this.onExamenSelect}
+                                isIntervenant={this.state.isIntervenant}
+                            />
+                        </div>
+                        <div className="box-footer">
+                            <button onClick={function(){
+                                        $('#myTabs a[href="#tab_1"]').tab('show')
+                                    }} className="btn btn-default pull-left">Précédent
+                            </button>
+                            <button onClick={function(){
+                                        $('#myTabs a[href="#tab_3"]').tab('show')
+                                    }} className="btn btn-primary pull-right">Suivant
+                            </button>
+                        </div>
                     </div>
-                </section>
-                {/* /.Left col */}
+                    <div role="tabpanel" className="tab-pane" id="tab_3">
+                        <AttributionEvaluations
+                            evaluations={this.state.evaluation_rows}
+                            mode={this.props.mode}
+                            editCallback={this.onAfterSaveCell}
+                            isIntervenant={this.state.isIntervenant}
+                        />
+                        <div className="box-footer">
+                            <button onClick={function(){
+                                        $('#myTabs a[href="#tab_2"]').tab('show')
+                                    }} className="btn btn-default pull-left">Précédent
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

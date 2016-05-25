@@ -5,10 +5,26 @@ import Select from 'react-select'
 import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class Examens extends React.Component {
+
+    // -
     constructor(props) {
         super(props);
+        this.state = {selected_group: null};
+        this.handleGroupValueChanged = this.handleGroupValueChanged.bind(this);
+        this.handleNewExamenAdded = this.handleNewExamenAdded.bind(this);
     }
 
+    // -
+    handleGroupValueChanged(value) {
+        this.setState({selected_group: value});
+    }
+
+    // -
+    handleNewExamenAdded() {
+        this.setState({selected_group: this.state.selected_group});
+    }
+
+    // -
     render() {
         return (
             <div className="content-wrapper">
@@ -16,8 +32,7 @@ class Examens extends React.Component {
                     <h1>
                         Examens
                         <small>En Construction...</small>
-                        <SelectGroupes />
-                        {/* /.form-group */}
+                        <SelectGroupes callback={this.handleGroupValueChanged}/>
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
@@ -34,8 +49,8 @@ class Examens extends React.Component {
                                     <div className="box-body">
                                         <div className="row">
                                             <div className="col-md-12 col-xs-12 col-lg-12">
-                                                <AddExamens />
-                                                <ListExamens />
+                                                <AddExamens newElementCallback={this.handleNewExamenAdded} group={this.state.selected_group}/>
+                                                <ListExamens group={this.state.selected_group}/>
                                             </div>
                                         </div>
                                         {/* /.row */}

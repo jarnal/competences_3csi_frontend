@@ -8,13 +8,20 @@ class Bilans extends React.Component {
     // -
     constructor(props) {
         super(props);
-        this.state = {selected_group: 25};
+        this.state = {selected_group: null};
         this.handleGroupValueChanged = this.handleGroupValueChanged.bind(this);
     }
 
     // -
+    componentDidMount(){
+        this.setState({isIntervenant: localStorage.getItem('us_role') == 'ROLE_INTERVENANT'});
+    }
+
+    // -
     handleGroupValueChanged(value) {
-        this.setState({selected_group: value});
+        this.setState({
+            selected_group: value
+        });
     }
 
     // -
@@ -25,11 +32,15 @@ class Bilans extends React.Component {
                     <h1>
                         Bilans
                         <small>Toutes les compétences par section</small>
-                        <SelectGroupes callback={this.handleGroupValueChanged}/>
+                        {this.state.isIntervenant
+                            ?
+                            <SelectGroupes callback={this.handleGroupValueChanged}/>
+                            :
+                            null
+                        }
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
-                    {/* contenu */}
                     <div className="row">
                         <div className="col-xs-12">
 
@@ -40,20 +51,20 @@ class Bilans extends React.Component {
                                 </ul>
                                 <div className="tab-content">
                                     <div role="tabpanel" className="tab-pane active" id="tab_1">
-                                        <div className="box-body col-xs-12 table-container">
-                                            <ListBilansExamens selected_group={this.state.selected_group.id}/>
-                                        </div>
+                                        <ListBilansExamens
+                                            group={this.state.selected_group}
+                                            isIntervenant={this.state.isIntervenant}
+                                        />
                                     </div>
                                     <div role="tabpanel" className="tab-pane" id="tab_2">
-                                        <div className="box-body col-xs-12 table-container">
-                                            <ListBilansMatieres selected_group={this.state.selected_group.id}/>
-                                        </div>
+                                        <ListBilansMatieres
+                                            group={this.state.selected_group}
+                                            isIntervenant={this.state.isIntervenant}
+                                        />
                                     </div>
                                 </div>
-                                {/* /.tab-content */}
                             </div>
                         </div>
-                        {/* /.row (main row) */}
                     </div>
                 </section>
             </div>

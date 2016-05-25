@@ -9,13 +9,13 @@ class UserEvaluations extends React.Component {
         this.state = {
             users: []
         };
-
         this.getUsers = this.getUsers.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.group && this.props.group.id != nextProps.group.id){
-            this.getUsers(nextProps.group.id);
+        if(nextProps.group){
+            if(this.props.group == null || this.props.group.id != nextProps.group.id)
+                this.getUsers(nextProps.group.id);
         }
     }
 

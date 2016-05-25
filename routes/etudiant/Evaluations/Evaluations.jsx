@@ -47,7 +47,6 @@ class Evaluations extends React.Component {
                             <Select.Async value={this.state.value} onChange={this.onChange} valueKey="id"
                                         clearable={false}  labelKey="name" loadOptions={this.getGroups}/>
                         </div>
-                        {/* /.form-group */}
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
@@ -56,7 +55,6 @@ class Evaluations extends React.Component {
                             <div>{this.state.value.name}</div>
                             <WidgetEvaluations group={this.state.value}/>
                         </div>
-                        {/* /.row (main row) */}
                     </div>
                 </section>
             </div>

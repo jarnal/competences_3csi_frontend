@@ -7,10 +7,11 @@ import App from './components/App.jsx'
 import intervenant_Dashboard from './routes/intervenant/Dashboard/Dashboard.jsx'
 import intervenant_Bilans from './routes/intervenant/Bilans/Bilans.jsx'
 import intervenant_Competences from './routes/intervenant/Competences/Competences.jsx'
-import intervenant_Evaluations from './routes/intervenant/Evaluations/Evaluations.jsx'
 import intervenant_Examens from './routes/intervenant/Examens/Examens.jsx'
 import intervenant_Groupes from './routes/intervenant/Groupes/Groupes.jsx'
 import intervenant_Matieres from './routes/intervenant/Matieres/Matieres.jsx'
+import intervenant_EvaluationsLibres from './routes/intervenant/Evaluations/EvaluationsLibres.jsx'
+import intervenant_EvaluationsExamens from './routes/intervenant/Evaluations/EvaluationsExamens.jsx'
 
 import etudiant_Dashboard from './routes/etudiant/Dashboard/Dashboard.jsx'
 import etudiant_Bilans from './routes/etudiant/Bilans/Bilans.jsx'
@@ -122,30 +123,18 @@ const Logout = React.createClass({
 });
 render(
     <div>
-        { localStorage.getItem('us_role') == 'ROLE_INTERVENANT'
-            ?
+        {
             <Router history={browserHistory}>
                 <Route path="/" component={App} onEnter={requireAuth}>
                     <IndexRedirect to="dashboard" />
                     <Route path="dashboard" component={intervenant_Dashboard}/>
                     <Route path="bilans" component={intervenant_Bilans}/>
                     <Route path="competences" component={intervenant_Competences}/>
-                    <Route path="evaluations" component={intervenant_Evaluations}/>
                     <Route path="examens" component={intervenant_Examens}/>
                     <Route path="groupes" component={intervenant_Groupes}/>
                     <Route path="matieres" component={intervenant_Matieres}/>
-                </Route>
-                <Route path="login" component={Login}/>
-                <Route path="logout" component={Logout}/>
-                <Route path="*" component={NoMatch}/>
-            </Router>
-            :
-            <Router history={browserHistory}>
-                <Route path="/" component={App} onEnter={requireAuth}>
-                    <IndexRedirect to="dashboard" />
-                    <Route path="dashboard" component={etudiant_Dashboard}/>
-                    <Route path="bilans" component={etudiant_Bilans}/>
-                    <Route path="evaluations" component={etudiant_Evaluations}/>
+                    <Route path="evaluations_libres" component={intervenant_EvaluationsLibres}/>
+                    <Route path="evaluations_examens" component={intervenant_EvaluationsExamens}/>
                 </Route>
                 <Route path="login" component={Login}/>
                 <Route path="logout" component={Logout}/>

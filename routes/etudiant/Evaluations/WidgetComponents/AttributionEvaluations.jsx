@@ -1,7 +1,7 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import TypeNoteService from '../../../../services/TypeNoteService.js'
-import EvaluationService from '../../../../services/EvaluationService.js'
+import EvaluationService from '../../../../services/EvaluationIntervenantService.js'
 
 const cellEditProp = {
     mode: 'click',

@@ -7,7 +7,7 @@ import Auth from '../routes/auth/Auth.jsx';
  * @returns {string}
  */
 function getFinalURL(id, suffixe){
-    var url = Config.server_base_url + "examen/";
+    var url = Config.server_base_url + "evaluation_auto/";
     if(id)
         url = url + id;
     if(suffixe)
@@ -33,20 +33,6 @@ function getAllExamen(callback){
  */
 function getExamen(id){
 
-}
-
-/**
- *
- * @param id
- * @param callback
- */
-function getExamenCompetences(id, callback){
-    $.get(
-        getFinalURL(id, "competences"),
-        function (result) {
-            callback(result);
-        }
-    );
 }
 
 /**
@@ -81,7 +67,6 @@ function deleteExamen(){
 
 module.exports = {
     getAll: getAllExamen,
-    getCompetences: getExamenCompetences,
     get: getExamen,
     post: postExamen,
     put: putExamen,

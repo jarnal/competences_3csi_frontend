@@ -6,6 +6,19 @@ import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class Competences extends React.Component {
 
+    // -
+    constructor(props) {
+        super(props);
+        this.state = {selected_group: null};
+        this.handleGroupValueChanged = this.handleGroupValueChanged.bind(this);
+    }
+
+    // -
+    handleGroupValueChanged(value) {
+        console.log(value);
+        this.setState({selected_group: value});
+    }
+
     render() {
         return (
             <div className="content-wrapper">
@@ -13,7 +26,7 @@ class Competences extends React.Component {
                     <h1>
                         Gestionnaire de compétences
                         <small>Toutes les compétences par section</small>
-                        <SelectGroupes />
+                        <SelectGroupes callback={this.handleGroupValueChanged}/>
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
@@ -32,7 +45,11 @@ class Competences extends React.Component {
                                     {/* /.box-header */}
                                     <div className="box-body">
                                         <div className="row">
-                                            <ListCompetences addCompetence={true}/>
+                                            <ListCompetences
+                                                group={this.state.selected_group}
+                                                addCompetence={true}
+                                                mode="default"
+                                            />
                                         </div>
                                         {/* /.row */}
                                     </div>

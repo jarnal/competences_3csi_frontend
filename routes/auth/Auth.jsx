@@ -93,6 +93,7 @@ module.exports = {
     login: login,
     logout: logout,
     retrieveTokenFromServer: retrieveTokenFromServer,
+    getUserInfo:getUserInfo,
     getToken: getToken,
     loggedIn: loggedIn,
     onChange() {

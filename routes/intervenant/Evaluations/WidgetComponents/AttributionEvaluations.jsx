@@ -1,39 +1,29 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import TypeNoteService from '../../../../services/TypeNoteService.js'
-import EvaluationService from '../../../../services/EvaluationService.js'
-
-const cellEditProp = {
-    mode: 'click',
-    blurToSave: true,
-    afterSaveCell: onAfterSaveCell
-};
-
-function onAfterSaveCell(row, cellName, cellValue) {
-    console.log(row);
-    console.log(`Save cell ${cellName} with value ${cellValue}`);
-
-    EvaluationService.post(row, function(result){
-        console.log(result);
-    });
-}
 
 class AttributionEvaluations extends React.Component {
 
+    // -
     constructor(props) {
         super(props);
         this.state = {
             noteTypes: []
         };
         this.getTypeNotes();
-
-        this.submit = this.submit.bind(this);
+        this.getCellEditProp = this.getCellEditProp.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-
+    // -
+    getCellEditProp() {
+        return {
+            mode: 'click',
+            blurToSave: true,
+            afterSaveCell: this.props.editCallback
+        }
     }
 
+    // -
     getTypeNotes(){
 
         var that = this;
@@ -41,24 +31,19 @@ class AttributionEvaluations extends React.Component {
             var finalList = result["type_notes"].map(function(typenote){
                 return typenote.name
             });
-            console.log(finalList);
-
             that.setState({
                 noteTypes:finalList
             })
         });
     }
 
-    submit(){
-        console.log(this.props.evaluations);
-    }
-
+    // -
     render() {
         return (
             <div className="box-body col-xs-12">
                 <BootstrapTable
                     data={this.props.evaluations}
-                    cellEdit={cellEditProp}
+                    cellEdit={this.getCellEditProp()}
                     height="250"
                     striped={true}
                     hover={true}
@@ -71,7 +56,9 @@ class AttributionEvaluations extends React.Component {
                     <TableHeaderColumn dataField="competence_id" dataSort={true} hidden={true}>Utilisateur
                         ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="competence_name" editable={false} dataSort={true}>Compétence</TableHeaderColumn>
-                    <TableHeaderColumn dataField='type_note_label' editable={ { type: 'select', options: { values: this.state.noteTypes } } }>Evaluation</TableHeaderColumn>
+                    <TableHeaderColumn dataField='type_note_label' editable={ { type: 'select', options: { values: this.state.noteTypes } } }>
+                        {this.props.isIntervenant ? "Evaluation" : "Auto-evaluation"}
+                    </TableHeaderColumn>
                 </BootstrapTable>
                 <button onClick={this.submit} className="collapsed btn btn-primary pull-right">Envoyer</button>
             </div>
