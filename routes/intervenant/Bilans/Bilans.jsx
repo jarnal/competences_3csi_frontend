@@ -43,24 +43,25 @@ class Bilans extends React.Component {
                 <section className="content" style={{ minHeight: 550 }}>
                     <div className="row">
                         <div className="col-xs-12">
-
-                            <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
-                                <ul id="myTabs" className="nav nav-tabs" role="tablist">
-                                    <li className="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Bilans par examen</a></li>
-                                    <li className><a href="#tab_2" data-toggle="tab" aria-expanded="false">Bilans par matières</a></li>
-                                </ul>
-                                <div className="tab-content">
-                                    <div role="tabpanel" className="tab-pane active" id="tab_1">
-                                        <ListBilansExamens
-                                            group={this.state.selected_group}
-                                            isIntervenant={this.state.isIntervenant}
-                                        />
-                                    </div>
-                                    <div role="tabpanel" className="tab-pane" id="tab_2">
-                                        <ListBilansMatieres
-                                            group={this.state.selected_group}
-                                            isIntervenant={this.state.isIntervenant}
-                                        />
+                            <div className="col-lg-12 connectedSortable">
+                                <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
+                                    <ul id="myTabs" className="nav nav-tabs" role="tablist">
+                                        <li className="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Bilans par examen</a></li>
+                                        <li className><a href="#tab_2" data-toggle="tab" aria-expanded="false">Bilans par matières</a></li>
+                                    </ul>
+                                    <div className="tab-content">
+                                        <div role="tabpanel" className="tab-pane active" id="tab_1">
+                                            <ListBilansExamens
+                                                group={this.state.selected_group}
+                                                isIntervenant={this.state.isIntervenant}
+                                                />
+                                        </div>
+                                        <div role="tabpanel" className="tab-pane" id="tab_2">
+                                            <ListBilansMatieres
+                                                group={this.state.selected_group}
+                                                isIntervenant={this.state.isIntervenant}
+                                                />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
