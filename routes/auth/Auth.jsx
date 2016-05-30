@@ -24,7 +24,7 @@ function login(nom, mdp, callback) {
                 localStorage.setItem('us_role', pResponse.user_role);
                 retrieveTokenFromServer(callback);
             } else {
-                console.log("Identifiants incorrects");
+                callback(false);
             }
         },
         error: function (error) {

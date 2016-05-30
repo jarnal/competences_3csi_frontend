@@ -51,7 +51,6 @@ const Login = withRouter(
             const pass = this.refs.pass.value;
 
             auth.login(email, pass, (loggedIn) => {
-                console.log("Ca passe");
                 if (!loggedIn){
                   return this.setState({ error: true} )
                 }
@@ -69,6 +68,7 @@ const Login = withRouter(
         render() {
 
           var style = {color: 'white'};
+          var errLogin = {color: 'red'};
 
             return (
               <div className="login-box">
@@ -93,7 +93,7 @@ const Login = withRouter(
                     </div>
                     <br/>
                     {this.state.error && (
-                      <p>Bad login information</p>
+                      <p className="login-box-msg" style={errLogin}>Bad login information</p>
                     )}
                   </form>
                 </div>
