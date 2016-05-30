@@ -60,7 +60,7 @@ class AttributionEvaluations extends React.Component {
                         {this.props.isIntervenant ? "Evaluation" : "Auto-evaluation"}
                     </TableHeaderColumn>
                 </BootstrapTable>
-                
+                <button onClick={this.submit} className="collapsed btn btn-primary pull-right">Envoyer</button>
             </div>
         )
     }

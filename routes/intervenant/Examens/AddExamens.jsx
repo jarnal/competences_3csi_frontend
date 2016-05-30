@@ -6,7 +6,7 @@ import moment from 'moment'
 import ListCompetences from '../Competences/ListCompetences.jsx'
 import 'react-datepicker/dist/react-datepicker.css'
 import ExamenService from '../../../services/ExamenService'
-
+import NotificationSystem from 'react-notification-system'
 var DateSelect = React.createClass({
 
     getInitialState: function() {
@@ -41,14 +41,16 @@ class AddExamens extends React.Component {
             competences_selected: [],
             group: null
         };
-        this.onCompetenceSelect = this.onCompetenceSelect.bind(this);
-        this.onCompetenceSelectAll = this.onCompetenceSelectAll.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this._executeAfterModalClose = this._executeAfterModalClose.bind(this);
+        this.onCompetenceSelect       = this.onCompetenceSelect.bind(this);
+        this.onCompetenceSelectAll    = this.onCompetenceSelectAll.bind(this);
+        this.handleSubmit             = this.handleSubmit.bind(this);
+        this._executeAfterModalClose  = this._executeAfterModalClose.bind(this);
         this._executeOnOverlayClicked = this._executeOnOverlayClicked.bind(this);
-        this._executeAfterModalOpen = this._executeAfterModalOpen.bind(this);
+        this._executeAfterModalOpen   = this._executeAfterModalOpen.bind(this);
     }
-
+    componentDidMount() {
+      this._notificationSystem = this.refs.notificationSystem;
+    }
     // -
     handleSubmit(event){
         event.preventDefault();
@@ -76,9 +78,19 @@ class AddExamens extends React.Component {
 
             var that = this;
             ExamenService.post(formData, function(result){
-                console.log(result);
-                that.refs.simpleDialog.hide();
-                that.props.newElementCallback();
+
+                /*that._notificationSystem.addNotification({
+                  message: 'Notification message',
+                  level: 'success'
+              });*/
+              if(!result){
+                  that._addNotificationError();
+              }
+              else{
+                  that._addNotificationSuccess();
+                  that.refs.simpleDialog.hide();
+                  that.props.newElementCallback();
+              }
             });
         }
     }
@@ -89,6 +101,19 @@ class AddExamens extends React.Component {
         });
     }
 
+    _addNotificationSuccess() {
+        this._notificationSystem.addNotification({
+          message: 'OK',
+          level: 'success'
+        });
+      }
+
+      _addNotificationError() {
+          this._notificationSystem.addNotification({
+            message: 'KO',
+            level: 'error'
+          });
+        }
     // -
     _executeAfterModalClose(){
         this.setState({
@@ -161,13 +186,14 @@ class AddExamens extends React.Component {
             top: 'initial',
             marginLeft: '-40%',
             zIndex: '2000',
-            height: '100%',
+            height: ' !important',
             overflow: 'auto'
         };
+        
         return (
             <div>
-                <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouvel examen</button>
-
+                <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouvelle examen</button>
+                <NotificationSystem ref="notificationSystem" />
                 <SkyLight
                     afterClose={this._executeAfterModalClose}
                     onOverlayClicked={this._executeOnOverlayClicked}

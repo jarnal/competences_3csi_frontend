@@ -32,7 +32,11 @@ class ListExamens extends React.Component {
     }
 
     componentDidMount() {
+<<<<<<< HEAD
+        this._notificationSystem = this.refs.notificationSystem;
+=======
       this._notificationSystem = this.refs.notificationSystem;
+>>>>>>> 86fa9a5b1dbb2257ad6e36a8c345b7be50bb045d
     }
 
     // -

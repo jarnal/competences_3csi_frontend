@@ -60,6 +60,9 @@ function postExamen(data, callback){
         success: function(result){
             callback(result);
         },
+        error: function(result){
+            callback(false);
+        },
         dataType: "json"
     });
 }
