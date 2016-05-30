@@ -4,6 +4,7 @@ import GroupService from '../../../services/GroupService.js'
 
 class Matieres extends React.Component {
 
+    // -
     constructor(props) {
         super(props);
         this.state = {groups: [], value: ""};
@@ -12,7 +13,7 @@ class Matieres extends React.Component {
         this.getGroups = this.getGroups.bind(this);
     }
 
-    //
+    // -
     onChange(value) {
         console.log(this);
         this.setState({
@@ -20,7 +21,7 @@ class Matieres extends React.Component {
         });
     }
 
-    //
+    // -
     getGroups(input, callback) {
         var that = this;
         GroupService.getAll(function (result) {
@@ -38,6 +39,7 @@ class Matieres extends React.Component {
         $(window).trigger('resize');
     }
 
+    // -
     render() {
         return (
             <div className="content-wrapper">
