@@ -9,9 +9,19 @@ import Auth from '../../auth/Auth.jsx'
 const options_table = {
     noDataText: "Aucun bilan disponible"
 };
+
 function logChange(val) {
     console.log("Selected: " + val);
 }
+
+const qualityType = {
+    0: "0- Non noté",
+    1: "1- Non acquis",
+    2: "2- En cours d'acquisition",
+    3: "3- A renforcer",
+    4: "4- Acquis",
+    5: "5- Maîtrisé"
+};
 var ListBilansExamens = React.createClass({
     //
     getInitialState () {
@@ -160,23 +170,21 @@ var ListBilansExamens = React.createClass({
                         <TableHeaderColumn
                             dataField="type_note_value_auto"
                             dataSort={true}
-                            filter={ {
-                                type: 'NumberFilter',
-                                delay: 500,
-                                numberComparators: [ '=', '>', '<' ]
-                             } }>Evaluation personnelle</TableHeaderColumn>
+                            >Evaluation personnelle</TableHeaderColumn>
                         <TableHeaderColumn
                             dataField="type_note_label_auto"
-                            dataSort={true}>Libellé</TableHeaderColumn>
+                            dataSort={true}
+                            filter={ { type: 'SelectFilter', options: qualityType } }
+                        >Libellé</TableHeaderColumn>
                         <TableHeaderColumn
                             dataField="type_note_value"
                             dataSort={true}
-                            filter={ {
-                                type: 'NumberFilter',
-                                delay: 500,
-                                numberComparators: [ '=', '>', '<' ]
-                             } }>Evaluation intervenant</TableHeaderColumn>
-                        <TableHeaderColumn dataField="type_note_label" dataSort={true}>Libellé</TableHeaderColumn>
+                        >Evaluation intervenant</TableHeaderColumn>
+                        <TableHeaderColumn
+                            dataField="type_note_label"
+                            dataSort={true}
+                            filter={ { type: 'SelectFilter', options: qualityType } }
+                        >Libellé</TableHeaderColumn>
                     </BootstrapTable>
                 </div>
             </div>

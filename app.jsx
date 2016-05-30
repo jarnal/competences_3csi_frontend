@@ -56,7 +56,7 @@ const Login = withRouter(
                   return this.setState({ error: true} )
                 }
 
-                const { location } = this.props
+                const { location } = this.props;
 
                 if (location.state && location.state.nextPathname) {
                     this.props.router.replace(location.state.nextPathname)
@@ -105,7 +105,10 @@ const Login = withRouter(
 
 const Logout = React.createClass({
     componentDidMount() {
-        auth.logout()
+        auth.logout();
+        setTimeout(function(){
+            browserHistory.push('/');
+        }, 3000);
     },
 
     render() {
