@@ -14,6 +14,7 @@ class Bilans extends React.Component {
 
     // -
     componentDidMount(){
+        $(window).trigger('resize');
         this.setState({isIntervenant: localStorage.getItem('us_role') == 'ROLE_INTERVENANT'});
     }
 
@@ -22,10 +23,6 @@ class Bilans extends React.Component {
         this.setState({
             selected_group: value
         });
-    }
-
-    componentDidMount() {
-        $(window).trigger('resize');
     }
 
     // -
