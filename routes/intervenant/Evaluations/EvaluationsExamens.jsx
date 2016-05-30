@@ -39,11 +39,13 @@ class EvaluationsExamens extends React.Component {
                 <section className="content" style={{ minHeight: 550 }}>
                     <div className="row">
                         <div className="col-xs-12">
-                            <WidgetEvaluations
-                                mode="evaluations_examens"
-                                group={this.state.selected_group}
-                                isIntervenant={this.state.isIntervenant}
-                            />
+                            <section className="col-lg-12 connectedSortable">
+                                <WidgetEvaluations
+                                    mode="evaluations_examens"
+                                    group={this.state.selected_group}
+                                    isIntervenant={this.state.isIntervenant}
+                                    />
+                            </section>
                         </div>
                     </div>
 
