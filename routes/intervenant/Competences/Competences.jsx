@@ -20,6 +20,7 @@ class Competences extends React.Component {
     }
 
     componentDidMount() {
+        this.state = {selected_group: 1};
         $(window).trigger('resize');
     }
 
