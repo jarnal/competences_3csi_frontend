@@ -1,7 +1,7 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import GroupService from '../../../services/GroupService.js'
-
+import NotificationSystem from 'react-notification-system'
 class ListExamens extends React.Component {
 
     // -
@@ -29,6 +29,10 @@ class ListExamens extends React.Component {
                 examens: result
             })
         });
+    }
+
+    componentDidMount() {
+      this._notificationSystem = this.refs.notificationSystem;
     }
 
     // -
