@@ -152,6 +152,7 @@ var ListBilansExamens = React.createClass({
                         height="250"
                         striped={true}
                         hover={true}
+                        exportCSV
                         searchPlaceholder="Rechercher"
                         search={true}
                         noDataText="test"

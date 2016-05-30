@@ -121,6 +121,7 @@ var ListBilansMatieres = React.createClass({
                         data={this.state.data}
                         height="250"
                         striped={true}
+                        exportCSV
                         hover={true}
                         searchPlaceholder="Rechercher"
                         search={true}
