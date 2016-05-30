@@ -62,12 +62,13 @@ function getGroupMatieres(id, callback){
  * @param callback
  */
 function getGroupExamens(id, callback){
-    $.get(
+    var req = $.get(
         getFinalURL(id, "examens"),
         function (result) {
             callback(result);
         }
     );
+    return req;
 }
 
 /**
