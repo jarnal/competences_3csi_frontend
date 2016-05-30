@@ -22,14 +22,14 @@ class WidgetEvaluations extends React.Component {
         this.onUserSelectAll = this.onUserSelectAll.bind(this);
         this.onCompetenceSelect = this.onCompetenceSelect.bind(this);
         this.onCompetenceSelectAll = this.onCompetenceSelectAll.bind(this);
-        this.handleResize = this.handleResize.bind(this);
+        //this.handleResize = this.handleResize.bind(this);
     }
 
     handleResize(e) {
-        this.setState({
+        /*this.setState({
             screenHeight: $(window).height() - $("#testtest").offset().top - 20
         });
-        console.log("handleResize")
+        console.log("handleResize")*/
     }
 
     componentDidMount() {

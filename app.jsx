@@ -45,10 +45,10 @@ const Login = withRouter(
         },
 
         handleSubmit(event) {
-            event.preventDefault()
+            event.preventDefault();
 
-            const email = this.refs.email.value
-            const pass = this.refs.pass.value
+            const email = this.refs.email.value;
+            const pass = this.refs.pass.value;
 
             auth.login(email, pass, (loggedIn) => {
                 console.log("Ca passe");

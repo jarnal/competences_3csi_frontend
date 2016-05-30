@@ -24,6 +24,10 @@ class Bilans extends React.Component {
         });
     }
 
+    componentDidMount() {
+        $(window).trigger('resize');
+    }
+
     // -
     render() {
         return (

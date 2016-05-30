@@ -19,6 +19,10 @@ class Competences extends React.Component {
         this.setState({selected_group: value});
     }
 
+    componentDidMount() {
+        $(window).trigger('resize');
+    }
+
     render() {
         return (
             <div className="content-wrapper">

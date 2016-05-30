@@ -15,6 +15,7 @@ class EvaluationsExamens extends React.Component {
 
     // -
     componentDidMount(){
+        $(window).trigger('resize');
         this.setState({isIntervenant: localStorage.getItem('us_role') == 'ROLE_INTERVENANT'});
     }
 

@@ -33,6 +33,11 @@ class Matieres extends React.Component {
         });
     }
 
+    // -
+    componentDidMount() {
+        $(window).trigger('resize');
+    }
+
     render() {
         return (
             <div className="content-wrapper">
