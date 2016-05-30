@@ -166,7 +166,7 @@ class AddExamens extends React.Component {
         };
         return (
             <div>
-                <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouvelle examen</button>
+                <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouvel examen</button>
 
                 <SkyLight
                     afterClose={this._executeAfterModalClose}
