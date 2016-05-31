@@ -2,6 +2,7 @@ import Config from '../configuration.js';
 import Auth from '../routes/auth/Auth.jsx';
 
 /**
+ * Builds the final URL to the resource
  *
  * @param id
  * @returns {string}
@@ -16,10 +17,10 @@ function getFinalURL(id, suffixe){
 }
 
 /**
- *
+ * Returns all auto evaluations
  * @param callback
  */
-function getAllExamen(callback){
+function getAllEvaluation(callback){
     $.get(
         getFinalURL(),
         function (result) {
@@ -29,16 +30,25 @@ function getAllExamen(callback){
 }
 
 /**
- *
+ * Returns a specific auto evaluation depending on his id
+ * @param id
+ * @param callback
  */
-function getExamen(id){
-
+function getEvaluation(id, callback){
+    $.get(
+        getFinalURL(id),
+        function (result) {
+            callback(result);
+        }
+    );
 }
 
 /**
- *
+ * Posts a new auto evaluation to the server
+ * @param data
+ * @param callback
  */
-function postExamen(data, callback){
+function postEvaluation(data, callback){
     $.ajax({
         type: "POST",
         url: getFinalURL(),
@@ -51,24 +61,35 @@ function postExamen(data, callback){
 }
 
 /**
- *
+ * Modifies an existing evaluation on the server
  * @param id
+ * @param data
+ * @param callback
  */
-function putExamen(id){
-
+function putEvaluation(id, data, callback){
+    $.ajax({
+        type: "PUT",
+        url: getFinalURL(id),
+        data: data,
+        success: function(result){
+            callback(result);
+        },
+        dataType: "json"
+    });
 }
 
 /**
- *
+ * Deletes an evaluation from the server
+ * @param id
  */
-function deleteExamen(){
+function deleteEvaluation(id){
 
 }
 
 module.exports = {
-    getAll: getAllExamen,
-    get: getExamen,
-    post: postExamen,
-    put: putExamen,
-    delete: deleteExamen
+    getAll: getAllEvaluation,
+    get: getEvaluation,
+    post: postEvaluation,
+    put: putEvaluation,
+    delete: deleteEvaluation
 };

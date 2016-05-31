@@ -2,7 +2,7 @@ import Config from '../configuration.js';
 import Auth from '../routes/auth/Auth.jsx';
 
 /**
- *
+ * Builds the final URL to the resource
  * @param id
  * @returns {string}
  */
@@ -16,7 +16,7 @@ function getFinalURL(id, suffixe){
 }
 
 /**
- *
+ * Returns all groups from server
  * @param callback
  */
 function getAllGroups(callback){
@@ -29,7 +29,7 @@ function getAllGroups(callback){
 }
 
 /**
- *
+ * Returns all users related to a specific group
  * @param id
  * @param callback
  */
@@ -43,7 +43,7 @@ function getGroupUsers(id, callback){
 }
 
 /**
- *
+ * Returns all matieres related to a specific group (the matieres teached to the group)
  * @param id
  * @param callback
  */
@@ -57,7 +57,7 @@ function getGroupMatieres(id, callback){
 }
 
 /**
- *
+ * Returns all examnens related to a specific group
  * @param id
  * @param callback
  */
@@ -72,29 +72,62 @@ function getGroupExamens(id, callback){
 }
 
 /**
- *
- */
-function getGroup(id){
-
-}
-
-/**
- *
- */
-function postGroup(){
-
-}
-
-/**
- *
+ * Returns a specific group by id
  * @param id
+ * @param callback
  */
-function putGroup(id){
-
+function getGroup(id, callback){
+    $.get(
+        getFinalURL(id),
+        function (result) {
+            callback(result);
+        }
+    );
 }
 
 /**
- *
+ * Posts a new group on the server
+ * @param data
+ * @param callback
+ */
+function postGroup(data, callback){
+    $.ajax({
+        type: "POST",
+        url: getFinalURL(),
+        data: data,
+        success: function(result){
+            callback(result);
+        },
+        error: function(result){
+            callback(false);
+        },
+        dataType: "json"
+    });
+}
+
+/**
+ * Modifies a group on the server
+ * @param id
+ * @param data
+ * @param callback
+ */
+function putGroup(id, data, callback){
+    $.ajax({
+        type: "PUT",
+        url: getFinalURL(id),
+        data: data,
+        success: function(result){
+            callback(result);
+        },
+        error: function(result){
+            callback(false);
+        },
+        dataType: "json"
+    });
+}
+
+/**
+ * Removes a specific group from the server
  */
 function deleteGroup(){
 

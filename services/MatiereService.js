@@ -2,7 +2,7 @@ import Config from '../configuration.js';
 import Auth from '../routes/auth/Auth.jsx';
 
 /**
- *
+ * Builds the final URL to the resource
  * @param id
  * @returns {string}
  */
@@ -16,7 +16,7 @@ function getFinalURL(id, suffixe){
 }
 
 /**
- *
+ * Returns all matieres from server
  * @param callback
  */
 function getAllMatieres(callback){
@@ -29,7 +29,7 @@ function getAllMatieres(callback){
 }
 
 /**
- *
+ * Returns all competences related to a specific matiere
  * @param id
  * @param callback
  */
@@ -43,31 +43,65 @@ function getMatiereCompetences(id, callback){
 }
 
 /**
- *
+ * Returns a specific matiere by id
+ * @param id
+ * @param callback
  */
-function getMatiere(id){
-
+function getMatiere(id, callback){
+    $.get(
+        getFinalURL(id),
+        function (result) {
+            callback(result);
+        }
+    );
 }
 
 /**
- *
+ * Posts a new matiere on server
+ * @param data
+ * @param callback
  */
-function postMatiere(){
-
+function postMatiere(data, callback){
+    $.ajax({
+        type: "POST",
+        url: getFinalURL(),
+        data: data,
+        success: function(result){
+            callback(result);
+        },
+        error: function(result){
+            callback(false);
+        },
+        dataType: "json"
+    });
 }
 
 /**
- *
+ * Modifies an existing matiere on the server
+ * @param id
+ * @param data
+ * @param callback
+ */
+function putMatiere(id, data, callback){
+    $.ajax({
+        type: "PUT",
+        url: getFinalURL(id),
+        data: data,
+        success: function(result){
+            callback(result);
+        },
+        error: function(result){
+            callback(false);
+        },
+        dataType: "json"
+    });
+}
+
+/**
+ * Deletes a matiere from the server
  * @param id
  */
-function putMatiere(id){
-
-}
-
-/**
- *
- */
-function deleteMatiere(){
+function deleteMatiere(id){
 
 }
 

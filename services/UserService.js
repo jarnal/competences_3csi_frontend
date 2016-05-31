@@ -2,7 +2,7 @@ import Config from '../configuration.js';
 import Auth from '../routes/auth/Auth.jsx';
 
 /**
- *
+ * Builds the final URL to the resource
  * @param id
  * @returns {string}
  */
@@ -16,7 +16,7 @@ function getFinalURL(id, suffixe){
 }
 
 /**
- *
+ * Returns all users from server
  * @param callback
  */
 function getAllUsers(callback){
@@ -29,21 +29,7 @@ function getAllUsers(callback){
 }
 
 /**
- *
- * @param id
- * @param callback
- */
-function getUserCompetences(id, callback){
-    $.get(
-        getFinalURL(id, "competences"),
-        function (result) {
-            callback(result);
-        }
-    );
-}
-
-/**
- *
+ * Returns all matieres teached to a specific user
  * @param id
  * @param callback
  */
@@ -57,7 +43,7 @@ function getUserMatieres(id, callback){
 }
 
 /**
- *
+ * Returns all examens related to a specific user
  * @param id
  * @param callback
  */
@@ -71,9 +57,9 @@ function getUserExamens(id, callback){
 }
 
 /**
- *
- * @param $userList
- * @param $competenceList
+ * Returns all evaluations related to a group of users (userList) and a list of competences (competenceList)
+ * @param userList
+ * @param competenceList
  */
 function getUserListCompetenceEvaluation(userList, competenceList, callback) {
     var url = Config.server_base_url + "user/evaluations/";
@@ -90,9 +76,11 @@ function getUserListCompetenceEvaluation(userList, competenceList, callback) {
 }
 
 /**
- *
- * @param $userList
- * @param $competenceList
+ * Returns all evaluation for a list of users for a specific examen
+ * @param examenID
+ * @param userList
+ * @param competenceList
+ * @param callback
  */
 function getUserListCompetenceEvaluationByExamen(examenID, userList, competenceList, callback) {
     var url = Config.server_base_url + "user/evaluations/";
@@ -109,6 +97,12 @@ function getUserListCompetenceEvaluationByExamen(examenID, userList, competenceL
     );
 }
 
+/**
+ * Returns all users related to a specific group with all their evaluations related to an examen
+ * @param groupID
+ * @param examenID
+ * @param callback
+ */
 function getUserListWithEvaluationByGroupAndExamen(groupID, examenID, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "group/" + JSON.stringify(groupID) + "/";
@@ -123,6 +117,12 @@ function getUserListWithEvaluationByGroupAndExamen(groupID, examenID, callback) 
     );
 }
 
+/**
+ * Returns all users related to a specific group with all their evaluations related to a matiere
+ * @param groupID
+ * @param matiereID
+ * @param callback
+ */
 function getUserListWithEvaluationByGroupAndMatiere(groupID, matiereID, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "group/" + JSON.stringify(groupID) + "/";
@@ -137,6 +137,12 @@ function getUserListWithEvaluationByGroupAndMatiere(groupID, matiereID, callback
     );
 }
 
+/**
+ * Returns all evaluations for a specific user and for a specific examen
+ * @param userID
+ * @param examenID
+ * @param callback
+ */
 function getUserWithEvaluationByExamen(userID, examenID, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "user/" + JSON.stringify(userID) + "/";
@@ -151,6 +157,12 @@ function getUserWithEvaluationByExamen(userID, examenID, callback) {
     );
 }
 
+/**
+ * Returns all evaluations for a specific user for a specific matiere
+ * @param userID
+ * @param matiereID
+ * @param callback
+ */
 function getUserWithEvaluationByMatiere(userID, matiereID, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "user/" + JSON.stringify(userID) + "/";
@@ -166,31 +178,42 @@ function getUserWithEvaluationByMatiere(userID, matiereID, callback) {
 }
 
 /**
- *
- */
-function getUser(id){
-
-}
-
-/**
- *
- */
-function postUser(){
-
-}
-
-/**
- *
+ * Returns a specific user by id
  * @param id
  */
-function putUser(id){
+function getUser(id){
+    $.get(
+        getFinalURL(id),
+        function (result) {
+            callback(result);
+        }
+    );
+}
+
+/**
+ * Posts a new user to the server
+ * @param data
+ * @param callback
+ */
+function postUser(data, callback){
 
 }
 
 /**
- *
+ * Modifies an existing user on the server
+ * @param id
+ * @param data
+ * @param callback
  */
-function deleteUser(){
+function putUser(id, data, callback){
+
+}
+
+/**
+ * Deletes an user from the server
+ * @param id
+ */
+function deleteUser(id){
 
 }
 

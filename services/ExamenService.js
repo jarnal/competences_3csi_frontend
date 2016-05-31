@@ -2,7 +2,7 @@ import Config from '../configuration.js';
 import Auth from '../routes/auth/Auth.jsx';
 
 /**
- *
+ * Builds the final URL to the resource
  * @param id
  * @returns {string}
  */
@@ -16,7 +16,7 @@ function getFinalURL(id, suffixe){
 }
 
 /**
- *
+ * Returns all examens from server
  * @param callback
  */
 function getAllExamen(callback){
@@ -29,14 +29,20 @@ function getAllExamen(callback){
 }
 
 /**
- *
+ * Returns a specific examen by id
+ * @param id
  */
 function getExamen(id){
-
+    $.get(
+        getFinalURL(id),
+        function (result) {
+            callback(result);
+        }
+    );
 }
 
 /**
- *
+ * Returns all competences related to an examen
  * @param id
  * @param callback
  */
@@ -50,7 +56,9 @@ function getExamenCompetences(id, callback){
 }
 
 /**
- *
+ * Posts a new exeman to the server
+ * @param data
+ * @param callback
  */
 function postExamen(data, callback){
     $.ajax({
@@ -68,17 +76,31 @@ function postExamen(data, callback){
 }
 
 /**
- *
+ * Modifies an existing examen on the server
  * @param id
+ * @param data
+ * @param callback
  */
-function putExamen(id){
-
+function putExamen(id, data, callback){
+    $.ajax({
+        type: "POST",
+        url: getFinalURL(id),
+        data: data,
+        success: function(result){
+            callback(result);
+        },
+        error: function(result){
+            callback(false);
+        },
+        dataType: "json"
+    });
 }
 
 /**
- *
+ * Deletes an examen from the server
+ * @param id
  */
-function deleteExamen(){
+function deleteExamen(id){
 
 }
 
