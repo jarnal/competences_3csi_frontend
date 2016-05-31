@@ -38,6 +38,7 @@ var ListBilansExamens = React.createClass({
         this.setState({selected_group: value});
     },
 
+    // - On examen change : rebind data
     onChangeExamen(value) {
 
         this.setState({
@@ -78,7 +79,7 @@ var ListBilansExamens = React.createClass({
         }
     },
 
-    // - Get all exams by group ID
+    // - Retrieves all exams by group ID
     getExamens: function (groupID) {
 
         var that = this;
@@ -101,7 +102,7 @@ var ListBilansExamens = React.createClass({
 
     },
 
-    // - Render
+    // - Render page
     render: function () {
         return (
             <div className="row">

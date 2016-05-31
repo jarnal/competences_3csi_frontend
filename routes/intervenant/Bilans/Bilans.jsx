@@ -5,27 +5,27 @@ import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class Bilans extends React.Component {
 
-    // -
+    // - Initialize
     constructor(props) {
         super(props);
         this.state = {selected_group: null};
         this.handleGroupValueChanged = this.handleGroupValueChanged.bind(this);
     }
 
-    // -
+    // - Called when the component has been mounted
     componentDidMount(){
         $(window).trigger('resize');
         this.setState({isIntervenant: localStorage.getItem('us_role') == 'ROLE_INTERVENANT'});
     }
 
-    // -
+    // - Called on group change :
     handleGroupValueChanged(value) {
         this.setState({
             selected_group: value
         });
     }
 
-    // - Render results
+    // - Render the component view
     render() {
         return (
             <div className="content-wrapper">
