@@ -50,7 +50,7 @@ class Bilans extends React.Component {
                                         <li className="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Bilans par examen</a></li>
                                         <li className><a href="#tab_2" data-toggle="tab" aria-expanded="false">Bilans par matières</a></li>
                                     </ul>
-                                    <div className="tab-content">
+                                    <div className="tab-content" style={{padding : 0}}>
                                         <div role="tabpanel" className="tab-pane active" id="tab_1">
                                             <ListBilansExamens
                                                 group={this.state.selected_group}

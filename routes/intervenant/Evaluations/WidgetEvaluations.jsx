@@ -218,7 +218,7 @@ class WidgetEvaluations extends React.Component {
                         compétences</a></li>
                     <li><a href="#tab_3" data-toggle="tab">Attribution des compétences</a></li>
                 </ul>
-                <div className="tab-content">
+                <div className="tab-content" style={{padding: 0}}>
                     {this.props.isIntervenant
                         ?
                         <div role="tabpanel" className="tab-pane active" id="tab_1">
