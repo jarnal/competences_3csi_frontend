@@ -39,8 +39,6 @@ class Sidebar extends React.Component {
                             </li>
                             <NavLink to="/examens"><i className="fa fa-file-text-o"/> <span>Examens</span></NavLink>
                             <NavLink to="/bilans"><i className="fa fa-pie-chart"/> <span>Bilans</span></NavLink>
-                            <NavLink to="/groupes"><i className="fa fa-connectdevelop"/> <span>Groupes</span></NavLink>
-                            <NavLink to="/matieres"><i className="fa fa-lightbulb-o"/> <span>Matières</span></NavLink>
                         </ul>
                         :
                         <ul className="sidebar-menu">

@@ -52,15 +52,11 @@ class Competences extends React.Component {
                                         <div className="row">
                                             <ListCompetences
                                                 group={this.state.selected_group}
-                                                addCompetence={true}
+                                                addCompetence={false}
                                                 mode="default"
                                             />
                                         </div>
                                         {/* /.row */}
-                                    </div>
-                                    {/* /.box-body */}
-                                    <div className="box-footer clearfix no-border">
-                                        <button className="btn btn-default col-md-12 col-xs-12">Ajouter une compétence</button>
                                     </div>
                                 </div>
                                 {/* /.box */}
