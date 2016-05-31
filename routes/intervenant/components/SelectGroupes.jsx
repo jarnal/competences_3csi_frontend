@@ -3,18 +3,27 @@ import Select from 'react-select'
 import GroupService from '../../../services/GroupService.js'
 class SelectGroupes extends React.Component {
 
+    // -
     constructor(props) {
         super(props);
-        this.state = {groups: [], value: ""};
+        this.state = {groups: [], value: "", currentRequest:null};
         this.onChange = this.onChange.bind(this);
         this.getGroups = this.getGroups.bind(this);
     }
 
+    // -
     componentDidMount(){
         this.getGroups();
     }
 
-    //
+    // -
+    componentWillUnmount() {
+        if(this.state.currentRequest != null) {
+            this.state.currentRequest.abort();
+        }
+    }
+
+    // -
     onChange(value) {
         localStorage.setItem("sgroup", JSON.stringify(value));
         this.setState({ value: value });
@@ -24,10 +33,10 @@ class SelectGroupes extends React.Component {
         }
     }
 
-    //
+    // -
     getGroups() {
         var that = this;
-        GroupService.getAll(function (result) {
+        var req = GroupService.getAll(function (result) {
             var previousSelectedGroup = JSON.parse(localStorage.getItem("sgroup"));
             if(previousSelectedGroup && that.props.callback != null) {
                 that.props.callback(previousSelectedGroup);
@@ -38,8 +47,10 @@ class SelectGroupes extends React.Component {
                 value: previousSelectedGroup
             })
         });
+        this.setState({currentRequest: req});
     }
 
+    // -
     render() {
         return (
             <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>

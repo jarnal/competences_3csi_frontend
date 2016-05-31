@@ -7,28 +7,33 @@ class ListExamens extends React.Component {
     // - Constructor
     constructor(props) {
         super(props);
-        this.state = {examens: []};
+        this.state = {examens: [], currentRequest:null};
     }
 
     // - Called when the component receives his new props
     componentWillReceiveProps(nextProps) {
-        console.log("componentWillReceiveProps");
-        console.log(nextProps);
         if(nextProps.group){
             this.getExamens(nextProps.group.id);
+        }
+    }
+
+    // -
+    componentWillUnmount() {
+        if(this.state.currentRequest != null) {
+            this.state.currentRequest.abort();
         }
     }
 
     // - Retrieves the examens related to the current group
     getExamens(groupID) {
 
-        console.log("getExamens");
         var that = this;
-        GroupService.getExamens(groupID, function (result) {
+        var req = GroupService.getExamens(groupID, function (result) {
             that.setState({
                 examens: result
             })
         });
+        this.setState({currentRequest:req});
     }
 
     // - Called when the component has been mounted

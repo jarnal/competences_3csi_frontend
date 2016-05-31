@@ -23,14 +23,23 @@ const qualityType = {
     5: "5- Maîtrisé"
 };
 var ListBilansExamens = React.createClass({
+
     // - Initialize
     getInitialState () {
         return {
             multi: false,
             examens: [],
             is_examens_loading: false,
-            data: []
+            data: [],
+            currentRequest: null
         };
+    },
+
+    // -
+    componentWillUnmount() {
+        if(this.state.currentRequest != null) {
+            this.state.currentRequest.abort();
+        }
     },
 
     // -
@@ -41,26 +50,26 @@ var ListBilansExamens = React.createClass({
     // - On exam changed : rebind data
     onChangeExamen(value) {
 
-        this.setState({
-            examen_value: value
-        });
-
         var that = this;
+        var req;
         if(this.props.isIntervenant) {
-            UserService.getUserListWithEvaluationByGroupAndExamen(this.props.group.id, value.id, function (result) {
+            req = UserService.getUserListWithEvaluationByGroupAndExamen(this.props.group.id, value.id, function (result) {
                 that.setState({
                     data: result
                 });
             });
         } else {
             var userID = parseInt(Auth.getUserInfo().user_id);
-            UserService.getUserWithEvaluationByExamen(userID, value.id, function (result) {
+            req = UserService.getUserWithEvaluationByExamen(userID, value.id, function (result) {
                 that.setState({
                     data: result
                 });
             });
         }
-
+        this.setState({
+            examen_value: value,
+            currentRequest: req
+        });
     },
 
     // - Called when the component will receive props
@@ -83,23 +92,24 @@ var ListBilansExamens = React.createClass({
     getExamens: function (groupID) {
 
         var that = this;
+        var req;
         if(groupID == null) {
             var userID = Auth.getUserInfo().user_id;
-            UserService.getExamens(userID, function (result) {
+            req = UserService.getExamens(userID, function (result) {
                 that.setState({
                     examens: result,
                     is_matieres_loading: false
                 });
             });
         } else {
-            GroupService.getExamens(groupID, function (result) {
+            req = GroupService.getExamens(groupID, function (result) {
                 that.setState({
                     examens: result,
                     is_matieres_loading: false
                 });
             });
         }
-
+        this.setState({currentRequest: req});
     },
 
     // - Render

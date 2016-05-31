@@ -6,7 +6,7 @@ import Auth from '../routes/auth/Auth.jsx';
  * @param id
  * @returns {string}
  */
-function getFinalURL(id, suffixe){
+function getFinalURL(id, suffixe) {
     var url = Config.server_base_url + "matiere/";
     if(id)
         url = url + id;
@@ -20,12 +20,13 @@ function getFinalURL(id, suffixe){
  * @param callback
  */
 function getAllMatieres(callback){
-    $.get(
+    var req = $.get(
         getFinalURL(),
         function (result) {
             callback(result);
         }
     );
+    return req;
 }
 
 /**

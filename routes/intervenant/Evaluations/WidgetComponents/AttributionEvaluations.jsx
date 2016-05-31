@@ -8,10 +8,22 @@ class AttributionEvaluations extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            noteTypes: []
+            noteTypes: [],
+            currentRequest: null
         };
-        this.getTypeNotes();
         this.getCellEditProp = this.getCellEditProp.bind(this);
+    }
+
+    // -
+    componentWillMount() {
+        this.getTypeNotes();
+    }
+
+    // -
+    componentWillUnmount() {
+        if(this.state.currentRequest != null) {
+            this.state.currentRequest.abort();
+        }
     }
 
     // -
@@ -27,7 +39,7 @@ class AttributionEvaluations extends React.Component {
     getTypeNotes(){
 
         var that = this;
-        TypeNoteService.getAll(function(result){
+        var req = TypeNoteService.getAll(function(result){
             var finalList = result["type_notes"].map(function(typenote){
                 return typenote.name
             });
@@ -35,6 +47,7 @@ class AttributionEvaluations extends React.Component {
                 noteTypes:finalList
             })
         });
+        this.setState({currentRequest:req});
     }
 
     // -

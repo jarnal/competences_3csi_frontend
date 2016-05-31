@@ -4,14 +4,24 @@ import GroupService from '../../../../services/GroupService.js'
 
 class UserEvaluations extends React.Component {
 
+    // -
     constructor(props) {
         super(props);
         this.state = {
-            users: []
+            users: [],
+            currentRequest: null
         };
         this.getUsers = this.getUsers.bind(this);
     }
 
+    // -
+    componentWillUnmount() {
+        if(this.state.currentRequest != null) {
+            this.state.currentRequest.abort();
+        }
+    }
+
+    // -
     componentWillReceiveProps(nextProps) {
         if(nextProps.group){
             if(this.props.group == null || this.props.group.id != nextProps.group.id)
@@ -19,17 +29,18 @@ class UserEvaluations extends React.Component {
         }
     }
 
+    // -
     getUsers(groupID){
-
         var that = this;
-        GroupService.getUsers(groupID, function(result){
-            console.log(result);
+        var req = GroupService.getUsers(groupID, function(result){
             that.setState({
                 users:result
             })
         });
+        this.setState({currentRequest:req});
     }
 
+    // -
     render() {
         return (
             <div className="box-body col-xs-12">

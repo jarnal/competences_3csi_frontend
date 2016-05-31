@@ -14,8 +14,16 @@ var ListCompetences = React.createClass({
         return {
             multi: false,
             competences: [],
-            addCompetence: false
+            addCompetence: false,
+            currentRequest: null
         };
+    },
+
+    // -
+    componentWillUnmount() {
+        if(this.state.currentRequest != null) {
+            this.state.currentRequest.abort();
+        }
     },
 
     // - Called when the component will receive props
@@ -55,22 +63,23 @@ var ListCompetences = React.createClass({
     // - Retrieves skills related to the current examen
     getExamenCompetences: function(examenID) {
         var that = this;
-        ExamenService.getCompetences(examenID, function (result) {
+        var req = ExamenService.getCompetences(examenID, function (result) {
             that.setState({
                 competences: result
             });
         });
+        this.setState({currentRequest: req});
     },
 
     // - Retrieves skills related to the current matiere
     getMatiereCompetences: function (matiereID) {
         var that = this;
-        MatiereService.getCompetences(matiereID, function (result) {
+        var req = MatiereService.getCompetences(matiereID, function (result) {
             that.setState({
                 competences: result
             })
         });
-
+        this.setState({currentRequest: req});
     },
 
     // - Get data of selected option
@@ -92,31 +101,34 @@ var ListCompetences = React.createClass({
     // - Retrieves all matieres
     getAllMatieres: function(){
         var that = this;
-        MatiereService.getAll(function (result) {
+        var req = MatiereService.getAll(function (result) {
             that.setState({
                 options:result["matieres"]
             });
         });
+        this.setState({currentRequest: req});
     },
 
     // - Retrieves all matieres by group ID
     getMatieres: function (groupID) {
 
         var that = this;
+        var req;
         if(groupID == null) {
             var userID = Auth.getUserInfo().user_id;
-            UserService.getMatieres(userID, function (result) {
+            req = UserService.getMatieres(userID, function (result) {
                 that.setState({
                     options:result
                 });
             });
         } else {
-            GroupService.getMatieres(groupID, function (result) {
+            req = GroupService.getMatieres(groupID, function (result) {
                 that.setState({
                     options:result
                 });
             });
         }
+        this.setState({currentRequest: req});
     },
 
     // - Retrieves all exams by group ID

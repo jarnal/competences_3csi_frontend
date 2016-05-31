@@ -20,7 +20,7 @@ function getFinalURL(id, suffixe){
  * @param callback
  */
 function getAllTypeNotes(callback){
-    $.get(
+    return $.get(
         getFinalURL(),
         function (result) {
             callback(result);

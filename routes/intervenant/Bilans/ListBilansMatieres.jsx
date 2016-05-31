@@ -20,40 +20,42 @@ var ListBilansMatieres = React.createClass({
             multi: false,
             competences: [],
             is_matieres_loading: false,
-            data: []
+            data: [],
+            currentRequest: null
         };
+    },
+
+    // -
+    componentWillUnmount() {
+        if(this.state.currentRequest != null) {
+            this.state.currentRequest.abort();
+        }
     },
 
     // - On selected matiere change :
     onChangeMatiere (value) {
 
-        this.setState({
-            matiere_value: value
-        });
-
         var that = this;
+        var req;
         if(this.props.isIntervenant) {
-            UserService.getUserListWithEvaluationByGroupAndMatiere(this.props.group.id, value.id, function (result) {
+            req = UserService.getUserListWithEvaluationByGroupAndMatiere(this.props.group.id, value.id, function (result) {
                 that.setState({
                     data: result
                 });
             });
         } else {
             var userID = parseInt(Auth.getUserInfo().user_id);
-            UserService.getUserWithEvaluationByMatiere(userID, value.id, function (result) {
+            req = UserService.getUserWithEvaluationByMatiere(userID, value.id, function (result) {
                 that.setState({
                     data: result
                 });
             });
         }
+        this.setState({currentRequest:req, matiere_value: value});
     },
 
     // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
-
-        console.log("componentWillReceiveProps");
-        console.log(nextProps.isIntervenant);
-        console.log(nextProps.group);
 
         // -
         if(!nextProps.isIntervenant){
@@ -72,22 +74,24 @@ var ListBilansMatieres = React.createClass({
     getMatieres: function (groupID) {
 
         var that = this;
+        var req;
         if(groupID == null) {
             var userID = Auth.getUserInfo().user_id;
-            UserService.getMatieres(userID, function (result) {
+            req = UserService.getMatieres(userID, function (result) {
                 that.setState({
                     matieres:result,
                     is_matieres_loading: false
                 });
             });
         } else {
-            GroupService.getMatieres(groupID, function (result) {
+            req = GroupService.getMatieres(groupID, function (result) {
                 that.setState({
                     matieres:result,
                     is_matieres_loading: false
                 });
             });
         }
+        this.setState({currentRequest:req});
     },
 
     // - Render page

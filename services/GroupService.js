@@ -20,7 +20,7 @@ function getFinalURL(id, suffixe){
  * @param callback
  */
 function getAllGroups(callback){
-    $.get(
+    return $.get(
         getFinalURL(),
         function (result) {
             callback(result);
@@ -34,7 +34,7 @@ function getAllGroups(callback){
  * @param callback
  */
 function getGroupUsers(id, callback){
-    $.get(
+    return $.get(
         getFinalURL(id, "users"),
         function (result) {
             callback(result);
@@ -48,7 +48,7 @@ function getGroupUsers(id, callback){
  * @param callback
  */
 function getGroupMatieres(id, callback){
-    $.get(
+    return $.get(
         getFinalURL(id, "matieres"),
         function (result) {
             callback(result);
@@ -62,13 +62,12 @@ function getGroupMatieres(id, callback){
  * @param callback
  */
 function getGroupExamens(id, callback){
-    var req = $.get(
+   return $.get(
         getFinalURL(id, "examens"),
         function (result) {
             callback(result);
         }
     );
-    return req;
 }
 
 /**
@@ -77,7 +76,7 @@ function getGroupExamens(id, callback){
  * @param callback
  */
 function getGroup(id, callback){
-    $.get(
+    return $.get(
         getFinalURL(id),
         function (result) {
             callback(result);
@@ -91,7 +90,7 @@ function getGroup(id, callback){
  * @param callback
  */
 function postGroup(data, callback){
-    $.ajax({
+    return $.ajax({
         type: "POST",
         url: getFinalURL(),
         data: data,
@@ -112,7 +111,7 @@ function postGroup(data, callback){
  * @param callback
  */
 function putGroup(id, data, callback){
-    $.ajax({
+    return $.ajax({
         type: "PUT",
         url: getFinalURL(id),
         data: data,
