@@ -6,7 +6,7 @@ import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class Examens extends React.Component {
 
-    // -
+    // - constructor
     constructor(props) {
         super(props);
         this.state = {selected_group: null};

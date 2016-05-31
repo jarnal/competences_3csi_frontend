@@ -9,7 +9,7 @@ import Auth from '../../auth/Auth.jsx'
 
 var ListCompetences = React.createClass({
 
-    //
+    // - Initialize
     getInitialState () {
         return {
             multi: false,
@@ -18,22 +18,21 @@ var ListCompetences = React.createClass({
         };
     },
 
+    // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
 
-        // -
         if(!nextProps.isIntervenant){
             this.updateOptions(null);
             return;
         }
 
-        // -
         if(nextProps.group){
             if(this.state.options == null || this.props.group.id != nextProps.group.id)
                 this.updateOptions(nextProps.group.id);
         }
     },
 
-    //
+    // -
     onChange (value) {
         this.setState({
             value: value
@@ -43,17 +42,17 @@ var ListCompetences = React.createClass({
             case "evaluations_libres":
                 this.getMatiereCompetences(value.id);
                 break;
-            case "default":
-                this.getMatiereCompetences(value.id);
-                break;
             case "evaluations_examens":
                 this.getExamenCompetences(value.id);
                 this.props.examenCallback(value.id);
                 break;
+            case "default":
+                this.getMatiereCompetences(value.id);
+                break;
         }
     },
 
-    // -
+    // - Retrieves skills related to the current examen
     getExamenCompetences: function(examenID) {
         var that = this;
         ExamenService.getCompetences(examenID, function (result) {
@@ -63,7 +62,7 @@ var ListCompetences = React.createClass({
         });
     },
 
-    // -
+    // - Retrieves skills related to the current matiere
     getMatiereCompetences: function (matiereID) {
         var that = this;
         MatiereService.getCompetences(matiereID, function (result) {
@@ -74,6 +73,7 @@ var ListCompetences = React.createClass({
 
     },
 
+    // - Get data of selected option
     updateOptions: function(groupID){
 
         switch (this.props.mode) {
@@ -89,7 +89,7 @@ var ListCompetences = React.createClass({
         }
     },
 
-    //
+    // - Retrieves all matieres
     getAllMatieres: function(){
         var that = this;
         MatiereService.getAll(function (result) {
@@ -99,7 +99,7 @@ var ListCompetences = React.createClass({
         });
     },
 
-    //
+    // - Retrieves all matieres by group ID
     getMatieres: function (groupID) {
 
         var that = this;
@@ -119,7 +119,7 @@ var ListCompetences = React.createClass({
         }
     },
 
-    //
+    // - Retrieves all exams by group ID
     getExamens: function (groupID) {
 
         var that = this;
@@ -131,7 +131,7 @@ var ListCompetences = React.createClass({
 
     },
 
-    //
+    // - Render the component view
     render: function () {
         return (
             <div className="box-body col-md-12 col-xs-12 col-lg-12">

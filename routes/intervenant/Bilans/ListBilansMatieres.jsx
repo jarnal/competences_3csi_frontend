@@ -48,7 +48,7 @@ var ListBilansMatieres = React.createClass({
         }
     },
 
-    //
+    // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
 
         console.log("componentWillReceiveProps");
