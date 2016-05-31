@@ -25,7 +25,7 @@ class Competences extends React.Component {
                                 {/* Listes Competences */}
                                 <div className="box box-primary">
                                     <div className="box-header with-border">
-                                        <h3 className="box-title">Choix dun groupe de compétences</h3>
+                                        <h3 className="box-title">Choix d'un groupe de compétences</h3>
                                         <div className="col-md-3 col-xs-3 col-lg-3 pull-right">
                                         </div>
                                     </div>
