@@ -34,7 +34,7 @@ class EvaluationsLibres extends React.Component {
                 <section className="content-header">
                     <h1>
                         Evaluations Libres
-                        <small>En Construction...</small>
+                        <small>Attribuer des évaluations depuis des competences</small>
                         { this.state.is_intervenant
                             ?
                             <SelectGroupes callback={this.handleGroupValueChanged}/>

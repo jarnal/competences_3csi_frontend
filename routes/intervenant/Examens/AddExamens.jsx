@@ -78,11 +78,6 @@ class AddExamens extends React.Component {
 
             var that = this;
             ExamenService.post(formData, function(result){
-
-                /*that._notificationSystem.addNotification({
-                  message: 'Notification message',
-                  level: 'success'
-              });*/
               if(!result){
                   that._addNotificationError();
               }
@@ -103,14 +98,14 @@ class AddExamens extends React.Component {
 
     _addNotificationSuccess() {
         this._notificationSystem.addNotification({
-          message: 'OK',
+          message: 'Succès !',
           level: 'success'
         });
       }
 
       _addNotificationError() {
           this._notificationSystem.addNotification({
-            message: 'KO',
+            message: 'Erreur, veuillez réessayer',
             level: 'error'
           });
         }
