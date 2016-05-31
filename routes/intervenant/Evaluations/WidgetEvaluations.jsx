@@ -107,7 +107,11 @@ class WidgetEvaluations extends React.Component {
             onSelectAll: this.onUserSelectAll
         };
     }
-
+    componentDidMount(){
+        this.setState({
+            examen_id: 1
+        })
+    }
     //
     onUserSelect(row, isSelected) {
         var users_selected = this.state.users_selected;
