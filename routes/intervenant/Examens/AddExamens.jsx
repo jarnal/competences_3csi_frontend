@@ -189,10 +189,10 @@ class AddExamens extends React.Component {
             height: ' !important',
             overflow: 'auto'
         };
-        
+
         return (
             <div>
-                <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouvelle examen</button>
+                <button className="btn btn-block btn-primary" onClick={() => this.refs.simpleDialog.show()}>Nouvel examen</button>
                 <NotificationSystem ref="notificationSystem" />
                 <SkyLight
                     afterClose={this._executeAfterModalClose}
