@@ -40,17 +40,6 @@ var ListBilansExamens = React.createClass({
 
     onChangeExamen(value) {
 
-        /*this.setState({
-            examen_value: value
-        });
-
-        var that = this;
-        UserService.getUserListWithEvaluationByGroupAndExamen(this.props.selected_group.id, value.id, function (result) {
-            that.setState({
-                data: result
-            });
-        });*/
-
         this.setState({
             examen_value: value
         });
@@ -76,21 +65,6 @@ var ListBilansExamens = React.createClass({
     //
     componentWillReceiveProps(nextProps) {
 
-        /*var that = this;
-        var groupID = nextProps.selected_group.id;
-
-        this.setState({
-            selected_group: groupID,
-            is_examens_loading: true
-        });
-
-        this.getExamens(groupID, function (data) {
-            that.setState({
-                examens: data,
-                is_examens_loading: false
-            });
-        });*/
-
         // -
         if(!nextProps.isIntervenant){
             this.getExamens(null);
@@ -104,12 +78,8 @@ var ListBilansExamens = React.createClass({
         }
     },
 
-    //
+    // - Get all exams by group ID
     getExamens: function (groupID) {
-
-        /*GroupService.getExamens(id, function (result) {
-            callback(result);
-        });*/
 
         var that = this;
         if(groupID == null) {
@@ -131,7 +101,7 @@ var ListBilansExamens = React.createClass({
 
     },
 
-    //
+    // - Render
     render: function () {
         return (
             <div className="row">
@@ -176,7 +146,7 @@ var ListBilansExamens = React.createClass({
                             dataField="type_note_label_auto"
                             dataSort={true}
                             filter={ { type: 'SelectFilter', options: qualityType } }
-                        >Libellé</TableHeaderColumn>
+                        >Niveau</TableHeaderColumn>
                         <TableHeaderColumn
                             dataField="type_note_value"
                             dataSort={true}
@@ -185,7 +155,7 @@ var ListBilansExamens = React.createClass({
                             dataField="type_note_label"
                             dataSort={true}
                             filter={ { type: 'SelectFilter', options: qualityType } }
-                        >Libellé</TableHeaderColumn>
+                        >Niveau</TableHeaderColumn>
                     </BootstrapTable>
                 </div>
             </div>

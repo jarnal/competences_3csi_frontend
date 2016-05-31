@@ -76,24 +76,24 @@ const Login = withRouter(
                   <b>Admin</b>Skill
                 </div>
                 <div className ="login-box-body">
-                <p className="login-box-msg">Sign in to start your session</p>
+                <p className="login-box-msg">Veuillez saisir vos identifiants</p>
                   <form onSubmit={this.handleSubmit}>
                     <div className="form-group has-feedback">
-                      <input className="form-control" placeholder="Email" ref="email"/>
+                      <input className="form-control" placeholder="Email" ref="email" required/>
                       <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
 
                     <div className="form-group has-feedback">
-                      <input className="form-control" type="password" placeholder="Password" ref="pass"/>
+                      <input className="form-control" type="password" placeholder="Password" ref="pass" required/>
                       <span className="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <br/>
                     <div>
-                      <button className="btn btn-primary btn-block btn-flat" type="submit">Login</button>
+                      <button className="btn btn-primary btn-block btn-flat" type="submit">Se connecter</button>
                     </div>
                     <br/>
                     {this.state.error && (
-                      <p className="login-box-msg" style={errLogin}>Bad login information</p>
+                      <p className="login-box-msg" style={errLogin}>Identifiants incorrects</p>
                     )}
                   </form>
                 </div>
@@ -118,7 +118,7 @@ const Logout = React.createClass({
               <b>Admin</b>Skill
             </div>
             <div className ="login-box-body">
-              <p className="login-box-msg">You are now logged out</p>
+              <p className="login-box-msg">Vous êtes déconnectés</p>
             </div>
           </div>
         )

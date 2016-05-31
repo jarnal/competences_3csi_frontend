@@ -31,8 +31,8 @@ class EvaluationsExamens extends React.Component {
             <div className="content-wrapper">
                 <section className="content-header">
                     <h1>
-                        Evaluations Examens
-                        <small>Attribuer des evaluation aux examens</small>
+                        Évaluations Examens
+                        <small>Attribuer des évaluations aux examens</small>
                         <SelectGroupes callback={this.handleGroupValueChanged}/>
                     </h1>
                 </section>

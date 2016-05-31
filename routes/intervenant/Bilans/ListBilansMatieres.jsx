@@ -24,7 +24,7 @@ var ListBilansMatieres = React.createClass({
         };
     },
 
-    //
+    // - On matiere change
     onChangeMatiere (value) {
 
         this.setState({

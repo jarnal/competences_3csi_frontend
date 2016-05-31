@@ -25,7 +25,7 @@ class Bilans extends React.Component {
         });
     }
 
-    // -
+    // - Render results
     render() {
         return (
             <div className="content-wrapper">
