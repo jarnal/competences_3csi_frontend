@@ -3,10 +3,12 @@ import { Link } from 'react-router'
 
 class Dashboard extends React.Component {
 
+    // - Called when the component has been mounted
     componentDidMount() {
         $(window).trigger('resize');
     }
 
+    // - Render the component view
     render() {
         return (
             <div className="content-wrapper">

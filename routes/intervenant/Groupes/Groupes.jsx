@@ -1,4 +1,6 @@
-import React from 'react'
+// Disabled
+
+/*import React from 'react'
 import Select from 'react-select'
 import GroupService from '../../../services/GroupService.js'
 class Groupes extends React.Component {
@@ -59,11 +61,10 @@ class Groupes extends React.Component {
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
-                    {/* contenu */}
                 </section>
             </div>
         )
     }
 }
 
-module.exports = Groupes
+module.exports = Groupes*/

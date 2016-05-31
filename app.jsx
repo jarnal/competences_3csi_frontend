@@ -8,8 +8,6 @@ import intervenant_Dashboard from './routes/intervenant/Dashboard/Dashboard.jsx'
 import intervenant_Bilans from './routes/intervenant/Bilans/Bilans.jsx'
 import intervenant_Competences from './routes/intervenant/Competences/Competences.jsx'
 import intervenant_Examens from './routes/intervenant/Examens/Examens.jsx'
-import intervenant_Groupes from './routes/intervenant/Groupes/Groupes.jsx'
-import intervenant_Matieres from './routes/intervenant/Matieres/Matieres.jsx'
 import intervenant_EvaluationsLibres from './routes/intervenant/Evaluations/EvaluationsLibres.jsx'
 import intervenant_EvaluationsExamens from './routes/intervenant/Evaluations/EvaluationsExamens.jsx'
 
@@ -134,8 +132,6 @@ render(
                     <Route path="bilans" component={intervenant_Bilans}/>
                     <Route path="competences" component={intervenant_Competences}/>
                     <Route path="examens" component={intervenant_Examens}/>
-                    <Route path="groupes" component={intervenant_Groupes}/>
-                    <Route path="matieres" component={intervenant_Matieres}/>
                     <Route path="evaluations_libres" component={intervenant_EvaluationsLibres}/>
                     <Route path="evaluations_examens" component={intervenant_EvaluationsExamens}/>
                 </Route>

@@ -1,4 +1,5 @@
-import React from 'react'
+// Disabled
+/*import React from 'react'
 import Select from 'react-select'
 import GroupService from '../../../services/GroupService.js'
 
@@ -62,7 +63,6 @@ class Matieres extends React.Component {
                     </h1>
                 </section>
                 <section className="content" style={{ minHeight: 550 }}>
-                    {/* contenu */}
                 </section>
             </div>
         )
@@ -70,3 +70,4 @@ class Matieres extends React.Component {
 }
 
 module.exports = Matieres
+*/

@@ -14,7 +14,7 @@ function logChange(val) {
 }
 var ListBilansMatieres = React.createClass({
 
-    //
+    // Initialize
     getInitialState () {
         return {
             multi: false,
@@ -24,7 +24,7 @@ var ListBilansMatieres = React.createClass({
         };
     },
 
-    // - On matiere change
+    // - On selected matiere change :
     onChangeMatiere (value) {
 
         this.setState({
@@ -48,19 +48,8 @@ var ListBilansMatieres = React.createClass({
         }
     },
 
-    //
+    // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
-
-        /*var that = this;
-        var groupID = nextProps.selected_group.id;
-
-        this.setState({
-            selected_group: groupID,
-            is_matieres_loading: true,
-            matiere_value: null
-        });
-
-        this.getMatieres(groupID);*/
 
         console.log("componentWillReceiveProps");
         console.log(nextProps.isIntervenant);
@@ -79,7 +68,7 @@ var ListBilansMatieres = React.createClass({
         }
     },
 
-    //
+    // - Retrieves all matieres by group ID
     getMatieres: function (groupID) {
 
         var that = this;
@@ -101,7 +90,7 @@ var ListBilansMatieres = React.createClass({
         }
     },
 
-    //
+    // - Render page
     render: function () {
         return (
             <div className="row">

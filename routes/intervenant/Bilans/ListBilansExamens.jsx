@@ -23,7 +23,7 @@ const qualityType = {
     5: "5- Maîtrisé"
 };
 var ListBilansExamens = React.createClass({
-    //
+    // - Initialize
     getInitialState () {
         return {
             multi: false,
@@ -38,6 +38,7 @@ var ListBilansExamens = React.createClass({
         this.setState({selected_group: value});
     },
 
+    // - On exam changed : rebind data
     onChangeExamen(value) {
 
         this.setState({
@@ -62,7 +63,7 @@ var ListBilansExamens = React.createClass({
 
     },
 
-    //
+    // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
 
         // -
@@ -78,7 +79,7 @@ var ListBilansExamens = React.createClass({
         }
     },
 
-    // - Get all exams by group ID
+    // - Retrieves all exams by group ID
     getExamens: function (groupID) {
 
         var that = this;

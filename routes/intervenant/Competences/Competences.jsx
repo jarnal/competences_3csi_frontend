@@ -6,24 +6,26 @@ import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class Competences extends React.Component {
 
-    // -
+    // - Initialize
     constructor(props) {
         super(props);
         this.state = {selected_group: null};
         this.handleGroupValueChanged = this.handleGroupValueChanged.bind(this);
     }
 
-    // -
+    // - Handle group value changed
     handleGroupValueChanged(value) {
         console.log(value);
         this.setState({selected_group: value});
     }
 
+    // - Called when the component has been mounted
     componentDidMount() {
         this.state = {selected_group: 1};
         $(window).trigger('resize');
     }
 
+    // - Render the component view
     render() {
         return (
             <div className="content-wrapper">
