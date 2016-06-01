@@ -15,6 +15,8 @@ class Bilans extends React.Component {
     // - Called when the component has been mounted
     componentDidMount(){
         $(window).trigger('resize');
+
+        // Patch allowing to resize multiple react-bootstrap-table instances in tabs
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             var panels = $('div[role="tabpanel"]');
             var minHeight = Infinity;
