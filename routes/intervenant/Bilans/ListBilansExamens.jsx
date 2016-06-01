@@ -100,6 +100,7 @@ var ListBilansExamens = React.createClass({
                     examens: result,
                     is_matieres_loading: false
                 });
+                that.onChangeExamen(that.state.examens[0]);
             });
         } else {
             req = GroupService.getExamens(groupID, function (result) {
@@ -107,6 +108,7 @@ var ListBilansExamens = React.createClass({
                     examens: result,
                     is_matieres_loading: false
                 });
+                that.onChangeExamen(that.state.examens[0]);
             });
         }
         this.setState({currentRequest: req});

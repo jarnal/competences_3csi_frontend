@@ -82,6 +82,7 @@ var ListBilansMatieres = React.createClass({
                     matieres:result,
                     is_matieres_loading: false
                 });
+                that.onChangeMatiere(that.state.matieres[0]);
             });
         } else {
             req = GroupService.getMatieres(groupID, function (result) {
@@ -89,6 +90,7 @@ var ListBilansMatieres = React.createClass({
                     matieres:result,
                     is_matieres_loading: false
                 });
+                that.onChangeMatiere(that.state.matieres[0]);
             });
         }
         this.setState({currentRequest:req});

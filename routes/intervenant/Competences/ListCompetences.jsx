@@ -45,7 +45,7 @@ var ListCompetences = React.createClass({
         this.setState({
             value: value
         });
-
+        console.log(value);
         switch (this.props.mode) {
             case "evaluations_libres":
                 this.getMatiereCompetences(value.id);
@@ -105,6 +105,7 @@ var ListCompetences = React.createClass({
             that.setState({
                 options:result["matieres"]
             });
+            that.onChange(that.state.options[0]);
         });
         this.setState({currentRequest: req});
     },
@@ -120,12 +121,14 @@ var ListCompetences = React.createClass({
                 that.setState({
                     options:result
                 });
+                that.onChange(this.state.options[0]);
             });
         } else {
             req = GroupService.getMatieres(groupID, function (result) {
                 that.setState({
                     options:result
                 });
+                that.onChange(that.state.options[0]);
             });
         }
         this.setState({currentRequest: req});
@@ -139,6 +142,7 @@ var ListCompetences = React.createClass({
             that.setState({
                 options:result
             });
+            that.onChange(that.state.options[0]);
         });
 
     },

@@ -15,6 +15,17 @@ class Bilans extends React.Component {
     // - Called when the component has been mounted
     componentDidMount(){
         $(window).trigger('resize');
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var panels = $('div[role="tabpanel"]');
+            var minHeight = Infinity;
+            var panel;
+            for(var i= 0; i<panels.length; i++){
+                panel = $(panels[i]);
+                var test = panel.find('div[class="react-bs-container-body"]');
+                minHeight = Math.min( minHeight, $(test).height() );
+            }
+            $('div[class="react-bs-container-body"]').css('height', minHeight);
+        });
         this.setState({isIntervenant: localStorage.getItem('us_role') == 'ROLE_INTERVENANT'});
     }
 

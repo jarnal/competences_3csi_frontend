@@ -15,7 +15,6 @@ class Competences extends React.Component {
 
     // - Handle group value changed
     handleGroupValueChanged(value) {
-        console.log(value);
         this.setState({selected_group: value});
     }
 
