@@ -20,6 +20,7 @@ var ListCompetences = React.createClass({
     },
 
     // -
+    // - Trick for unmount component when a page is reload
     componentWillUnmount() {
         if(this.state.currentRequest != null) {
             this.state.currentRequest.abort();
