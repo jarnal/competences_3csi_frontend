@@ -63,7 +63,7 @@ var ListBilans = React.createClass({
     render: function () {
         return (
             <div>
-                <section className="col-lg-12 connectedSortable">
+                <section >
                     {/* Listes Bilans */}
                     <div className="box-body">
                         <div className="row">
