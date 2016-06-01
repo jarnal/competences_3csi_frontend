@@ -15,17 +15,6 @@ class Bilans extends React.Component {
     // - Called when the component has been mounted
     componentDidMount(){
         $(window).trigger('resize');
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            var panels = $('div[role="tabpanel"]');
-            var minHeight = Infinity;
-            var panel;
-            for(var i= 0; i<panels.length; i++){
-                panel = $(panels[i]);
-                var test = panel.find('div[class="react-bs-container-body"]');
-                minHeight = Math.min( minHeight, $(test).height() );
-            }
-            $('div[class="react-bs-container-body"]').css('height', minHeight);
-        });
         this.setState({isIntervenant: localStorage.getItem('us_role') == 'ROLE_INTERVENANT'});
     }
 
@@ -55,7 +44,7 @@ class Bilans extends React.Component {
                 <section className="content" style={{ minHeight: 550 }}>
                     <div className="row">
                         <div className="col-xs-12">
-                            <div className="col-lg-12 connectedSortable">
+                            <div >
                                 <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
                                     <ul id="myTabs" className="nav nav-tabs" role="tablist">
                                         <li className="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Bilans par examen</a></li>
@@ -77,6 +66,58 @@ class Bilans extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div >
+                            <div className="col-md-3 col-sm-6 col-xs-12">
+                                <div className="info-box">
+                                    <span className="info-box-icon bg-aqua"><i className="fa fa-envelope-o" /></span>
+                                    <div className="info-box-content">
+                                        <span className="info-box-text">Messages</span>
+                                        <span className="info-box-number">1,410</span>
+                                    </div>
+                                    {/* /.info-box-content */}
+                                </div>
+                                {/* /.info-box */}
+                            </div>
+                            {/* /.col */}
+                            <div className="col-md-3 col-sm-6 col-xs-12">
+                                <div className="info-box">
+                                    <span className="info-box-icon bg-green"><i className="fa fa-flag-o" /></span>
+                                    <div className="info-box-content">
+                                        <span className="info-box-text">Bookmarks</span>
+                                        <span className="info-box-number">410</span>
+                                    </div>
+                                    {/* /.info-box-content */}
+                                </div>
+                                {/* /.info-box */}
+                            </div>
+                            {/* /.col */}
+                            <div className="col-md-3 col-sm-6 col-xs-12">
+                                <div className="info-box">
+                                    <span className="info-box-icon bg-yellow"><i className="fa fa-files-o" /></span>
+                                    <div className="info-box-content">
+                                        <span className="info-box-text">Uploads</span>
+                                        <span className="info-box-number">13,648</span>
+                                    </div>
+                                    {/* /.info-box-content */}
+                                </div>
+                                {/* /.info-box */}
+                            </div>
+                            {/* /.col */}
+                            <div className="col-md-3 col-sm-6 col-xs-12">
+                                <div className="info-box">
+                                    <span className="info-box-icon bg-red"><i className="fa fa-star-o" /></span>
+                                    <div className="info-box-content">
+                                        <span className="info-box-text">Likes</span>
+                                        <span className="info-box-number">93,139</span>
+                                    </div>
+                                    {/* /.info-box-content */}
+                                </div>
+                                {/* /.info-box */}
+                            </div>
+                            {/* /.col */}
                         </div>
                     </div>
                 </section>

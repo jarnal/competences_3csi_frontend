@@ -46,7 +46,7 @@ class EvaluationsLibres extends React.Component {
                 <section className="content" style={{ minHeight: 550 }}>
                     <div className="row">
                         <div className="col-xs-12">
-                            <section className="col-lg-12 connectedSortable">
+                            <section >
                                 <WidgetEvaluations
                                     mode="evaluations_libres"
                                     group={this.state.selected_group}

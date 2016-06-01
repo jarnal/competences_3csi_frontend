@@ -163,7 +163,7 @@ class WidgetEvaluations extends React.Component {
         return (
             <div>
                 {/* Left col */}
-                <section  id="testtest" style={{height: this.state.screenHeight + 'px'}} className="col-lg-12 connectedSortable">
+                <section  id="testtest" style={{height: this.state.screenHeight + 'px'}} >
                     <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
                         <ul id="myTabs" className="nav nav-tabs" role="tablist">
                             <li className="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Selection des

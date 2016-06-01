@@ -44,7 +44,7 @@ class Examens extends React.Component {
                     <div className="row">
                         <div className="col-xs-12">
                             {/* Left col */}
-                            <section className="col-lg-12 connectedSortable">
+                            <section >
                                 {/* Listes Examens */}
                                 <div className="box box-primary">
                                     <div className="box-header with-border">
