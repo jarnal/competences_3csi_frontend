@@ -114,7 +114,7 @@ var ListBilansExamens = React.createClass({
         this.setState({currentRequest: req});
     },
 
-    // - Render
+    // - Render bilans list for examens
     render: function () {
         return (
             <div className="row">

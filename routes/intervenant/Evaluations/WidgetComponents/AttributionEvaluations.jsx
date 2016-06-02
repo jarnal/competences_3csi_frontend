@@ -4,7 +4,7 @@ import TypeNoteService from '../../../../services/TypeNoteService.js'
 
 class AttributionEvaluations extends React.Component {
 
-    // -
+    // - Build component for display
     constructor(props) {
         super(props);
         this.state = {
@@ -14,7 +14,7 @@ class AttributionEvaluations extends React.Component {
         this.getCellEditProp = this.getCellEditProp.bind(this);
     }
 
-    // -
+    // - When component is mounted get
     componentWillMount() {
         this.getTypeNotes();
     }
@@ -26,7 +26,7 @@ class AttributionEvaluations extends React.Component {
         }
     }
 
-    // -
+    // - Edit note when user click
     getCellEditProp() {
         return {
             mode: 'click',
@@ -35,7 +35,7 @@ class AttributionEvaluations extends React.Component {
         }
     }
 
-    // -
+    // - Get notes from services
     getTypeNotes(){
 
         var that = this;
@@ -50,7 +50,7 @@ class AttributionEvaluations extends React.Component {
         this.setState({currentRequest:req});
     }
 
-    // -
+    // - Render view for "attribution des competences"
     render() {
         return (
             <div className="box-body col-xs-12">

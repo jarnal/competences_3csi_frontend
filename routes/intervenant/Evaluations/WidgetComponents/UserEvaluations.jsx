@@ -4,7 +4,7 @@ import GroupService from '../../../../services/GroupService.js'
 
 class UserEvaluations extends React.Component {
 
-    // -
+    // - Build user list for evaluations
     constructor(props) {
         super(props);
         this.state = {
@@ -21,7 +21,7 @@ class UserEvaluations extends React.Component {
         }
     }
 
-    // -
+    // - when component has received props, get specified user
     componentWillReceiveProps(nextProps) {
         if(nextProps.group){
             if(this.props.group == null || this.props.group.id != nextProps.group.id)
@@ -29,7 +29,7 @@ class UserEvaluations extends React.Component {
         }
     }
 
-    // -
+    // - get users from services
     getUsers(groupID){
         var that = this;
         var req = GroupService.getUsers(groupID, function(result){
@@ -40,7 +40,7 @@ class UserEvaluations extends React.Component {
         this.setState({currentRequest:req});
     }
 
-    // -
+    // - Render user list evaluations 
     render() {
         return (
             <div className="box-body col-xs-12">

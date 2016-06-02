@@ -11,10 +11,6 @@ import intervenant_Examens from './routes/intervenant/Examens/Examens.jsx'
 import intervenant_EvaluationsLibres from './routes/intervenant/Evaluations/EvaluationsLibres.jsx'
 import intervenant_EvaluationsExamens from './routes/intervenant/Evaluations/EvaluationsExamens.jsx'
 
-import etudiant_Dashboard from './routes/etudiant/Dashboard/Dashboard.jsx'
-import etudiant_Bilans from './routes/etudiant/Bilans/Bilans.jsx'
-import etudiant_Evaluations from './routes/etudiant/Evaluations/Evaluations.jsx'
-
 function requireAuth(nextState, replace) {
     if (!auth.loggedIn()) {
         replace({

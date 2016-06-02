@@ -6,7 +6,7 @@ import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class EvaluationsLibres extends React.Component {
 
-    // -
+    // - Build component view for "evaluations libres"
     constructor(props) {
         super(props);
         this.state = {
@@ -16,18 +16,18 @@ class EvaluationsLibres extends React.Component {
         this.handleGroupValueChanged = this.handleGroupValueChanged.bind(this);
     }
 
-    // -
+    // - When component has mounted check if user is "usager" or "intervenant"
     componentDidMount(){
         $(window).trigger('resize');
         this.setState({isIntervenant: localStorage.getItem('us_role') == 'ROLE_INTERVENANT'});
     }
 
-    // -
+    // - On change group, bind selected group
     handleGroupValueChanged(value) {
         this.setState({selected_group: value});
     }
 
-    // -
+    // - Render view for "evaluations libres"
     render() {
         return (
             <div className="content-wrapper">
