@@ -11,6 +11,7 @@ import intervenant_Examens from './routes/intervenant/Examens/Examens.jsx'
 import intervenant_EvaluationsLibres from './routes/intervenant/Evaluations/EvaluationsLibres.jsx'
 import intervenant_EvaluationsExamens from './routes/intervenant/Evaluations/EvaluationsExamens.jsx'
 
+// - Check if user is logged, else redirect to login view
 function requireAuth(nextState, replace) {
     if (!auth.loggedIn()) {
         replace({
@@ -19,7 +20,7 @@ function requireAuth(nextState, replace) {
         })
     }
 }
-
+// - Render compoent when no route matched
 const NoMatch = React.createClass({
     render(){
         return (
@@ -27,7 +28,7 @@ const NoMatch = React.createClass({
         )
     }
 });
-
+// - Login component, render login view and sign in user from services
 const Login = withRouter(
     React.createClass({
 
@@ -58,7 +59,7 @@ const Login = withRouter(
                 }
             })
         },
-
+//- Render login view
         render() {
 
           var style = {color: 'white'};
@@ -96,7 +97,7 @@ const Login = withRouter(
         }
     })
 );
-
+// - logout component, only return view and logout user
 const Logout = React.createClass({
     componentDidMount() {
         auth.logout();
@@ -118,6 +119,7 @@ const Logout = React.createClass({
         )
     }
 });
+// - render routes, with react router
 render(
     <div>
         {

@@ -150,7 +150,7 @@ class WidgetEvaluations extends React.Component {
         this.updateEvaluationRows()
     }
 
-    // Custom option for compoentences table
+    // gustom option for compoentences table
     getCompetenceSelectRowProp() {
         return {
             mode: 'checkbox',
@@ -179,7 +179,7 @@ class WidgetEvaluations extends React.Component {
         this.updateEvaluationRows();
     }
 
-    // - Get all selected values
+    // - get all selected values
     onCompetenceSelectAll(isSelected, currentDisplayAndSelectedData) {
         var competences_selected = this.state.competences_selected;
         if (isSelected) {
@@ -197,14 +197,14 @@ class WidgetEvaluations extends React.Component {
         this.updateEvaluationRows();
     }
 
-    // - When examen has been selected, bind data
+    // - when examen has been selected, bind data
     onExamenSelect(value) {
         console.log(value);
         this.setState({
             examen_id: value
         });
     }
-    // - Render widget evaluations
+    // - render widget evaluations
     render() {
         return (
             <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
