@@ -122,7 +122,7 @@ var ListCompetences = React.createClass({
                 that.setState({
                     options:result
                 });
-                that.onChange(this.state.options[0]);
+                that.onChange(that.state.options[0]);
             });
         } else {
             req = GroupService.getMatieres(groupID, function (result) {

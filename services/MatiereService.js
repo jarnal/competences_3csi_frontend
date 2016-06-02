@@ -20,13 +20,12 @@ function getFinalURL(id, suffixe) {
  * @param callback
  */
 function getAllMatieres(callback){
-    var req = $.get(
+    return $.get(
         getFinalURL(),
         function (result) {
             callback(result);
         }
     );
-    return req;
 }
 
 /**
@@ -35,7 +34,7 @@ function getAllMatieres(callback){
  * @param callback
  */
 function getMatiereCompetences(id, callback){
-    $.get(
+    return $.get(
         getFinalURL(id, "competences"),
         function (result) {
             callback(result);
@@ -49,7 +48,7 @@ function getMatiereCompetences(id, callback){
  * @param callback
  */
 function getMatiere(id, callback){
-    $.get(
+    return $.get(
         getFinalURL(id),
         function (result) {
             callback(result);
@@ -63,7 +62,7 @@ function getMatiere(id, callback){
  * @param callback
  */
 function postMatiere(data, callback){
-    $.ajax({
+    return $.ajax({
         type: "POST",
         url: getFinalURL(),
         data: data,
@@ -84,7 +83,7 @@ function postMatiere(data, callback){
  * @param callback
  */
 function putMatiere(id, data, callback){
-    $.ajax({
+    return $.ajax({
         type: "PUT",
         url: getFinalURL(id),
         data: data,

@@ -100,8 +100,18 @@ function putExamen(id, data, callback){
  * Deletes an examen from the server
  * @param id
  */
-function deleteExamen(id){
-
+function deleteExamen(id, callback){
+    return $.ajax({
+        type: "DELETE",
+        url: getFinalURL(id),
+        success: function(result){
+            callback(result);
+        },
+        error: function(result){
+            callback(false);
+        },
+        dataType: "json"
+    });
 }
 
 module.exports = {

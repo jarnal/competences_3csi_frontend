@@ -1,25 +1,26 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import GroupService from '../../../services/GroupService.js'
+import ExamenService from '../../../services/ExamenService.js'
 import NotificationSystem from 'react-notification-system'
 class ListExamens extends React.Component {
 
     // - Constructor
     constructor(props) {
         super(props);
-        this.state = {examens: [], currentRequest:null};
+        this.state = {examens: [], currentRequest: null};
     }
 
     // - Called when the component receives his new props
     componentWillReceiveProps(nextProps) {
-        if(nextProps.group){
+        if (nextProps.group) {
             this.getExamens(nextProps.group.id);
         }
     }
 
     // -
     componentWillUnmount() {
-        if(this.state.currentRequest != null) {
+        if (this.state.currentRequest != null) {
             this.state.currentRequest.abort();
         }
     }
@@ -33,12 +34,21 @@ class ListExamens extends React.Component {
                 examens: result
             })
         });
-        this.setState({currentRequest:req});
+        this.setState({currentRequest: req});
     }
 
     // - Called when the component has been mounted
     componentDidMount() {
         this._notificationSystem = this.refs.notificationSystem;
+    }
+
+    customConfirm(next, dropRowKeys) {
+        const dropRowKeysStr = dropRowKeys.join(',');
+        if (confirm(`(It's a custom confirm)Are you sure you want to delete ${dropRowKeysStr}?`)) {
+            ExamenService.delete(dropRowKeys[0], function(result){
+                console.log(result);
+            });
+        }
     }
 
     // - Render the component view
@@ -48,6 +58,8 @@ class ListExamens extends React.Component {
                 data={ this.state.examens }
                 search={true}
                 pagination={ true }
+                deleteRow={ true }
+                selectRow={ { mode: 'radio' } }
                 fetchInfo={ { dataTotalSize: this.props.totalDataSize } }
                 options={ {
                     onAddRow: this.props.onAddRow,
@@ -55,7 +67,8 @@ class ListExamens extends React.Component {
                     onPageChange: this.props.onPageChange,
                     sizePerPageList: [ 5, 10 ],
                     page: this.props.currentPage,
-                    onSizePerPageList: this.props.onSizePerPageList } }
+                    onSizePerPageList: this.props.onSizePerPageList,
+                    handleConfirmDeleteRow: this.customConfirm } }
             >
                 <TableHeaderColumn dataField='id' hidden={ true } dataSort isKey autoValue>ID</TableHeaderColumn>
                 <TableHeaderColumn dataField='name'>Nom</TableHeaderColumn>

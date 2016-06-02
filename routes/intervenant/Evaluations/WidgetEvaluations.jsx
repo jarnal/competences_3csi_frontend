@@ -98,7 +98,7 @@ class WidgetEvaluations extends React.Component {
         }
     }
 
-    //
+    // -
     getUserSelectRowProp() {
         return {
             mode: 'checkbox',
@@ -107,11 +107,25 @@ class WidgetEvaluations extends React.Component {
             onSelectAll: this.onUserSelectAll
         };
     }
+
+    // - Called when the component has been mounted
     componentDidMount(){
-        this.setState({
-            examen_id: 1
-        })
+        this.setState({examen_id: 1});
+
+        // Patch allowing to resize multiple react-bootstrap-table instances in tabs
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var panels = $('div[role="tabpanel"]');
+            var minHeight = Infinity;
+            var panel;
+            for(var i= 0; i<panels.length; i++){
+                panel = $(panels[i]);
+                var test = panel.find('div[class="react-bs-container-body"]');
+                minHeight = Math.min( minHeight, $(test).height() );
+            }
+            $('div[class="react-bs-container-body"]').css('height', minHeight);
+        });
     }
+
     //
     onUserSelect(row, isSelected) {
         var users_selected = this.state.users_selected;
@@ -205,8 +219,6 @@ class WidgetEvaluations extends React.Component {
     }
 
     render() {
-
-        //if (this.props.is_intervenant) {
 
         return (
             <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
