@@ -5,6 +5,7 @@ import auth from '../routes/auth/Auth.jsx'
 var NavLink = activeComponent('li')
 
 class Sidebar extends React.Component {
+    // - Render sidebar
     render() {
 
         return (

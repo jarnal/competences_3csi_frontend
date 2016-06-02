@@ -11,7 +11,7 @@ import Auth from '../../auth/Auth.jsx'
 
 class WidgetEvaluations extends React.Component {
 
-    //
+    // - Build evaluations widget which build evaluations
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +30,7 @@ class WidgetEvaluations extends React.Component {
         this.onAfterSaveCell = this.onAfterSaveCell.bind(this);
     }
 
-    //
+    // when compoent will receive props, bind data
     componentWillReceiveProps(nextProps) {
         this.setState({
             group: nextProps.group,
@@ -43,7 +43,7 @@ class WidgetEvaluations extends React.Component {
         }
     }
 
-    //
+    // update evalations from services
     updateEvaluationRows() {
         var users_selected = this.state.users_selected;
         var competences_selected = this.state.competences_selected;
@@ -74,7 +74,7 @@ class WidgetEvaluations extends React.Component {
                 break;
         }
     }
-
+    // - check mode "evaluations libres" or "evaluations examens" and save data from services
     onAfterSaveCell(row, cellName, cellValue) {
         var that = this;
         switch (this.props.mode) {
@@ -98,7 +98,7 @@ class WidgetEvaluations extends React.Component {
         }
     }
 
-    // -
+    // - Custom options for users table
     getUserSelectRowProp() {
         return {
             mode: 'checkbox',
@@ -107,8 +107,7 @@ class WidgetEvaluations extends React.Component {
             onSelectAll: this.onUserSelectAll
         };
     }
-
-    // - Called when the component has been mounted
+    // - When compoent has mounted, try to get last examen
     componentDidMount(){
         this.setState({examen_id: 1});
 
@@ -125,8 +124,7 @@ class WidgetEvaluations extends React.Component {
             $('div[class="react-bs-container-body"]').css('height', minHeight);
         });
     }
-
-    //
+    // - Save users selected
     onUserSelect(row, isSelected) {
         var users_selected = this.state.users_selected;
         if (isSelected) {
@@ -145,7 +143,7 @@ class WidgetEvaluations extends React.Component {
         this.updateEvaluationRows();
     }
 
-    //
+    // Save all users
     onUserSelectAll(isSelected, currentDisplayAndSelectedData) {
         var users_selected = this.state.users_selected;
         if (isSelected) {
@@ -163,7 +161,7 @@ class WidgetEvaluations extends React.Component {
         this.updateEvaluationRows()
     }
 
-    //
+    // gustom option for compoentences table
     getCompetenceSelectRowProp() {
         return {
             mode: 'checkbox',
@@ -173,7 +171,7 @@ class WidgetEvaluations extends React.Component {
         };
     }
 
-    //
+    // get specified value
     onCompetenceSelect(row, isSelected) {
         var competences_selected = this.state.competences_selected;
         if (isSelected) {
@@ -192,7 +190,7 @@ class WidgetEvaluations extends React.Component {
         this.updateEvaluationRows();
     }
 
-    // -
+    // - get all selected values
     onCompetenceSelectAll(isSelected, currentDisplayAndSelectedData) {
         var competences_selected = this.state.competences_selected;
         if (isSelected) {
@@ -210,16 +208,15 @@ class WidgetEvaluations extends React.Component {
         this.updateEvaluationRows();
     }
 
-    // -
+    // - when examen has been selected, bind data
     onExamenSelect(value) {
         console.log(value);
         this.setState({
             examen_id: value
         });
     }
-
+    // - render widget evaluations
     render() {
-
         return (
             <div className="nav-tabs-custom" style={{height: 100 + '%'}}>
                 <ul id="myTabs" className="nav nav-tabs" role="tablist">

@@ -6,26 +6,26 @@ import SelectGroupes from '../components/SelectGroupes.jsx'
 
 class EvaluationsExamens extends React.Component {
 
-    // -
+    // - Build component view for "evaluations examens"
     constructor(props) {
         super(props);
         this.state = {selected_group: null};
         this.handleGroupValueChanged = this.handleGroupValueChanged.bind(this);
     }
 
-    // -
+    // - When component has mounted check if user is "usager" or "intervenant"
     componentDidMount(){
         $(window).trigger('resize');
         this.setState({isIntervenant: localStorage.getItem('us_role') == 'ROLE_INTERVENANT'});
     }
 
-    // -
+    // - On change group, bind selected group
     handleGroupValueChanged(value) {
         console.log(value);
         this.setState({selected_group: value});
     }
 
-    // -
+    // - Render view for "evaluations examens"
     render() {
         return (
             <div className="content-wrapper">

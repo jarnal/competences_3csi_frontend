@@ -3,7 +3,7 @@ import Select from 'react-select'
 import GroupService from '../../../services/GroupService.js'
 class SelectGroupes extends React.Component {
 
-    // -
+    // - Build selector
     constructor(props) {
         super(props);
         this.state = {groups: [], value: "", currentRequest:null};
@@ -11,19 +11,19 @@ class SelectGroupes extends React.Component {
         this.getGroups = this.getGroups.bind(this);
     }
 
-    // -
+    // - when the component has built, get groups
     componentDidMount(){
         this.getGroups();
     }
 
-    // -
+    // - Unmount request to server when component has not had time to build
     componentWillUnmount() {
         if(this.state.currentRequest != null) {
             this.state.currentRequest.abort();
         }
     }
 
-    // -
+    // - When the user change value, send request to server from services
     onChange(value) {
         localStorage.setItem("sgroup", JSON.stringify(value));
         this.setState({ value: value });
@@ -33,7 +33,7 @@ class SelectGroupes extends React.Component {
         }
     }
 
-    // -
+    // - Get groups from server
     getGroups() {
         var that = this;
         var req = GroupService.getAll(function (result) {
@@ -50,7 +50,7 @@ class SelectGroupes extends React.Component {
         this.setState({currentRequest: req});
     }
 
-    // -
+    // - Render selecter view for groups
     render() {
         return (
             <div className="form-group col-md-3 col-xs-12 col-lg-3 pull-right" style={{fontSize: '14px'}}>
