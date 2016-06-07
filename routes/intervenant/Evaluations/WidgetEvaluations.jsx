@@ -37,7 +37,7 @@ class WidgetEvaluations extends React.Component {
             isIntervenant: nextProps.isIntervenant
         });
 
-        if(!nextProps.isIntervenant){
+        if (!nextProps.isIntervenant) {
             var userID = Auth.getUserInfo().user_id;
             this.state.users_selected = [userID];
         }
@@ -49,7 +49,7 @@ class WidgetEvaluations extends React.Component {
         var competences_selected = this.state.competences_selected;
 
         // -
-        if (users_selected.length <= 0|| competences_selected.length <= 0)
+        if (users_selected.length <= 0 || competences_selected.length <= 0)
             return;
 
         var that = this;
@@ -74,12 +74,13 @@ class WidgetEvaluations extends React.Component {
                 break;
         }
     }
+
     // - check mode "evaluations libres" or "evaluations examens" and save data from services
     onAfterSaveCell(row, cellName, cellValue) {
         var that = this;
         switch (this.props.mode) {
             case "evaluations_libres":
-                if(this.props.isIntervenant){
+                if (this.props.isIntervenant) {
                     EvaluationIntervenantService.post(row, function (result) {
                         console.log(result);
                     });
@@ -107,8 +108,9 @@ class WidgetEvaluations extends React.Component {
             onSelectAll: this.onUserSelectAll
         };
     }
+
     // - When compoent has mounted, try to get last examen
-    componentDidMount(){
+    componentDidMount() {
         this.setState({examen_id: 1});
 
         // Patch allowing to resize multiple react-bootstrap-table instances in tabs
@@ -116,14 +118,15 @@ class WidgetEvaluations extends React.Component {
             var panels = $('div[role="tabpanel"]');
             var minHeight = Infinity;
             var panel;
-            for(var i= 0; i<panels.length; i++){
+            for (var i = 0; i < panels.length; i++) {
                 panel = $(panels[i]);
                 var test = panel.find('div[class="react-bs-container-body"]');
-                minHeight = Math.min( minHeight, $(test).height() );
+                minHeight = Math.min(minHeight, $(test).height());
             }
             $('div[class="react-bs-container-body"]').css('height', minHeight);
         });
     }
+
     // - Save users selected
     onUserSelect(row, isSelected) {
         var users_selected = this.state.users_selected;
@@ -215,6 +218,7 @@ class WidgetEvaluations extends React.Component {
             examen_id: value
         });
     }
+
     // - render widget evaluations
     render() {
         return (
@@ -227,8 +231,9 @@ class WidgetEvaluations extends React.Component {
                         :
                         null
                     }
-                    <li className><a href="#tab_2" data-toggle="tab" aria-expanded="false">Selection des
-                        compétences</a></li>
+                    <li className={this.props.isIntervenant ? "" : "active"}>
+                        <a href="#tab_2" data-toggle="tab" aria-expanded="false">Selection des compétences</a>
+                    </li>
                     <li><a href="#tab_3" data-toggle="tab">Attribution des compétences</a></li>
                 </ul>
                 <div className="tab-content" style={{padding: 0}}>
@@ -252,7 +257,8 @@ class WidgetEvaluations extends React.Component {
                         :
                         null
                     }
-                    <div role="tabpanel" className={this.props.isIntervenant ? "tab-pane" : "tab-pane active" } id="tab_2">
+                    <div role="tabpanel" className={this.props.isIntervenant ? "tab-pane" : "tab-pane active" }
+                         id="tab_2">
                         <div className="box-body col-xs-12 table-container">
                             <ListCompetences
                                 selectRowProp={this.getCompetenceSelectRowProp()}

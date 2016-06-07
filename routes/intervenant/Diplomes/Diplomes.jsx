@@ -65,7 +65,7 @@ class Diplomes extends React.Component {
                             <section >
                                 <div className="box box-primary">
                                     <div className="box-header with-border">
-                                        <h3 className="box-title">Statistiques</h3>
+                                        <h3 className="box-title">Diplômes</h3>
                                     </div>
                                     <div className="box-body">
                                         <div className="row">

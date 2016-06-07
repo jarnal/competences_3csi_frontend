@@ -63,3 +63,7 @@
 .content-header {
     z-index: 70;
 }
+
+.calendar-container {
+    position: relative;
+}

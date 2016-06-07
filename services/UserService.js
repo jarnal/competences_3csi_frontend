@@ -57,6 +57,20 @@ function getUserExamens(id, callback){
 }
 
 /**
+ * Returns all examens related to a specific user in the full calendar format
+ * @param id
+ * @param callback
+ */
+function getUserExamensForCalendar(id, callback){
+    return $.get(
+        getFinalURL(id, "examens_calendar"),
+        function (result) {
+            callback(result);
+        }
+    );
+}
+
+/**
  *
  * @param id
  * @param callback
@@ -264,6 +278,7 @@ module.exports = {
     get: getUser,
     getMatieres: getUserMatieres,
     getExamens: getUserExamens,
+    getExamensForCalendar:getUserExamensForCalendar,
     getDiplomes: getUserDiplomes,
     post: postUser,
     put: putUser,
