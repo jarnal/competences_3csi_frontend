@@ -10,6 +10,9 @@ import intervenant_Competences from './routes/intervenant/Competences/Competence
 import intervenant_Examens from './routes/intervenant/Examens/Examens.jsx'
 import intervenant_EvaluationsLibres from './routes/intervenant/Evaluations/EvaluationsLibres.jsx'
 import intervenant_EvaluationsExamens from './routes/intervenant/Evaluations/EvaluationsExamens.jsx'
+import intervenant_Statistics from './routes/intervenant/Statistiques/Statistiques.jsx'
+import intervenant_Diplomes from './routes/intervenant/Diplomes/Diplomes.jsx'
+import intervenant_Calendar from './routes/intervenant/Calendar/ExamenCalendar.jsx'
 
 // - Check if user is logged, else redirect to login view
 function requireAuth(nextState, replace) {
@@ -132,6 +135,9 @@ render(
                     <Route path="examens" component={intervenant_Examens}/>
                     <Route path="evaluations_libres" component={intervenant_EvaluationsLibres}/>
                     <Route path="evaluations_examens" component={intervenant_EvaluationsExamens}/>
+                    <Route path="statistiques" component={intervenant_Statistics}/>
+                    <Route path="diplomes" component={intervenant_Diplomes}/>
+                    <Route path="calendar" component={intervenant_Calendar}/>
                 </Route>
                 <Route path="login" component={Login}/>
                 <Route path="logout" component={Logout}/>

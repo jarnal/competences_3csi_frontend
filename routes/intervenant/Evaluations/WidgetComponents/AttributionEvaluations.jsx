@@ -50,6 +50,11 @@ class AttributionEvaluations extends React.Component {
         this.setState({currentRequest:req});
     }
 
+    // validator function pass the user input value and should return true|false.
+    jobNameValidator(value) {
+        return true;
+    }
+
     // - Render view for "attribution des competences"
     render() {
         return (
@@ -69,7 +74,14 @@ class AttributionEvaluations extends React.Component {
                     <TableHeaderColumn dataField="competence_id" dataSort={true} hidden={true}>Utilisateur
                         ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="competence_name" editable={false} dataSort={true}>Compétence</TableHeaderColumn>
-                    <TableHeaderColumn dataField='type_note_label' editable={ { type: 'select', options: { values: this.state.noteTypes } } }>
+                    <TableHeaderColumn
+                        dataField='type_note_label'
+                        editable={{
+                            type: 'select',
+                            options: { values: this.state.noteTypes },
+                            validator: this.jobNameValidator
+                        }}
+                    >
                         {this.props.isIntervenant ? "Evaluation" : "Auto-evaluation"}
                     </TableHeaderColumn>
                 </BootstrapTable>

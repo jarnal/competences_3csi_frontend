@@ -29,7 +29,7 @@ var ListBilansExamens = React.createClass({
         return {
             multi: false,
             examens: [],
-            is_examens_loading: false,
+            isLoading: true,
             data: [],
             currentRequest: null
         };
@@ -37,81 +37,69 @@ var ListBilansExamens = React.createClass({
 
     // -
     componentWillUnmount() {
-        if(this.state.currentRequest != null) {
+        if (this.state.currentRequest != null) {
             this.state.currentRequest.abort();
         }
     },
 
-    // -
-    handleGroupValueChanged(value) {
-        this.setState({selected_group: value});
-    },
-
     // - On exam changed : rebind data
-    onChangeExamen(value) {
+    onChangeExamen(examen, groupID) {
 
         var that = this;
         var req;
-        if(this.props.isIntervenant) {
-            req = UserService.getUserListWithEvaluationByGroupAndExamen(this.props.group.id, value.id, function (result) {
+        this.setState({isLoading:true});
+        const isIntervenant = localStorage.getItem('us_role') == 'ROLE_INTERVENANT';
+        if (isIntervenant) {
+            if (groupID == null)
+                groupID = this.props.group.id;
+
+            req = UserService.getUserListWithEvaluationByGroupAndExamen(groupID, examen.id, function (result) {
                 that.setState({
-                    data: result
+                    data: result,
+                    isLoading: false,
+                    currentRequest: null
                 });
             });
         } else {
             var userID = parseInt(Auth.getUserInfo().user_id);
-            req = UserService.getUserWithEvaluationByExamen(userID, value.id, function (result) {
+            req = UserService.getUserWithEvaluationByExamen(userID, examen.id, function (result) {
                 that.setState({
-                    data: result
+                    data: result,
+                    isLoading: false,
+                    currentRequest: null
                 });
             });
         }
         this.setState({
-            examen_value: value,
+            examen_value: examen,
             currentRequest: req
         });
     },
 
     // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
+        if (nextProps.examens) {
 
-        // -
-        if(!nextProps.isIntervenant){
-            this.getExamens(null);
-            return;
-        }
+            if (this.state.currentRequest != null || this.props.examens == nextProps.examens) {
+                return;
+            }
 
-        // -
-        if(nextProps.group){
-            if(this.state.options == null || this.props.group.id != nextProps.group.id)
-                this.getExamens(nextProps.group.id);
-        }
-    },
-
-    // - Retrieves all exams by group ID
-    getExamens: function (groupID) {
-
-        var that = this;
-        var req;
-        if(groupID == null) {
-            var userID = Auth.getUserInfo().user_id;
-            req = UserService.getExamens(userID, function (result) {
-                that.setState({
-                    examens: result,
-                    is_matieres_loading: false
-                });
-                that.onChangeExamen(that.state.examens[0]);
+            this.setState({
+                examens: nextProps.examens,
+                data: [],
+                examen_value: null
             });
-        } else {
-            req = GroupService.getExamens(groupID, function (result) {
-                that.setState({
-                    examens: result,
-                    is_matieres_loading: false
-                });
-                that.onChangeExamen(that.state.examens[0]);
-            });
+
+            var groupID;
+            if (nextProps.group) {
+                groupID = nextProps.group.id;
+            }
+
+            if(nextProps.examens != null && nextProps.examens.length > 0){
+                var examen = nextProps.examens[0];
+                this.onChangeExamen(examen, groupID);
+            }
         }
-        this.setState({currentRequest: req});
     },
 
     // - Render bilans list for examens
@@ -130,46 +118,62 @@ var ListBilansExamens = React.createClass({
                     />
                 </div>
                 <div className="col-xs-12">
-                    <BootstrapTable
-                        data={this.state.data}
-                        height="250"
-                        striped={true}
-                        hover={true}
-                        exportCSV
-                        searchPlaceholder="Rechercher"
-                        search={true}
-                        noDataText="test"
-                        options={options_table}>
-                        <TableHeaderColumn
-                            dataField="id"
-                            isKey={true}
-                            dataSort={true}
-                            hidden={true}>ID</TableHeaderColumn>
-                        <TableHeaderColumn
-                            dataField="user_name"
-                            dataSort={true}>Etudiant</TableHeaderColumn>
-                        <TableHeaderColumn
-                            dataField="competence_name"
-                            dataSort={true}>Compétence</TableHeaderColumn>
-                        <TableHeaderColumn
-                            dataField="type_note_value_auto"
-                            dataSort={true}
+                    <div className="custom-table-container">
+                        <BootstrapTable
+                            data={this.state.data}
+                            height="250"
+                            striped={true}
+                            hover={true}
+                            exportCSV
+                            searchPlaceholder="Rechercher"
+                            search={true}
+                            noDataText="test"
+                            options={options_table}>
+                            <TableHeaderColumn
+                                dataField="id"
+                                isKey={true}
+                                dataSort={true}
+                                hidden={true}>ID</TableHeaderColumn>
+                            <TableHeaderColumn
+                                dataField="user_name"
+                                dataSort={true}>Etudiant</TableHeaderColumn>
+                            <TableHeaderColumn
+                                dataField="competence_name"
+                                dataSort={true}>Compétence</TableHeaderColumn>
+                            <TableHeaderColumn
+                                dataField="type_note_value_auto"
+                                dataSort={true}
+                                filter={ {
+                                type: 'NumberFilter',
+                                delay: 500,
+                                numberComparators: [ '=', '>', '<' ]
+                             } }
                             >Evaluation personnelle</TableHeaderColumn>
-                        <TableHeaderColumn
-                            dataField="type_note_label_auto"
-                            dataSort={true}
-                            filter={ { type: 'SelectFilter', options: qualityType } }
-                        >Niveau</TableHeaderColumn>
-                        <TableHeaderColumn
-                            dataField="type_note_value"
-                            dataSort={true}
-                        >Evaluation intervenant</TableHeaderColumn>
-                        <TableHeaderColumn
-                            dataField="type_note_label"
-                            dataSort={true}
-                            filter={ { type: 'SelectFilter', options: qualityType } }
-                        >Niveau</TableHeaderColumn>
-                    </BootstrapTable>
+                            <TableHeaderColumn
+                                dataField="type_note_label_auto"
+                                dataSort={true}
+                                filter={ { type: 'SelectFilter', options: qualityType } }
+                            >Niveau</TableHeaderColumn>
+                            <TableHeaderColumn
+                                dataField="type_note_value"
+                                dataSort={true}
+                                filter={ {
+                                type: 'NumberFilter',
+                                delay: 500,
+                                numberComparators: [ '=', '>', '<' ]
+                             } }
+                            >Evaluation intervenant</TableHeaderColumn>
+                            <TableHeaderColumn
+                                dataField="type_note_label"
+                                dataSort={true}
+                                filter={ { type: 'SelectFilter', options: qualityType } }
+                            >Niveau</TableHeaderColumn>
+                        </BootstrapTable>
+                        <div className="overlay"
+                             style={{visibility: this.state.isLoading ? 'visible' : 'hidden'}}>
+                            <i className="fa fa-refresh fa-spin"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

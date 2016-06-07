@@ -40,14 +40,17 @@ class Sidebar extends React.Component {
                             </li>
                             <NavLink to="/examens"><i className="fa fa-file-text-o"/> <span>Examens</span></NavLink>
                             <NavLink to="/bilans"><i className="fa fa-pie-chart"/> <span>Bilans</span></NavLink>
+                            <NavLink to="/statistiques"><i className="fa fa-area-chart"/> <span>Statistiques</span></NavLink>
                         </ul>
                         :
                         <ul className="sidebar-menu">
                             <li className="header">MENU</li>
                             <NavLink to="/" onlyActiveOnIndex><i className="fa fa-home"/>
                                 <span>Tableau de bord</span></NavLink>
-                            <NavLink to="/evaluations_libres"><i className="fa fa-users"/> <span>Evaluations</span></NavLink>
-                            <NavLink to="/bilans"><i className="fa fa-pie-chart"/> <span>Bilans</span></NavLink>
+                            <NavLink to="/evaluations_libres"><i className="fa fa-users"/> <span>Mes Evaluations</span></NavLink>
+                            <NavLink to="/bilans"><i className="fa fa-pie-chart"/> <span>Mes Bilans</span></NavLink>
+                            <NavLink to="/diplomes"><i className="fa fa-graduation-cap"/> <span>Mes Diplomes</span></NavLink>
+                            <NavLink to="/calendar"><i className="fa fa-calendar"/> <span>Mon Calendrier</span></NavLink>
                         </ul>
                     }
                 </section>

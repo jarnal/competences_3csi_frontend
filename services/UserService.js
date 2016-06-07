@@ -20,7 +20,7 @@ function getFinalURL(id, suffixe){
  * @param callback
  */
 function getAllUsers(callback){
-    $.get(
+    return $.get(
         getFinalURL(),
         function (result) {
             callback(result);
@@ -34,7 +34,7 @@ function getAllUsers(callback){
  * @param callback
  */
 function getUserMatieres(id, callback){
-    $.get(
+    return $.get(
         getFinalURL(id, "matieres"),
         function (result) {
             callback(result);
@@ -48,8 +48,23 @@ function getUserMatieres(id, callback){
  * @param callback
  */
 function getUserExamens(id, callback){
-    $.get(
+    return $.get(
         getFinalURL(id, "examens"),
+        function (result) {
+            callback(result);
+        }
+    );
+}
+
+/**
+ *
+ * @param id
+ * @param callback
+ * @returns {*}
+ */
+function getUserDiplomes(id, callback){
+    return $.get(
+        getFinalURL(id, "diplomes"),
         function (result) {
             callback(result);
         }
@@ -67,7 +82,7 @@ function getUserListCompetenceEvaluation(userList, competenceList, callback) {
     url += "clist/" + JSON.stringify(competenceList);
     url += "?access_token=" + Auth.getToken();
 
-    $.get(
+    return $.get(
         url,
         function (result) {
             callback(result);
@@ -89,7 +104,7 @@ function getUserListCompetenceEvaluationByExamen(examenID, userList, competenceL
     url += "clist/" + JSON.stringify(competenceList);
     url += "?access_token=" + Auth.getToken();
 
-    $.get(
+    return $.get(
         url,
         function (result) {
             callback(result);
@@ -109,7 +124,7 @@ function getUserListWithEvaluationByGroupAndExamen(groupID, examenID, callback) 
     url += "examen/" + JSON.stringify(examenID);
     url += "?access_token=" + Auth.getToken();
 
-    $.get(
+    return $.get(
         url,
         function (result) {
             callback(result);
@@ -129,7 +144,7 @@ function getUserListWithEvaluationByGroupAndMatiere(groupID, matiereID, callback
     url += "matiere/" + JSON.stringify(matiereID);
     url += "?access_token=" + Auth.getToken();
 
-    $.get(
+    return $.get(
         url,
         function (result) {
             callback(result);
@@ -149,7 +164,7 @@ function getUserWithEvaluationByExamen(userID, examenID, callback) {
     url += "examen/" + JSON.stringify(examenID);
     url += "?access_token=" + Auth.getToken();
 
-    $.get(
+    return $.get(
         url,
         function (result) {
             callback(result);
@@ -169,7 +184,27 @@ function getUserWithEvaluationByMatiere(userID, matiereID, callback) {
     url += "matiere/" + JSON.stringify(matiereID);
     url += "?access_token=" + Auth.getToken();
 
-    $.get(
+    return $.get(
+        url,
+        function (result) {
+            callback(result);
+        }
+    );
+}
+
+/**
+ * Returns number of evaluated competences for users in a specific matiere
+ * @param groupID
+ * @param matiereID
+ * @param callback
+ */
+function getUsersEvaluatedCompetencesStatistiquesForMatiere(groupID, matiereID, callback) {
+    var url = Config.server_base_url + "user/evaluation_statistics/";
+    url += "group/" + JSON.stringify(groupID) + "/";
+    url += "matiere/" + JSON.stringify(matiereID);
+    url += "?access_token=" + Auth.getToken();
+
+    return $.get(
         url,
         function (result) {
             callback(result);
@@ -182,7 +217,7 @@ function getUserWithEvaluationByMatiere(userID, matiereID, callback) {
  * @param id
  */
 function getUser(id){
-    $.get(
+    return $.get(
         getFinalURL(id),
         function (result) {
             callback(result);
@@ -225,9 +260,11 @@ module.exports = {
     getUserListCompetenceEvaluationByExamen:getUserListCompetenceEvaluationByExamen,
     getUserWithEvaluationByExamen:getUserWithEvaluationByExamen,
     getUserWithEvaluationByMatiere:getUserWithEvaluationByMatiere,
+    getUsersEvaluatedCompetencesStatistiquesForMatiere:getUsersEvaluatedCompetencesStatistiquesForMatiere,
     get: getUser,
     getMatieres: getUserMatieres,
     getExamens: getUserExamens,
+    getDiplomes: getUserDiplomes,
     post: postUser,
     put: putUser,
     delete: deleteUser

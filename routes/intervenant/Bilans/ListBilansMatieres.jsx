@@ -12,6 +12,16 @@ const options_table = {
 function logChange(val) {
     console.log("Selected: " + val);
 }
+
+const qualityType = {
+    0: "0- Non noté",
+    1: "1- Non acquis",
+    2: "2- En cours d'acquisition",
+    3: "3- A renforcer",
+    4: "4- Acquis",
+    5: "5- Maîtrisé"
+};
+
 var ListBilansMatieres = React.createClass({
 
     // Initialize
@@ -21,7 +31,8 @@ var ListBilansMatieres = React.createClass({
             competences: [],
             is_matieres_loading: false,
             data: [],
-            currentRequest: null
+            currentRequest: null,
+            isLoading: true
         };
     },
 
@@ -33,67 +44,63 @@ var ListBilansMatieres = React.createClass({
     },
 
     // - On selected matiere change :
-    onChangeMatiere (value) {
+    onChangeMatiere (matiere, groupID) {
 
         var that = this;
         var req;
-        if(this.props.isIntervenant) {
-            req = UserService.getUserListWithEvaluationByGroupAndMatiere(this.props.group.id, value.id, function (result) {
+        this.setState({isLoading:true});
+
+        const isIntervenant = localStorage.getItem('us_role') == 'ROLE_INTERVENANT';
+        if(isIntervenant) {
+            if(groupID == null)
+                groupID = this.props.group.id;
+
+            req = UserService.getUserListWithEvaluationByGroupAndMatiere(groupID, matiere.id, function (result) {
                 that.setState({
-                    data: result
+                    data: result,
+                    isLoading: false,
+                    currentRequest:null
                 });
             });
         } else {
             var userID = parseInt(Auth.getUserInfo().user_id);
-            req = UserService.getUserWithEvaluationByMatiere(userID, value.id, function (result) {
+            req = UserService.getUserWithEvaluationByMatiere(userID, matiere.id, function (result) {
                 that.setState({
-                    data: result
+                    data: result,
+                    isLoading: false,
+                    currentRequest:null
                 });
             });
         }
-        this.setState({currentRequest:req, matiere_value: value});
+        this.setState({
+            currentRequest:req,
+            matiere_value: matiere
+        });
     },
 
     // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
+        if(nextProps.matieres){
 
-        // -
-        if(!nextProps.isIntervenant){
-            this.getMatieres(null);
-            return;
-        }
+            if(this.state.currentRequest != null || this.props.matieres == nextProps.matieres) {
+                return;
+            }
 
-        // -
-        if(nextProps.group){
-            if(this.state.options == null || this.props.group.id != nextProps.group.id)
-                this.getMatieres(nextProps.group.id);
-        }
-    },
-
-    // - Retrieves all matieres by group ID
-    getMatieres: function (groupID) {
-
-        var that = this;
-        var req;
-        if(groupID == null) {
-            var userID = Auth.getUserInfo().user_id;
-            req = UserService.getMatieres(userID, function (result) {
-                that.setState({
-                    matieres:result,
-                    is_matieres_loading: false
-                });
-                that.onChangeMatiere(that.state.matieres[0]);
+            this.setState({
+                matieres: nextProps.matieres,
+                data: [],
+                matiere_value: null
             });
-        } else {
-            req = GroupService.getMatieres(groupID, function (result) {
-                that.setState({
-                    matieres:result,
-                    is_matieres_loading: false
-                });
-                that.onChangeMatiere(that.state.matieres[0]);
-            });
+
+            var groupID;
+            if(nextProps.group){
+                groupID = nextProps.group.id;
+            }
+            if(nextProps.matieres != null && nextProps.matieres.length > 0){
+                var matiere = nextProps.matieres[0];
+                this.onChangeMatiere(matiere, groupID);
+            }
         }
-        this.setState({currentRequest:req});
     },
 
     // - Render page
@@ -140,20 +147,32 @@ var ListBilansMatieres = React.createClass({
                                 type: 'NumberFilter',
                                 delay: 500,
                                 numberComparators: [ '=', '>', '<' ]
-                             } }>Evaluation personnelle</TableHeaderColumn>
+                             } }
+                        >Evaluation personnelle</TableHeaderColumn>
                         <TableHeaderColumn
                             dataField="type_note_label_auto"
-                            dataSort={true}>Libellé</TableHeaderColumn>
+                            dataSort={true}
+                            filter={ { type: 'SelectFilter', options: qualityType } }
+                        >Niveau</TableHeaderColumn>
                         <TableHeaderColumn
                             dataField="type_note_value"
                             dataSort={true}
                             filter={ {
                                 type: 'NumberFilter',
-                                delay: 1000,
+                                delay: 500,
                                 numberComparators: [ '=', '>', '<' ]
-                             } }>Evaluation intervenant</TableHeaderColumn>
-                        <TableHeaderColumn dataField="type_note_label" dataSort={true}>Libellé</TableHeaderColumn>
+                             } }
+                        >Evaluation intervenant</TableHeaderColumn>
+                        <TableHeaderColumn
+                            dataField="type_note_label"
+                            dataSort={true}
+                            filter={ { type: 'SelectFilter', options: qualityType } }
+                        >Libellé</TableHeaderColumn>
                     </BootstrapTable>
+                    <div className="overlay"
+                         style={{visibility: this.state.isLoading ? 'visible' : 'hidden'}}>
+                        <i className="fa fa-refresh fa-spin"></i>
+                    </div>
                 </div>
             </div>
         )

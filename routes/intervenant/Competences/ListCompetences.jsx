@@ -19,7 +19,6 @@ var ListCompetences = React.createClass({
         };
     },
 
-    // -
     // - Trick for unmount component when a page is reload
     componentWillUnmount() {
         if(this.state.currentRequest != null) {
@@ -139,13 +138,13 @@ var ListCompetences = React.createClass({
     getExamens: function (groupID) {
 
         var that = this;
-        GroupService.getExamens(groupID, function (result) {
+        var req = GroupService.getExamens(groupID, function (result) {
             that.setState({
                 options:result
             });
             that.onChange(that.state.options[0]);
         });
-
+        this.setState({currentRequest: req});
     },
 
     // - Render the component view
