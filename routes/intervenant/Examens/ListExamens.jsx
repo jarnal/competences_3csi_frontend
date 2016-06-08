@@ -9,6 +9,7 @@ class ListExamens extends React.Component {
     constructor(props) {
         super(props);
         this.state = {examens: [], currentRequest: null};
+        this.customConfirm = this.customConfirm.bind(this);
     }
 
     // - Called when the component receives his new props
@@ -44,9 +45,10 @@ class ListExamens extends React.Component {
 
     customConfirm(next, dropRowKeys) {
         const dropRowKeysStr = dropRowKeys.join(',');
-        if (confirm(`(It's a custom confirm)Are you sure you want to delete ${dropRowKeysStr}?`)) {
+        var that = this;
+        if (confirm('Are you sure you want to delete the examen?')) {
             ExamenService.delete(dropRowKeys[0], function(result){
-                console.log(result);
+                that.getExamens(that.props.group.id);
             });
         }
     }
