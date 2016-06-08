@@ -7,6 +7,7 @@ var WebpackConfig = require('./webpack.config')
 const path = require('path')
 var app = express()
 
+// Middleware for analyse our compilation
 app.use(webpackDevMiddleware(webpack(WebpackConfig), {
   publicPath: '/',
   stats: {
@@ -15,7 +16,6 @@ app.use(webpackDevMiddleware(webpack(WebpackConfig), {
 }))
 
 app.use(express.static(__dirname + '/'))
-
 app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, '', 'index.html'))
 })
