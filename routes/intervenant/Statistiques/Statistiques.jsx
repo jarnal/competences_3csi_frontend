@@ -129,7 +129,7 @@ class Statistiques extends React.Component {
                 <section className="content-header">
                     <h1>
                         Statistiques
-                        <small>En Construction...</small>
+                        <small>Sur les compétences évaluées...</small>
                         <SelectGroupes callback={this.handleGroupValueChanged}/>
                     </h1>
                 </section>

@@ -36,7 +36,7 @@ class Examens extends React.Component {
                 <section className="content-header">
                     <h1>
                         Examens
-                        <small>En Construction...</small>
+                        <small>Tous les examens...</small>
                         <SelectGroupes callback={this.handleGroupValueChanged}/>
                     </h1>
                 </section>
