@@ -55,11 +55,19 @@ class WidgetEvaluations extends React.Component {
         var that = this;
         switch (this.props.mode) {
             case "evaluations_libres":
-                UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, function (result) {
-                    that.setState({
-                        evaluation_rows: result
+                if (this.props.isIntervenant) {
+                    UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, function (result) {
+                        that.setState({
+                            evaluation_rows: result
+                        });
                     });
-                });
+                } else {
+                    UserService.getUserListCompetenceEvaluationAuto(users_selected, competences_selected, function (result) {
+                        that.setState({
+                            evaluation_rows: result
+                        });
+                    });
+                }
                 break;
             default:
                 // -

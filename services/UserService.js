@@ -105,6 +105,25 @@ function getUserListCompetenceEvaluation(userList, competenceList, callback) {
 }
 
 /**
+ * Returns all evaluations related to a group of users (userList) and a list of competences (competenceList)
+ * @param userList
+ * @param competenceList
+ */
+function getUserListCompetenceEvaluationAuto(userList, competenceList, callback) {
+    var url = Config.server_base_url + "user/evaluations_auto/";
+    url += "ulist/" + JSON.stringify(userList) + "/";
+    url += "clist/" + JSON.stringify(competenceList);
+    url += "?access_token=" + Auth.getToken();
+
+    return $.get(
+        url,
+        function (result) {
+            callback(result);
+        }
+    );
+}
+
+/**
  * Returns all evaluation for a list of users for a specific examen
  * @param examenID
  * @param userList
@@ -275,6 +294,7 @@ module.exports = {
     getUserWithEvaluationByExamen:getUserWithEvaluationByExamen,
     getUserWithEvaluationByMatiere:getUserWithEvaluationByMatiere,
     getUsersEvaluatedCompetencesStatistiquesForMatiere:getUsersEvaluatedCompetencesStatistiquesForMatiere,
+    getUserListCompetenceEvaluationAuto:getUserListCompetenceEvaluationAuto,
     get: getUser,
     getMatieres: getUserMatieres,
     getExamens: getUserExamens,

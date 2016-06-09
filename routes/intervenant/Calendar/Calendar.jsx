@@ -4,6 +4,7 @@ class Calendar extends React.Component {
 
     // -
     componentDidMount(){
+        $(window).trigger('resize');
         this.buildCalendar(this.props.events);
     }
 
