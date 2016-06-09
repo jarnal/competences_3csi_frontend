@@ -212,7 +212,7 @@ class Bilans extends React.Component {
                                 <div className="info-box">
                                     <span className="info-box-icon bg-yellow"><i className="fa fa-sticky-note"/></span>
                                     <div className="info-box-content">
-                                        <span className="info-box-text">Matiéres</span>
+                                        <span className="info-box-text">Matières</span>
                                         <span className="info-box-number">{this.state.matiere_number}</span>
                                     </div>
                                 </div>
