@@ -6,9 +6,6 @@ class Dashboard extends React.Component {
     // - Called when the component has been mounted
     componentDidMount() {
         $(window).trigger('resize');
-        /*var button = $("a[data-toggle='offcanvas']");
-        console.log($);
-        $.AdminLTE.pushMenu.activate(button);*/
     }
 
     // - Render the component view
@@ -29,4 +26,4 @@ class Dashboard extends React.Component {
     }
 }
 
-module.exports = Dashboard;
+export default Dashboard

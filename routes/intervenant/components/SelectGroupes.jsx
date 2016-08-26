@@ -1,6 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 import GroupService from '../../../services/GroupService.js'
+
 class SelectGroupes extends React.Component {
 
     // - Build selector
@@ -35,9 +36,9 @@ class SelectGroupes extends React.Component {
 
     // - Get groups from server
     getGroups() {
-        var that = this;
-        var req = GroupService.getAll(function (result) {
-            var previousSelectedGroup = JSON.parse(localStorage.getItem("sgroup"));
+        let that = this;
+        var req = GroupService.getAll( (result) => {
+            let previousSelectedGroup = JSON.parse(localStorage.getItem("sgroup"));
             if(previousSelectedGroup && that.props.callback != null) {
                 that.props.callback(previousSelectedGroup);
             }
@@ -67,4 +68,4 @@ class SelectGroupes extends React.Component {
     }
 }
 
-module.exports = SelectGroupes;
+export default SelectGroupes;

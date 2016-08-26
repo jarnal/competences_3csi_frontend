@@ -35,15 +35,24 @@
     "react-datepicker": "^0.27.0",
     "react-dom": "^0.14.8",
     "react-notification-system": "^0.2.7",
+    "react-redux": "^4.4.5",
     "react-router": "^2.0.1",
     "react-router-active-component": "^4.0.0-rc.0",
+    "react-router-redux": "^4.0.5",
     "react-select": "^1.0.0-beta13",
     "react-skylight": "^0.4.0",
     "react-virtualized": "^6.0.1",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
     "style-loader": "^0.12.4",
+    "superagent": "^2.2.0",
     "underscore": "^1.8.3",
     "warning": "^2.0.0",
     "webpack": "^1.4.13",
     "webpack-dev-middleware": "^1.2.0"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.3.1"
   }
 }

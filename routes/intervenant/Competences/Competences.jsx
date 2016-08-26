@@ -71,4 +71,4 @@ class Competences extends React.Component {
     }
 }
 
-module.exports = Competences
+export default Competences

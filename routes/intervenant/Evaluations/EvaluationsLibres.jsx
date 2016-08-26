@@ -61,4 +61,4 @@ class EvaluationsLibres extends React.Component {
     }
 }
 
-module.exports = EvaluationsLibres;
+export default EvaluationsLibres;

@@ -35,11 +35,11 @@ class ExamenCalendar extends React.Component {
     // - Retrieves all exams by group ID
     getExamensCalendar(groupID) {
 
-        var that = this;
+        let that = this;
         var req;
         if (groupID == null) {
             var userID = Auth.getUserInfo().user_id;
-            req = UserService.getExamensForCalendar(userID, function (result) {
+            req = UserService.getExamensForCalendar(userID, (result) => {
                 that.setState({
                     events: result,
                     overlayVisibility: 'hidden'
@@ -47,7 +47,7 @@ class ExamenCalendar extends React.Component {
                 console.log(result);
             });
         } else {
-            req = GroupService.getExamens(groupID, function (result) {
+            req = GroupService.getExamens(groupID, (result) => {
                 that.setState({
                     examens: result,
                     examen_number: result.length,

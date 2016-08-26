@@ -7,24 +7,25 @@ import UserService from '../../../services/UserService.js'
 import ExamenService from '../../../services/ExamenService.js'
 import Auth from '../../auth/Auth.jsx'
 
-var ListCompetences = React.createClass({
+class ListCompetences extends React.Component {
 
     // - Initialize
-    getInitialState () {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             multi: false,
             competences: [],
             addCompetence: false,
             currentRequest: null
         };
-    },
+    }
 
     // - Trick for unmount component when a page is reload
     componentWillUnmount() {
         if(this.state.currentRequest != null) {
             this.state.currentRequest.abort();
         }
-    },
+    }
 
     // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
@@ -38,14 +39,11 @@ var ListCompetences = React.createClass({
             if(this.state.options == null || this.props.group.id != nextProps.group.id)
                 this.updateOptions(nextProps.group.id);
         }
-    },
+    }
 
     // -
     onChange (value) {
-        this.setState({
-            value: value
-        });
-        console.log(value);
+        this.setState({value: value});
         switch (this.props.mode) {
             case "evaluations_libres":
                 this.getMatiereCompetences(value.id);
@@ -58,33 +56,32 @@ var ListCompetences = React.createClass({
                 this.getMatiereCompetences(value.id);
                 break;
         }
-    },
+    }
 
     // - Retrieves skills related to the current examen
-    getExamenCompetences: function(examenID) {
-        var that = this;
-        var req = ExamenService.getCompetences(examenID, function (result) {
+    getExamenCompetences(examenID) {
+        let that = this;
+        let req = ExamenService.getCompetences(examenID, (result) => {
             that.setState({
                 competences: result
             });
         });
         this.setState({currentRequest: req});
-    },
+    }
 
     // - Retrieves skills related to the current matiere
-    getMatiereCompetences: function (matiereID) {
-        var that = this;
-        var req = MatiereService.getCompetences(matiereID, function (result) {
+    getMatiereCompetences(matiereID) {
+        let that = this;
+        let req = MatiereService.getCompetences(matiereID, (result) => {
             that.setState({
                 competences: result
             })
         });
         this.setState({currentRequest: req});
-    },
+    }
 
     // - Get data of selected option
-    updateOptions: function(groupID){
-
+    updateOptions(groupID){
         switch (this.props.mode) {
             case "evaluations_libres":
                 this.getMatieres(groupID);
@@ -96,35 +93,35 @@ var ListCompetences = React.createClass({
                 this.getAllMatieres();
                 break;
         }
-    },
+    }
 
     // - Retrieves all matieres
-    getAllMatieres: function(){
-        var that = this;
-        var req = MatiereService.getAll(function (result) {
+    getAllMatieres(){
+        let that = this;
+        let req = MatiereService.getAll( (result) => {
             that.setState({
                 options:result["matieres"]
             });
             that.onChange(that.state.options[0]);
         });
         this.setState({currentRequest: req});
-    },
+    }
 
     // - Retrieves all matieres by group ID
-    getMatieres: function (groupID) {
+    getMatieres (groupID) {
 
-        var that = this;
+        let that = this;
         var req;
         if(groupID == null) {
-            var userID = Auth.getUserInfo().user_id;
-            req = UserService.getMatieres(userID, function (result) {
+            let userID = Auth.getUserInfo().user_id;
+            req = UserService.getMatieres(userID, (result) => {
                 that.setState({
                     options:result
                 });
                 that.onChange(that.state.options[0]);
             });
         } else {
-            req = GroupService.getMatieres(groupID, function (result) {
+            req = GroupService.getMatieres(groupID, (result) => {
                 that.setState({
                     options:result
                 });
@@ -132,23 +129,23 @@ var ListCompetences = React.createClass({
             });
         }
         this.setState({currentRequest: req});
-    },
+    }
 
     // - Retrieves all exams by group ID
-    getExamens: function (groupID) {
+    getExamens (groupID) {
 
-        var that = this;
-        var req = GroupService.getExamens(groupID, function (result) {
+        let that = this;
+        let req = GroupService.getExamens(groupID, (result) => {
             that.setState({
                 options:result
             });
             that.onChange(that.state.options[0]);
         });
         this.setState({currentRequest: req});
-    },
+    }
 
     // - Render the component view
-    render: function () {
+    render () {
         return (
             <div className="box-body col-md-12 col-xs-12 col-lg-12">
                 <div className={this.props.addCompetence ? "col-md-11 col-xs-11 col-lg-11" : "col-md-12 col-xs-12 col-lg-12" }>
@@ -195,6 +192,6 @@ var ListCompetences = React.createClass({
             </div>
         )
     }
-});
+}
 
 export default ListCompetences

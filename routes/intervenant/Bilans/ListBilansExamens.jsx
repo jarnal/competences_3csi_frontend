@@ -22,25 +22,26 @@ const qualityType = {
     4: "4- Acquis",
     5: "5- Maîtrisé"
 };
-var ListBilansExamens = React.createClass({
+class ListBilansExamens extends React.Component {
 
-    // - Initialize
-    getInitialState () {
-        return {
+    // -
+    constructor(props){
+        super(props);
+        this.state = {
             multi: false,
             examens: [],
             isLoading: true,
             data: [],
             currentRequest: null
         };
-    },
+    }
 
     // -
     componentWillUnmount() {
         if (this.state.currentRequest != null) {
             this.state.currentRequest.abort();
         }
-    },
+    }
 
     // - On exam changed : rebind data
     onChangeExamen(examen, groupID) {
@@ -53,7 +54,7 @@ var ListBilansExamens = React.createClass({
             if (groupID == null)
                 groupID = this.props.group.id;
 
-            req = UserService.getUserListWithEvaluationByGroupAndExamen(groupID, examen.id, function (result) {
+            req = UserService.getUserListWithEvaluationByGroupAndExamen(groupID, examen.id, (result) => {
                 that.setState({
                     data: result,
                     isLoading: false,
@@ -62,7 +63,7 @@ var ListBilansExamens = React.createClass({
             });
         } else {
             var userID = parseInt(Auth.getUserInfo().user_id);
-            req = UserService.getUserWithEvaluationByExamen(userID, examen.id, function (result) {
+            req = UserService.getUserWithEvaluationByExamen(userID, examen.id, (result) => {
                 that.setState({
                     data: result,
                     isLoading: false,
@@ -74,7 +75,7 @@ var ListBilansExamens = React.createClass({
             examen_value: examen,
             currentRequest: req
         });
-    },
+    }
 
     // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
@@ -100,10 +101,10 @@ var ListBilansExamens = React.createClass({
                 this.onChangeExamen(examen, groupID);
             }
         }
-    },
+    }
 
     // - Render bilans list for examens
-    render: function () {
+    render() {
         return (
             <div className="row">
                 <div className="col-xs-12 header-table-select">
@@ -178,5 +179,6 @@ var ListBilansExamens = React.createClass({
             </div>
         )
     }
-});
+}
+
 export default ListBilansExamens

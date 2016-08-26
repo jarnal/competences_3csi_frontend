@@ -27,9 +27,9 @@ class Diplomes extends React.Component {
     // - Retrieves all diplomes by user ID
     getDiplomes() {
 
-        var that = this;
-        var userID = Auth.getUserInfo().user_id;
-        var req = UserService.getDiplomes(userID, function (result) {
+        let that = this;
+        let userID = Auth.getUserInfo().user_id;
+        let req = UserService.getDiplomes(userID, (result) => {
             that.setState({
                 diplomes: that.buildDiplomeView(result),
                 overlayVisibility: 'hidden'
@@ -85,4 +85,4 @@ class Diplomes extends React.Component {
     }
 }
 
-module.exports = Diplomes;
+export default Diplomes

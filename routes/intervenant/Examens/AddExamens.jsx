@@ -7,21 +7,24 @@ import ListCompetences from '../Competences/ListCompetences.jsx'
 import 'react-datepicker/dist/react-datepicker.css'
 import ExamenService from '../../../services/ExamenService'
 import NotificationSystem from 'react-notification-system'
-var DateSelect = React.createClass({
 
-    getInitialState: function() {
-        return {
-            startDate: moment()
-        };
-    },
+class DateSelect extends React.Component {
 
-    handleChange: function(date) {
+    // -
+    constructor(props) {
+        super(props);
+        this.state = {startDate: moment()}
+    }
+
+    // -
+    handleChange(date) {
         this.setState({
             startDate: date
         });
-    },
+    }
 
-    render: function() {
+    // -
+    render() {
         return <DatePicker
             selected={this.state.startDate}
             onChange={this.handleChange}
@@ -30,7 +33,7 @@ var DateSelect = React.createClass({
             id="date"
             required />;
     }
-});
+}
 
 class AddExamens extends React.Component {
 
@@ -41,6 +44,7 @@ class AddExamens extends React.Component {
             competences_selected: [],
             group: null
         };
+
         this.onCompetenceSelect       = this.onCompetenceSelect.bind(this);
         this.onCompetenceSelectAll    = this.onCompetenceSelectAll.bind(this);
         this.handleSubmit             = this.handleSubmit.bind(this);
@@ -48,21 +52,24 @@ class AddExamens extends React.Component {
         this._executeOnOverlayClicked = this._executeOnOverlayClicked.bind(this);
         this._executeAfterModalOpen   = this._executeAfterModalOpen.bind(this);
     }
+
+    // -
     componentDidMount() {
-      this._notificationSystem = this.refs.notificationSystem;
+        this._notificationSystem = this.refs.notificationSystem;
     }
+
     // -
     handleSubmit(event){
         event.preventDefault();
 
-        var competences_selected = this.state.competences_selected;
-        var competences_tab = [];
+        let competences_selected = this.state.competences_selected;
 
+        var competences_tab = [];
         for (var i = 0; i < competences_selected.length; i++) {
             competences_tab.push(competences_selected[i].id);
         }
 
-        var formData = {
+        let formData = {
             nom: document.getElementById('nom_examen').value,
             description: document.getElementById('description').value,
             competences: competences_tab,
@@ -77,38 +84,42 @@ class AddExamens extends React.Component {
             formData.group_id = this.state.group.id;
 
             var that = this;
-            ExamenService.post(formData, function(result){
-              if(!result){
-                  that._addNotificationError();
-              }
-              else{
-                  that._addNotificationSuccess();
-                  that.refs.simpleDialog.hide();
-                  that.props.newElementCallback();
-              }
+            ExamenService.post(formData, (result) => {
+                if(!result){
+                    that._addNotificationError();
+                }
+                else{
+                    that._addNotificationSuccess();
+                    that.refs.simpleDialog.hide();
+                    that.props.newElementCallback();
+                }
             });
         }
     }
 
+    // -
     _executeAfterModalOpen(){
         this.setState({
             group: this.props.group
         });
     }
 
+    // -
     _addNotificationSuccess() {
         this._notificationSystem.addNotification({
-          message: 'Succès !',
-          level: 'success'
+            message: 'Succès !',
+            level: 'success'
         });
-      }
+    }
 
-      _addNotificationError() {
-          this._notificationSystem.addNotification({
+    // -
+    _addNotificationError() {
+        this._notificationSystem.addNotification({
             message: 'Erreur, veuillez réessayer',
             level: 'error'
-          });
-        }
+        });
+    }
+
     // -
     _executeAfterModalClose(){
         this.setState({
@@ -133,14 +144,14 @@ class AddExamens extends React.Component {
         };
     }
 
-    //
+    // -
     onCompetenceSelect(row, isSelected) {
-        var competences_selected = this.state.competences_selected;
+        let competences_selected = this.state.competences_selected;
         if (isSelected) {
             competences_selected.push(row);
         }
         else {
-            var unselected = competences_selected.indexOf(row);
+            let unselected = competences_selected.indexOf(row);
             if (unselected != -1) {
                 competences_selected.splice(unselected, 1);
             }
@@ -149,12 +160,11 @@ class AddExamens extends React.Component {
         this.setState({
             competences_selected: competences_selected
         });
-        console.log(this.state.competences_selected);
     }
 
-    //
+    // -
     onCompetenceSelectAll(isSelected, currentDisplayAndSelectedData) {
-        var competences_selected = this.state.competences_selected;
+        let competences_selected = this.state.competences_selected;
         if (isSelected) {
             for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
                 competences_selected.push(currentDisplayAndSelectedData[i]);
@@ -169,14 +179,16 @@ class AddExamens extends React.Component {
         });
     }
 
+    // -
     componentWillReceiveProps(nextProps) {
         this.setState({
             group: nextProps.group
         });
     }
 
+    // -
     render() {
-        var style = {
+        let style = {
             width: '80%',
             top: 'initial',
             marginLeft: '-40%',
@@ -240,5 +252,4 @@ class AddExamens extends React.Component {
     }
 }
 
-AddExamens.displayName = 'Example';
-module.exports = AddExamens;
+export default AddExamens;

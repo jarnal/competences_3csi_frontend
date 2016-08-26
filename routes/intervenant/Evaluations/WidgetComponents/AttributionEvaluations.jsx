@@ -40,7 +40,7 @@ class AttributionEvaluations extends React.Component {
 
         var that = this;
         var req = TypeNoteService.getAll(function(result){
-            var finalList = result["type_notes"].map(function(typenote){
+            var finalList = result["type_notes"].map( (typenote) => {
                 return typenote.name
             });
             that.setState({

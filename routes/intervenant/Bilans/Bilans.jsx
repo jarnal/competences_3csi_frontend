@@ -225,4 +225,4 @@ class Bilans extends React.Component {
     }
 }
 
-module.exports = Bilans
+export default Bilans

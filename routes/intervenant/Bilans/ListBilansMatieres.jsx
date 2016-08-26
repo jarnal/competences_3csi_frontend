@@ -9,9 +9,6 @@ import Auth from '../../auth/Auth.jsx'
 const options_table = {
     noDataText: "Aucun bilan disponible"
 };
-function logChange(val) {
-    console.log("Selected: " + val);
-}
 
 const qualityType = {
     0: "0- Non noté",
@@ -22,11 +19,12 @@ const qualityType = {
     5: "5- Maîtrisé"
 };
 
-var ListBilansMatieres = React.createClass({
+class ListBilansMatieres extends React.Component{
 
-    // Initialize
-    getInitialState () {
-        return {
+    // -
+    constructor(props){
+        super(props);
+        this.state = {
             multi: false,
             competences: [],
             is_matieres_loading: false,
@@ -34,19 +32,19 @@ var ListBilansMatieres = React.createClass({
             currentRequest: null,
             isLoading: true
         };
-    },
+    }
 
     // -
     componentWillUnmount() {
         if(this.state.currentRequest != null) {
             this.state.currentRequest.abort();
         }
-    },
+    }
 
     // - On selected matiere change :
     onChangeMatiere (matiere, groupID) {
 
-        var that = this;
+        let that = this;
         var req;
         this.setState({isLoading:true});
 
@@ -55,7 +53,7 @@ var ListBilansMatieres = React.createClass({
             if(groupID == null)
                 groupID = this.props.group.id;
 
-            req = UserService.getUserListWithEvaluationByGroupAndMatiere(groupID, matiere.id, function (result) {
+            req = UserService.getUserListWithEvaluationByGroupAndMatiere(groupID, matiere.id, (result) => {
                 that.setState({
                     data: result,
                     isLoading: false,
@@ -64,7 +62,7 @@ var ListBilansMatieres = React.createClass({
             });
         } else {
             var userID = parseInt(Auth.getUserInfo().user_id);
-            req = UserService.getUserWithEvaluationByMatiere(userID, matiere.id, function (result) {
+            req = UserService.getUserWithEvaluationByMatiere(userID, matiere.id, (result) => {
                 that.setState({
                     data: result,
                     isLoading: false,
@@ -76,7 +74,7 @@ var ListBilansMatieres = React.createClass({
             currentRequest:req,
             matiere_value: matiere
         });
-    },
+    }
 
     // - Called when the component will receive props
     componentWillReceiveProps(nextProps) {
@@ -101,10 +99,10 @@ var ListBilansMatieres = React.createClass({
                 this.onChangeMatiere(matiere, groupID);
             }
         }
-    },
+    }
 
     // - Render page
-    render: function () {
+    render () {
         return (
             <div className="row">
                 <div className="col-xs-12 header-table-select">
@@ -177,6 +175,6 @@ var ListBilansMatieres = React.createClass({
             </div>
         )
     }
-});
+}
 
 export default ListBilansMatieres

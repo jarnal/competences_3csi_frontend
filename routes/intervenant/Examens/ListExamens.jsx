@@ -3,6 +3,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import GroupService from '../../../services/GroupService.js'
 import ExamenService from '../../../services/ExamenService.js'
 import NotificationSystem from 'react-notification-system'
+
 class ListExamens extends React.Component {
 
     // - Constructor
@@ -81,4 +82,4 @@ class ListExamens extends React.Component {
     }
 }
 
-module.exports = ListExamens;
+export default ListExamens;

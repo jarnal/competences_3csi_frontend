@@ -21,7 +21,6 @@ class EvaluationsExamens extends React.Component {
 
     // - On change group, bind selected group
     handleGroupValueChanged(value) {
-        console.log(value);
         this.setState({selected_group: value});
     }
 
@@ -55,4 +54,4 @@ class EvaluationsExamens extends React.Component {
     }
 }
 
-module.exports = EvaluationsExamens;
+export default EvaluationsExamens;

@@ -14,6 +14,7 @@ class Diplomes extends React.Component {
     // - Called when the component has been mounted
     componentDidMount() {
         $(window).trigger('resize');
+
     }
 
     // - Render the component view
@@ -34,4 +35,4 @@ class Diplomes extends React.Component {
     }
 }
 
-module.exports = Diplomes;
+export default Diplomes;

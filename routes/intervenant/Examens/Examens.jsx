@@ -74,4 +74,4 @@ class Examens extends React.Component {
     }
 }
 
-module.exports = Examens;
+export default Examens;

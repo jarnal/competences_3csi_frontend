@@ -31,8 +31,8 @@ class UserEvaluations extends React.Component {
 
     // - get users from services
     getUsers(groupID){
-        var that = this;
-        var req = GroupService.getUsers(groupID, function(result){
+        let that = this;
+        let req = GroupService.getUsers(groupID, (result) => {
             that.setState({
                 users:result
             })

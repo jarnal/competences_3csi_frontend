@@ -45,24 +45,24 @@ class WidgetEvaluations extends React.Component {
 
     // update evalations from services
     updateEvaluationRows() {
-        var users_selected = this.state.users_selected;
-        var competences_selected = this.state.competences_selected;
+        let users_selected = this.state.users_selected;
+        let competences_selected = this.state.competences_selected;
 
         // -
         if (users_selected.length <= 0 || competences_selected.length <= 0)
             return;
 
-        var that = this;
+        let that = this;
         switch (this.props.mode) {
             case "evaluations_libres":
                 if (this.props.isIntervenant) {
-                    UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, function (result) {
+                    UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, (result) => {
                         that.setState({
                             evaluation_rows: result
                         });
                     });
                 } else {
-                    UserService.getUserListCompetenceEvaluationAuto(users_selected, competences_selected, function (result) {
+                    UserService.getUserListCompetenceEvaluationAuto(users_selected, competences_selected, (result) => {
                         that.setState({
                             evaluation_rows: result
                         });
@@ -74,7 +74,7 @@ class WidgetEvaluations extends React.Component {
                 if (this.state.examen_id == null)
                     return;
 
-                UserService.getUserListCompetenceEvaluationByExamen(this.state.examen_id, users_selected, competences_selected, function (result) {
+                UserService.getUserListCompetenceEvaluationByExamen(this.state.examen_id, users_selected, competences_selected, (result) => {
                     that.setState({
                         evaluation_rows: result
                     });
@@ -89,18 +89,18 @@ class WidgetEvaluations extends React.Component {
         switch (this.props.mode) {
             case "evaluations_libres":
                 if (this.props.isIntervenant) {
-                    EvaluationIntervenantService.post(row, function (result) {
+                    EvaluationIntervenantService.post(row, (result) => {
                         console.log(result);
                     });
                 } else {
-                    EvaluationAutoService.post(row, function (result) {
+                    EvaluationAutoService.post(row, (result) => {
                         console.log(result);
                     });
                 }
                 break;
             default:
                 row.examen_id = that.state.examen_id;
-                EvaluationExamenService.post(row, function (result) {
+                EvaluationExamenService.post(row, (result) => {
                     console.log(result);
                 });
                 break;
@@ -123,13 +123,14 @@ class WidgetEvaluations extends React.Component {
 
         // Patch allowing to resize multiple react-bootstrap-table instances in tabs
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            var panels = $('div[role="tabpanel"]');
+            let panels = $('div[role="tabpanel"]');
             var minHeight = Infinity;
             var panel;
             for (var i = 0; i < panels.length; i++) {
                 panel = $(panels[i]);
-                var test = panel.find('div[class="react-bs-container-body"]');
-                minHeight = Math.min(minHeight, $(test).height());
+
+                var container = panel.find('div[class="react-bs-container-body"]');
+                minHeight = Math.min(minHeight, $(container).height());
             }
             $('div[class="react-bs-container-body"]').css('height', minHeight);
         });
@@ -137,12 +138,12 @@ class WidgetEvaluations extends React.Component {
 
     // - Save users selected
     onUserSelect(row, isSelected) {
-        var users_selected = this.state.users_selected;
+        let users_selected = this.state.users_selected;
         if (isSelected) {
             users_selected.push(row.id);
         }
         else {
-            var unselected = users_selected.indexOf(row.id);
+            let unselected = users_selected.indexOf(row.id);
             if (unselected != -1) {
                 users_selected.splice(unselected, 1);
             }
@@ -156,7 +157,7 @@ class WidgetEvaluations extends React.Component {
 
     // Save all users
     onUserSelectAll(isSelected, currentDisplayAndSelectedData) {
-        var users_selected = this.state.users_selected;
+        let users_selected = this.state.users_selected;
         if (isSelected) {
             for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
                 users_selected.push(currentDisplayAndSelectedData[i].id);
@@ -184,12 +185,12 @@ class WidgetEvaluations extends React.Component {
 
     // get specified value
     onCompetenceSelect(row, isSelected) {
-        var competences_selected = this.state.competences_selected;
+        let competences_selected = this.state.competences_selected;
         if (isSelected) {
             competences_selected.push(row.id);
         }
         else {
-            var unselected = competences_selected.indexOf(row.id);
+            let unselected = competences_selected.indexOf(row.id);
             if (unselected != -1) {
                 competences_selected.splice(unselected, 1);
             }
@@ -203,7 +204,7 @@ class WidgetEvaluations extends React.Component {
 
     // - get all selected values
     onCompetenceSelectAll(isSelected, currentDisplayAndSelectedData) {
-        var competences_selected = this.state.competences_selected;
+        let competences_selected = this.state.competences_selected;
         if (isSelected) {
             for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
                 competences_selected.push(currentDisplayAndSelectedData[i].id);
@@ -221,7 +222,6 @@ class WidgetEvaluations extends React.Component {
 
     // - when examen has been selected, bind data
     onExamenSelect(value) {
-        console.log(value);
         this.setState({
             examen_id: value
         });
