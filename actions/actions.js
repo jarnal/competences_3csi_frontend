@@ -6,60 +6,82 @@ import { push } from 'react-router-redux'
 
 import Config from '../configuration'
 import request from 'superagent'
+import {loginAPI, logoutAPI, getTokenAPI} from '../services/AuthService'
+import { getMatiereCompetencesAPI } from '../services/MatiereService'
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+
+export const GROUP_SELECTED = "GROUP_SELECTED";
+
+export const GROUPS_REQUEST = "GROUPS_REQUEST";
+export const GROUPS_SUCCESS = "GROUPS_SUCCESS";
+export const GROUPS_FAILURE = "GROUPS_FAILURE";
+
+export const ADD_ASYNC_CALL = "ADD_ASYNC_CALL";
+export const REMOVE_ASYNC_CALL = "REMOVE_ASYNC_CALL";
+export const REMOVE_ALL_ASYNC_CALL = "REMOVE_ALL_ASYNC_CALL";
+
+export const COMPETENCES_REQUEST = "COMPETENCES_REQUEST";
+export const COMPETENCES_SUCCESS = "COMPETENCES_SUCCESS";
+export const COMPETENCES_FAILURE = "COMPETENCES_FAILURE";
+
+export function competencesRequest(){
+    return {
+        type: COMPETENCES_REQUEST
+    }
+}
+
+export function getCompetences(idRelation, relationType){
+    return dispatch => {
+        dispatch(competencesRequest());
+
+        if (relationType) {
+            getMatiereCompetencesAPI(idRelation, (err, res) => {
+                console.log("dzpedl zêpld");
+            })
+        }
+    }
+}
 
 //
 export function login(email, password) {
     return dispatch => {
 
         dispatch(loginRequest());
-        request
-            .post(`${Config.server_base_url}security`)
-            .type('form')
-            .send({ user_l: email, user_p: password })
-            .set('Accept', 'application/json')
-            .end(function(err, res){
-                if(err){
-                    dispatch(loginFailure(err));
-                } else {
-                    const {text} = res;
+
+        loginAPI(email, password).then((result) => {
+            const {text} = result;
+            const json = JSON.parse(text);
+            if(json.success) {
+                localStorage.setItem('us_id', json.user_id);
+                localStorage.setItem('us_api_key', json.api_key);
+                localStorage.setItem('us_name', json.user_name);
+                localStorage.setItem('us_role', json.user_role);
+
+                getTokenAPI().then((result)=>{
+                    console.log("fzzefff");
+
+                    const {text} = result;
                     const json = JSON.parse(text);
-                    if(json.success) {
-                        localStorage.setItem('us_id', json.user_id);
-                        localStorage.setItem('us_api_key', json.api_key);
-                        localStorage.setItem('us_name', json.user_name);
-                        localStorage.setItem('us_role', json.user_role);
+                    localStorage.setItem('tok', json.access_token);
+                    localStorage.setItem('ref_tok', json.refresh_token);
 
-                        request
-                            .post(Config.server_oauth_url)
-                            .type('form')
-                            .send({
-                                client_id: "1_2lp2nq4n5acksksg8ks4w80gskg8kockggwg08w008so8gkw4s",
-                                client_secret: "22b4bent9e74ggggss8wgk0s0o88w408sgw8oksggw4c000cs",
-                                grant_type: "http://competences3csi.com/grants/api_key",
-                                api_key: localStorage.getItem('us_api_key')
-                            })
-                            .set('Accept', 'application/json')
-                            .end(function(err, res){
-
-                                const {text} = res;
-                                const json = JSON.parse(text);
-                                localStorage.setItem('tok', json.access_token);
-                                localStorage.setItem('ref_tok', json.refresh_token);
-                                dispatch(push('/'));
-                            });
-                    } else {
-                        dispatch(loginFailure("Identifiants incorrects"))
-                    }
-
-                }
-            });
+                    dispatch(push('/'));
+                }, (error) => {
+                    dispatch(loginFailure(error));
+                });
+            } else {
+                dispatch(loginFailure("Identifiants incorrects"))
+            }
+        }, (error) => {
+            console.log(error);
+        });
     }
 }
 
+//
 export function logout(){
 
     return dispatch => {
@@ -81,4 +103,24 @@ export function loginFailure(error){
 //
 export function loginSuccess(response){
     return {type: LOGIN_SUCCESS, response}
+}
+
+//
+export function selectGroup(group) {
+    return {type: GROUP_SELECTED, group}
+}
+
+// Adds async call contained in a promise into state allowing to abort the async call later
+export function addAsyncCall(promise, category) {
+    return {type: ADD_ASYNC_CALL, promise, category}
+}
+
+// Removes promise from state
+export function removeAsyncCall(category) {
+    return {type: REMOVE_ASYNC_CALL, category}
+}
+
+// Removes all promises from state
+export function removeAllAsyncCall() {
+    return {type: REMOVE_ALL_ASYNC_CALL}
 }

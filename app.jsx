@@ -1,17 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, browserHistory, Route , IndexRedirect } from 'react-router'
-import auth from './routes/auth/Auth.jsx'
+import { loggedIn } from './services/AuthService'
 import App from './components/App.jsx'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 
 import Login from './containers/login/LoginContainer'
 import Logout from './containers/logout/LogoutContainer'
+import Competences from './containers/competences/CompetencesContainer'
 
 import intervenant_Dashboard from './routes/intervenant/Dashboard/Dashboard.jsx'
 import intervenant_Bilans from './routes/intervenant/Bilans/Bilans.jsx'
-import intervenant_Competences from './routes/intervenant/Competences/Competences.jsx'
+//import intervenant_Competences from './routes/intervenant/Competences/Competences.jsx'
 import intervenant_Examens from './routes/intervenant/Examens/Examens.jsx'
 import intervenant_EvaluationsLibres from './routes/intervenant/Evaluations/EvaluationsLibres.jsx'
 import intervenant_EvaluationsExamens from './routes/intervenant/Evaluations/EvaluationsExamens.jsx'
@@ -29,7 +30,7 @@ ReactDOM.render(
                 <IndexRedirect to="dashboard" />
                 <Route path="dashboard" component={intervenant_Dashboard}/>
                 <Route path="bilans" component={intervenant_Bilans}/>
-                <Route path="competences" component={intervenant_Competences}/>
+                <Route path="competences" component={Competences}/>
                 <Route path="examens" component={intervenant_Examens}/>
                 <Route path="evaluations_libres" component={intervenant_EvaluationsLibres}/>
                 <Route path="evaluations_examens" component={intervenant_EvaluationsExamens}/>
@@ -47,8 +48,7 @@ ReactDOM.render(
 
 // - Check if user is logged, else redirect to login view
 function requireAuth(nextState, replace) {
-    console.log("Testing if user is logged in");
-    if (!auth.loggedIn()) {
+    if ( !loggedIn() ) {
         replace({
             pathname: '/login',
             state: {nextPathname: nextState.location.pathname}

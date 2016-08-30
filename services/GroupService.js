@@ -1,5 +1,6 @@
 import Config from '../configuration.js';
 import Auth from '../routes/auth/Auth.jsx';
+import { getUserToken } from '../services/AuthService'
 
 /**
  * Builds the final URL to the resource
@@ -12,7 +13,7 @@ function getFinalURL(id, suffixe){
         url = url + id;
     if(suffixe)
         url = url + "/" + suffixe;
-    return url + "?access_token=" + Auth.getToken();
+    return url + "?access_token=" + getUserToken();
 }
 
 /**

@@ -1,5 +1,6 @@
-import Config from '../configuration.js';
-import Auth from '../routes/auth/Auth.jsx';
+import Config from '../configuration.js'
+import request from 'superagent'
+import {getUserToken} from '../services/AuthService'
 
 /**
  * Builds the final URL to the resource
@@ -12,14 +13,14 @@ function getFinalURL(id, suffixe) {
         url = url + id;
     if(suffixe)
         url = url + "/" + suffixe;
-    return url + "?access_token=" + Auth.getToken();
+    return url + "?access_token=" + getUserToken();
 }
 
 /**
  * Returns all matieres from server
  * @param callback
  */
-function getAllMatieres(callback){
+export function getAllMatieresAPI(callback){
     return $.get(
         getFinalURL(),
         function (result) {
@@ -33,13 +34,14 @@ function getAllMatieres(callback){
  * @param id
  * @param callback
  */
-function getMatiereCompetences(id, callback){
-    return $.get(
-        getFinalURL(id, "competences"),
-        function (result) {
-            callback(result);
-        }
-    );
+export function getMatiereCompetencesAPI(id, callback){
+
+    /*return request
+        .get(getFinalURL(id, "competences"))
+        .set('Accept', 'application/json')
+        .end(function(err, res){
+            callback(err, res);
+        });*/
 }
 
 /**
@@ -47,7 +49,7 @@ function getMatiereCompetences(id, callback){
  * @param id
  * @param callback
  */
-function getMatiere(id, callback){
+export function getMatiereAPI(id, callback){
     return $.get(
         getFinalURL(id),
         function (result) {
@@ -61,7 +63,7 @@ function getMatiere(id, callback){
  * @param data
  * @param callback
  */
-function postMatiere(data, callback){
+export function postMatiereAPI(data, callback){
     return $.ajax({
         type: "POST",
         url: getFinalURL(),
@@ -82,7 +84,7 @@ function postMatiere(data, callback){
  * @param data
  * @param callback
  */
-function putMatiere(id, data, callback){
+export function putMatiereAPI(id, data, callback){
     return $.ajax({
         type: "PUT",
         url: getFinalURL(id),
@@ -101,15 +103,6 @@ function putMatiere(id, data, callback){
  * Deletes a matiere from the server
  * @param id
  */
-function deleteMatiere(id){
+export function deleteMatiereAPI(id){
 
 }
-
-module.exports = {
-    getAll: getAllMatieres,
-    getCompetences: getMatiereCompetences,
-    get: getMatiere,
-    post: postMatiere,
-    put: putMatiere,
-    delete: deleteMatiere
-};
