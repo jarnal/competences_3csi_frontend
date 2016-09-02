@@ -20,20 +20,27 @@ function getFinalURL(id, suffixe){
  * Returns all examens from server
  * @param callback
  */
-function getAllExamen(callback){
-    $.get(
+export function getAllExamenAPI(callback){
+    return request
+        .get(getFinalURL())
+        .set('Accept', 'application/json')
+        .end(function(err, res){
+            callback(err, res);
+        });
+
+    /*$.get(
         getFinalURL(),
         function (result) {
             callback(result);
         }
-    );
+    );*/
 }
 
 /**
  * Returns a specific examen by id
  * @param id
  */
-function getExamen(id){
+export function getExamenAPI(id){
     $.get(
         getFinalURL(id),
         function (result) {
@@ -47,7 +54,7 @@ function getExamen(id){
  * @param id
  * @param callback
  */
-function getExamenCompetences(id, callback){
+export function getExamenCompetencesAPI(id, callback){
     $.get(
         getFinalURL(id, "competences"),
         function (result) {
@@ -61,7 +68,7 @@ function getExamenCompetences(id, callback){
  * @param data
  * @param callback
  */
-function postExamen(data, callback){
+export function postExamenAPI(data, callback){
     $.ajax({
         type: "POST",
         url: getFinalURL(),
@@ -82,7 +89,7 @@ function postExamen(data, callback){
  * @param data
  * @param callback
  */
-function putExamen(id, data, callback){
+export function putExamenAPI(id, data, callback){
     $.ajax({
         type: "POST",
         url: getFinalURL(id),
@@ -101,7 +108,7 @@ function putExamen(id, data, callback){
  * Deletes an examen from the server
  * @param id
  */
-function deleteExamen(id, callback){
+export function deleteExamenAPI(id, callback){
     return $.ajax({
         type: "DELETE",
         url: getFinalURL(id),
@@ -114,12 +121,3 @@ function deleteExamen(id, callback){
         dataType: "json"
     });
 }
-
-module.exports = {
-    getAll: getAllExamen,
-    getCompetences: getExamenCompetences,
-    get: getExamen,
-    post: postExamen,
-    put: putExamen,
-    delete: deleteExamen
-};

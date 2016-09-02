@@ -21,12 +21,19 @@ function getFinalURL(id, suffixe) {
  * @param callback
  */
 export function getAllMatieresAPI(callback){
-    return $.get(
+    /*return $.get(
         getFinalURL(),
         function (result) {
             callback(result);
         }
-    );
+    );*/
+
+    return request
+        .get(getFinalURL())
+        .set('Accept', 'application/json')
+        .end(function(err, res){
+            callback(err, res);
+        });
 }
 
 /**
@@ -36,12 +43,12 @@ export function getAllMatieresAPI(callback){
  */
 export function getMatiereCompetencesAPI(id, callback){
 
-    /*return request
+    return request
         .get(getFinalURL(id, "competences"))
         .set('Accept', 'application/json')
         .end(function(err, res){
             callback(err, res);
-        });*/
+        });
 }
 
 /**

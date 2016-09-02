@@ -9,7 +9,7 @@ import EvaluationIntervenantService from '../../../services/EvaluationIntervenan
 import EvaluationExamenService from '../../../services/EvaluationExamenService.js'
 import { getTokenAPI, getUserInfo } from '../../../services/AuthService'
 
-class WidgetEvaluations extends React.Component {
+class EvaluationManager extends React.Component {
 
     // - Build evaluations widget which build evaluations
     constructor(props) {
@@ -307,4 +307,4 @@ class WidgetEvaluations extends React.Component {
     }
 }
 
-export default WidgetEvaluations
+export default EvaluationManager

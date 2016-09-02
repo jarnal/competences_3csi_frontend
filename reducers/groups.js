@@ -2,7 +2,7 @@
  * Created by jonathan on 30/08/2016.
  */
 
-import {COMPETENCES_REQUEST, COMPETENCES_SUCCESS, COMPETENCES_FAILURE, COMPETENCE_SELECTED} from '../actions/competences'
+import {GROUPS_REQUEST, GROUPS_SUCCESS, GROUPS_FAILURE, GROUP_SELECTED} from '../actions/groups'
 
 const initialState = {
     data : [],
@@ -12,30 +12,30 @@ const initialState = {
     selected : null
 };
 
-function competences(state = initialState, action) {
+function groups(state = initialState, action) {
     switch (action.type) {
-        case COMPETENCES_REQUEST:
+        case GROUPS_REQUEST:
             return Object.assign({}, state, {
                 inProgress: true
             });
             return state;
-        case COMPETENCES_SUCCESS:
+        case GROUPS_SUCCESS:
             return Object.assign({}, state, {
                 data : action.data,
                 inProgress: false
             });
-        case COMPETENCES_FAILURE:
+        case GROUPS_FAILURE:
             return Object.assign({}, state, {
                 inProgress: false,
                 error: action.error
             });
-        case COMPETENCE_SELECTED:
+        case GROUP_SELECTED:
             return Object.assign({}, state, {
-                selected: action.matiere
+                selected: action.group
             });
         default:
             return state
     }
 }
 
-export default competences
+export default groups

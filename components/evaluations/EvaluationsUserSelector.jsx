@@ -40,7 +40,7 @@ class UserEvaluations extends React.Component {
         this.setState({currentRequest:req});
     }
 
-    // - Render user list evaluations 
+    // - Render user list evaluations
     render() {
         return (
             <div className="box-body col-xs-12">

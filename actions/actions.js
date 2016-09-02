@@ -23,28 +23,6 @@ export const ADD_ASYNC_CALL = "ADD_ASYNC_CALL";
 export const REMOVE_ASYNC_CALL = "REMOVE_ASYNC_CALL";
 export const REMOVE_ALL_ASYNC_CALL = "REMOVE_ALL_ASYNC_CALL";
 
-export const COMPETENCES_REQUEST = "COMPETENCES_REQUEST";
-export const COMPETENCES_SUCCESS = "COMPETENCES_SUCCESS";
-export const COMPETENCES_FAILURE = "COMPETENCES_FAILURE";
-
-export function competencesRequest(){
-    return {
-        type: COMPETENCES_REQUEST
-    }
-}
-
-export function getCompetences(idRelation, relationType){
-    return dispatch => {
-        dispatch(competencesRequest());
-
-        if (relationType) {
-            getMatiereCompetencesAPI(idRelation, (err, res) => {
-                console.log("dzpedl zêpld");
-            })
-        }
-    }
-}
-
 //
 export function login(email, password) {
     return dispatch => {

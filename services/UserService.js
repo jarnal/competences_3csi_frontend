@@ -1,5 +1,6 @@
 import Config from '../configuration.js';
 import Auth from '../routes/auth/Auth.jsx';
+import { getUserToken } from '../services/AuthService'
 
 /**
  * Builds the final URL to the resource
@@ -12,14 +13,14 @@ function getFinalURL(id, suffixe){
         url = url + id;
     if(suffixe)
         url = url + "/" + suffixe;
-    return url + "?access_token=" + Auth.getToken();
+    return url + "?access_token=" + getUserToken();
 }
 
 /**
  * Returns all users from server
  * @param callback
  */
-function getAllUsers(callback){
+export function getAllUsersAPI(callback){
     return $.get(
         getFinalURL(),
         function (result) {
@@ -33,7 +34,7 @@ function getAllUsers(callback){
  * @param id
  * @param callback
  */
-function getUserMatieres(id, callback){
+export function getUserMatieresAPI(id, callback){
     return $.get(
         getFinalURL(id, "matieres"),
         function (result) {
@@ -47,7 +48,7 @@ function getUserMatieres(id, callback){
  * @param id
  * @param callback
  */
-function getUserExamens(id, callback){
+export function getUserExamensAPI(id, callback){
     return $.get(
         getFinalURL(id, "examens"),
         function (result) {
@@ -61,7 +62,7 @@ function getUserExamens(id, callback){
  * @param id
  * @param callback
  */
-function getUserExamensForCalendar(id, callback){
+export function getUserExamensForCalendarAPI(id, callback){
     return $.get(
         getFinalURL(id, "examens_calendar"),
         function (result) {
@@ -76,7 +77,7 @@ function getUserExamensForCalendar(id, callback){
  * @param callback
  * @returns {*}
  */
-function getUserDiplomes(id, callback){
+export function getUserDiplomesAPI(id, callback){
     return $.get(
         getFinalURL(id, "diplomes"),
         function (result) {
@@ -90,7 +91,7 @@ function getUserDiplomes(id, callback){
  * @param userList
  * @param competenceList
  */
-function getUserListCompetenceEvaluation(userList, competenceList, callback) {
+export function getUserListCompetenceEvaluationAPI(userList, competenceList, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "ulist/" + JSON.stringify(userList) + "/";
     url += "clist/" + JSON.stringify(competenceList);
@@ -109,7 +110,7 @@ function getUserListCompetenceEvaluation(userList, competenceList, callback) {
  * @param userList
  * @param competenceList
  */
-function getUserListCompetenceEvaluationAuto(userList, competenceList, callback) {
+export function getUserListCompetenceEvaluationAutoAPI(userList, competenceList, callback) {
     var url = Config.server_base_url + "user/evaluations_auto/";
     url += "ulist/" + JSON.stringify(userList) + "/";
     url += "clist/" + JSON.stringify(competenceList);
@@ -130,7 +131,7 @@ function getUserListCompetenceEvaluationAuto(userList, competenceList, callback)
  * @param competenceList
  * @param callback
  */
-function getUserListCompetenceEvaluationByExamen(examenID, userList, competenceList, callback) {
+export function getUserListCompetenceEvaluationByExamenAPI(examenID, userList, competenceList, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "examen/" + JSON.stringify(examenID) + "/";
     url += "ulist/" + JSON.stringify(userList) + "/";
@@ -151,7 +152,7 @@ function getUserListCompetenceEvaluationByExamen(examenID, userList, competenceL
  * @param examenID
  * @param callback
  */
-function getUserListWithEvaluationByGroupAndExamen(groupID, examenID, callback) {
+export function getUserListWithEvaluationByGroupAndExamenAPI(groupID, examenID, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "group/" + JSON.stringify(groupID) + "/";
     url += "examen/" + JSON.stringify(examenID);
@@ -171,7 +172,7 @@ function getUserListWithEvaluationByGroupAndExamen(groupID, examenID, callback) 
  * @param matiereID
  * @param callback
  */
-function getUserListWithEvaluationByGroupAndMatiere(groupID, matiereID, callback) {
+export function getUserListWithEvaluationByGroupAndMatiereAPI(groupID, matiereID, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "group/" + JSON.stringify(groupID) + "/";
     url += "matiere/" + JSON.stringify(matiereID);
@@ -191,7 +192,7 @@ function getUserListWithEvaluationByGroupAndMatiere(groupID, matiereID, callback
  * @param examenID
  * @param callback
  */
-function getUserWithEvaluationByExamen(userID, examenID, callback) {
+export function getUserWithEvaluationByExamenAPI(userID, examenID, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "user/" + JSON.stringify(userID) + "/";
     url += "examen/" + JSON.stringify(examenID);
@@ -211,7 +212,7 @@ function getUserWithEvaluationByExamen(userID, examenID, callback) {
  * @param matiereID
  * @param callback
  */
-function getUserWithEvaluationByMatiere(userID, matiereID, callback) {
+export function getUserWithEvaluationByMatiereAPI(userID, matiereID, callback) {
     var url = Config.server_base_url + "user/evaluations/";
     url += "user/" + JSON.stringify(userID) + "/";
     url += "matiere/" + JSON.stringify(matiereID);
@@ -231,7 +232,7 @@ function getUserWithEvaluationByMatiere(userID, matiereID, callback) {
  * @param matiereID
  * @param callback
  */
-function getUsersEvaluatedCompetencesStatistiquesForMatiere(groupID, matiereID, callback) {
+export function getUsersEvaluatedCompetencesStatistiquesForMatiereAPI(groupID, matiereID, callback) {
     var url = Config.server_base_url + "user/evaluation_statistics/";
     url += "group/" + JSON.stringify(groupID) + "/";
     url += "matiere/" + JSON.stringify(matiereID);
@@ -249,7 +250,7 @@ function getUsersEvaluatedCompetencesStatistiquesForMatiere(groupID, matiereID, 
  * Returns a specific user by id
  * @param id
  */
-function getUser(id){
+export function getUserAPI(id){
     return $.get(
         getFinalURL(id),
         function (result) {
@@ -263,7 +264,7 @@ function getUser(id){
  * @param data
  * @param callback
  */
-function postUser(data, callback){
+export function postUserAPI(data, callback){
 
 }
 
@@ -273,7 +274,7 @@ function postUser(data, callback){
  * @param data
  * @param callback
  */
-function putUser(id, data, callback){
+export function putUserAPI(id, data, callback){
 
 }
 
@@ -281,26 +282,6 @@ function putUser(id, data, callback){
  * Deletes an user from the server
  * @param id
  */
-function deleteUser(id){
+export function deleteUserAPI(id){
 
 }
-
-module.exports = {
-    getAll: getAllUsers,
-    getUserListCompetenceEvaluation:getUserListCompetenceEvaluation,
-    getUserListWithEvaluationByGroupAndExamen:getUserListWithEvaluationByGroupAndExamen,
-    getUserListWithEvaluationByGroupAndMatiere:getUserListWithEvaluationByGroupAndMatiere,
-    getUserListCompetenceEvaluationByExamen:getUserListCompetenceEvaluationByExamen,
-    getUserWithEvaluationByExamen:getUserWithEvaluationByExamen,
-    getUserWithEvaluationByMatiere:getUserWithEvaluationByMatiere,
-    getUsersEvaluatedCompetencesStatistiquesForMatiere:getUsersEvaluatedCompetencesStatistiquesForMatiere,
-    getUserListCompetenceEvaluationAuto:getUserListCompetenceEvaluationAuto,
-    get: getUser,
-    getMatieres: getUserMatieres,
-    getExamens: getUserExamens,
-    getExamensForCalendar:getUserExamensForCalendar,
-    getDiplomes: getUserDiplomes,
-    post: postUser,
-    put: putUser,
-    delete: deleteUser
-};
