@@ -4,12 +4,12 @@
 
 ### Présentation
 
-Ce projet a pour finalité la gestion des compétences d'un étudiant.
+Ce projet a pour finalité de gérer les compétences des étudiants d'une classe.
 
-Partie front-end du projet réalisé avec NodeJS et ReactJS.
+Partie front-end du projet réalisée avec NodeJS et ReactJS.
 
 La partie back-end basée sur Symfony 2.8 se trouve ici : 
-https://github.com/jarnal/competence_3csi
+* https://github.com/jarnal/competence_3csi
 
 ### Technologies
 
