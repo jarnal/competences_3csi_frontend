@@ -1,7 +1,7 @@
 import React from 'react'
-import WidgetEvaluations from './WidgetEvaluations.jsx'
+import EvaluationsManager from './EvaluationsManager.jsx'
 import Select from 'react-select'
-import GroupService from '../../../services/GroupService.js'
+import GroupService from '../../services/GroupService.js'
 import GroupSelector from '../../containers/groups/GroupSelectorContainer'
 
 class EvaluationsLibres extends React.Component {
@@ -47,10 +47,22 @@ class EvaluationsLibres extends React.Component {
                     <div className="row">
                         <div className="col-xs-12">
                             <section >
-                                <WidgetEvaluations
+                                <EvaluationsManager
                                     mode="evaluations_libres"
                                     group={this.state.selected_group}
                                     isIntervenant={this.state.isIntervenant}
+
+                                    onUserSelect={this.props.onUserSelect}
+                                    onUserSelectAll={this.props.onUserSelectAll}
+                                    onCompetenceSelect={this.props.onCompetenceSelect}
+                                    onCompetenceSelectAll={this.props.onCompetenceSelectAll}
+                                    onExamenSelect={this.props.onExamenSelect}
+                                    onAfterSaveCell={this.props.onAfterSaveCell}
+                                    loadSelectOptions={this.props.loadSelectOptions}
+                                    onMatiereSelectChange={this.props.onMatiereSelectChange}
+
+                                    matieres={this.props.matieres}
+                                    competences={this.props.competences}
                                 />
                             </section>
                         </div>

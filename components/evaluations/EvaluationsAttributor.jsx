@@ -1,6 +1,6 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import TypeNoteService from '../../../../services/TypeNoteService.js'
+import TypeNoteService from '../../services/TypeNoteService.js'
 
 class AttributionEvaluations extends React.Component {
 

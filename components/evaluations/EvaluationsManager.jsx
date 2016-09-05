@@ -1,13 +1,15 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import UserEvaluations from './WidgetComponents/UserEvaluations.jsx'
-import AttributionEvaluations from './WidgetComponents/AttributionEvaluations.jsx'
-import ListCompetences from '../Competences/ListCompetences.jsx'
-import UserService from '../../../services/UserService.js'
-import EvaluationAutoService from '../../../services/EvaluationAutoService.js'
-import EvaluationIntervenantService from '../../../services/EvaluationIntervenantService.js'
-import EvaluationExamenService from '../../../services/EvaluationExamenService.js'
-import { getTokenAPI, getUserInfo } from '../../../services/AuthService'
+import UserEvaluations from './EvaluationsUserSelector.jsx'
+import AttributionEvaluations from './EvaluationsAttributor.jsx'
+import ListCompetences from '../competences/CompetencesSelector.jsx'
+import UserService from '../../services/UserService'
+import EvaluationAutoService from '../../services/EvaluationAutoService.js'
+import EvaluationIntervenantService from '../../services/EvaluationIntervenantService.js'
+import EvaluationExamenService from '../../services/EvaluationExamenService.js'
+import { getTokenAPI, getUserInfo } from '../../services/AuthService'
+
+import UserSelector from '../../containers/evaluations/EvaluationsUserSelectorContainer'
 
 class EvaluationManager extends React.Component {
 
@@ -22,12 +24,12 @@ class EvaluationManager extends React.Component {
             screenHeight: "100px"
         };
 
-        this.onUserSelect = this.onUserSelect.bind(this);
+       /*this.onUserSelect = this.onUserSelect.bind(this);
         this.onUserSelectAll = this.onUserSelectAll.bind(this);
         this.onCompetenceSelect = this.onCompetenceSelect.bind(this);
         this.onCompetenceSelectAll = this.onCompetenceSelectAll.bind(this);
         this.onExamenSelect = this.onExamenSelect.bind(this);
-        this.onAfterSaveCell = this.onAfterSaveCell.bind(this);
+        this.onAfterSaveCell = this.onAfterSaveCell.bind(this);*/
     }
 
     // when compoent will receive props, bind data
@@ -44,7 +46,7 @@ class EvaluationManager extends React.Component {
     }
 
     // update evalations from services
-    updateEvaluationRows() {
+    /*updateEvaluationRows() {
         let users_selected = this.state.users_selected;
         let competences_selected = this.state.competences_selected;
 
@@ -81,8 +83,47 @@ class EvaluationManager extends React.Component {
                 });
                 break;
         }
+    }*/
+
+    // - Custom options for users table
+    getUserSelectRowProp() {
+        return {
+            mode: 'checkbox',
+            clickToSelect: true,
+            onSelect: this.props.onUserSelect,
+            onSelectAll: this.props.onUserSelectAll
+        };
     }
 
+    // gustom option for compoentences table
+    getCompetenceSelectRowProp() {
+        return {
+            mode: 'checkbox',
+            clickToSelect: true,
+            onSelect: this.props.onCompetenceSelect,
+            onSelectAll: this.props.onCompetenceSelectAll
+        };
+    }
+
+    // - When compoent has mounted, try to get last examen
+    componentDidMount() {
+        this.setState({examen_id: 1});
+
+        // Patch allowing to resize multiple react-bootstrap-table instances in tabs
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            let panels = $('div[role="tabpanel"]');
+            var minHeight = Infinity;
+            var panel;
+            for (var i = 0; i < panels.length; i++) {
+                panel = $(panels[i]);
+
+                var container = panel.find('div[class="react-bs-container-body"]');
+                minHeight = Math.min(minHeight, $(container).height());
+            }
+            $('div[class="react-bs-container-body"]').css('height', minHeight);
+        });
+    }
+    /*
     // - check mode "evaluations libres" or "evaluations examens" and save data from services
     onAfterSaveCell(row, cellName, cellValue) {
         var that = this;
@@ -105,35 +146,6 @@ class EvaluationManager extends React.Component {
                 });
                 break;
         }
-    }
-
-    // - Custom options for users table
-    getUserSelectRowProp() {
-        return {
-            mode: 'checkbox',
-            clickToSelect: true,
-            onSelect: this.onUserSelect,
-            onSelectAll: this.onUserSelectAll
-        };
-    }
-
-    // - When compoent has mounted, try to get last examen
-    componentDidMount() {
-        this.setState({examen_id: 1});
-
-        // Patch allowing to resize multiple react-bootstrap-table instances in tabs
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            let panels = $('div[role="tabpanel"]');
-            var minHeight = Infinity;
-            var panel;
-            for (var i = 0; i < panels.length; i++) {
-                panel = $(panels[i]);
-
-                var container = panel.find('div[class="react-bs-container-body"]');
-                minHeight = Math.min(minHeight, $(container).height());
-            }
-            $('div[class="react-bs-container-body"]').css('height', minHeight);
-        });
     }
 
     // - Save users selected
@@ -171,16 +183,6 @@ class EvaluationManager extends React.Component {
             users_selected: users_selected
         });
         this.updateEvaluationRows()
-    }
-
-    // gustom option for compoentences table
-    getCompetenceSelectRowProp() {
-        return {
-            mode: 'checkbox',
-            clickToSelect: true,
-            onSelect: this.onCompetenceSelect,
-            onSelectAll: this.onCompetenceSelectAll
-        };
     }
 
     // get specified value
@@ -226,7 +228,7 @@ class EvaluationManager extends React.Component {
             examen_id: value
         });
     }
-
+    */
     // - render widget evaluations
     render() {
         return (
@@ -249,11 +251,7 @@ class EvaluationManager extends React.Component {
                         ?
                         <div role="tabpanel" className="tab-pane active" id="tab_1">
                             <div className="box-body col-xs-12 table-container">
-                                <UserEvaluations
-                                    selectRowProp={this.getUserSelectRowProp()}
-                                    group={this.state.group}
-                                    mode={this.props.mode}
-                                />
+                                <UserSelector />
                             </div>
                             <div className="box-footer">
                                 <button onClick={function(){
@@ -269,11 +267,20 @@ class EvaluationManager extends React.Component {
                          id="tab_2">
                         <div className="box-body col-xs-12 table-container">
                             <ListCompetences
-                                selectRowProp={this.getCompetenceSelectRowProp()}
-                                group={this.state.group}
-                                mode={this.props.mode}
-                                examenCallback={this.onExamenSelect}
-                                isIntervenant={this.state.isIntervenant}
+                                options = {this.props.matieres}
+                                competences = {this.props.competences}
+                                selectValue = {this.props.matiereSelected}
+                                onSelectChange = {this.props.onMatiereSelectChange}
+                                loadSelectOptions = {this.props.loadSelectOptions}
+                                addCompetence = {false}
+                                selectRow = {
+                                    {
+                                        mode: 'checkbox',
+                                        clickToSelect: true,
+                                        onSelect: this.props.onCompetenceSelect,
+                                        onSelectAll: this.props.onCompetenceSelectAll
+                                    }
+                                }
                             />
                         </div>
                         <div className="box-footer">
@@ -291,7 +298,7 @@ class EvaluationManager extends React.Component {
                         <AttributionEvaluations
                             evaluations={this.state.evaluation_rows}
                             mode={this.props.mode}
-                            editCallback={this.onAfterSaveCell}
+                            editCallback={this.props.onAfterSaveCell}
                             isIntervenant={this.state.isIntervenant}
                         />
                         <div className="box-footer">

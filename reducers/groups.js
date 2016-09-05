@@ -2,14 +2,15 @@
  * Created by jonathan on 30/08/2016.
  */
 
-import {GROUPS_REQUEST, GROUPS_SUCCESS, GROUPS_FAILURE, GROUP_SELECTED} from '../actions/groups'
+import {GROUPS_REQUEST, GROUPS_SUCCESS, GROUPS_FAILURE, GROUP_SELECTED, GROUP_ADD_ACTION_CALLBACK} from '../actions/groups'
 
 const initialState = {
     data : [],
     request : null,
     inProgress : false,
     error : null,
-    selected : null
+    selected : null,
+    actionCallback: null
 };
 
 function groups(state = initialState, action) {
@@ -32,6 +33,10 @@ function groups(state = initialState, action) {
         case GROUP_SELECTED:
             return Object.assign({}, state, {
                 selected: action.group
+            });
+        case GROUP_ADD_ACTION_CALLBACK:
+            return Object.assign({}, state, {
+                actionCallback: action.actionCallback
             });
         default:
             return state

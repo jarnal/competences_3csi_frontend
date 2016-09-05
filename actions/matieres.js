@@ -17,7 +17,7 @@ export function getAllMatieres() {
         dispatch(matieresRequest());
         let request = getAllMatieresAPI((err, res) => {
             if(err){
-                dispatch(matieresFailure(error));
+                dispatch(matieresFailure(err));
                 return;
             }
 

@@ -1,43 +1,21 @@
 import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import { getGroupUsers } from '../../../../services/GroupService.js'
+import { getGroupUsers } from '../../services/GroupService.js'
 
 class UserEvaluations extends React.Component {
 
-    // - Build user list for evaluations
-    constructor(props) {
-        super(props);
-        this.state = {
-            users: [],
-            currentRequest: null
-        };
-        this.getUsers = this.getUsers.bind(this);
-    }
-
-    // -
-    componentWillUnmount() {
-        if(this.state.currentRequest != null) {
-            this.state.currentRequest.abort();
+    // When component will mount, fetch users
+    componentWillMount(){
+        if(this.props.needsFetching){
+            this.props.loadData(this.props.selectedGroup.id);
         }
     }
 
-    // - when component has received props, get specified user
+    // - When component has received props, fetch users
     componentWillReceiveProps(nextProps) {
-        if(nextProps.group){
-            if(this.props.group == null || this.props.group.id != nextProps.group.id)
-                this.getUsers(nextProps.group.id);
+        if(nextProps.needsFetching){
+            this.props.loadData(nextProps.selectedGroup.id);
         }
-    }
-
-    // - get users from services
-    getUsers(groupID){
-        let that = this;
-        let req = getGroupUsers(groupID, (result) => {
-            that.setState({
-                users:result
-            })
-        });
-        this.setState({currentRequest:req});
     }
 
     // - Render user list evaluations
@@ -45,11 +23,16 @@ class UserEvaluations extends React.Component {
         return (
             <div className="box-body col-xs-12">
                 <BootstrapTable
-                    data={this.state.users}
+                    data={this.props.users}
                     height="250"
                     striped={true}
                     hover={true}
-                    selectRow={this.props.selectRowProp}
+                    selectRow={{
+                        mode: 'checkbox',
+                        clickToSelect: true,
+                        onSelect: this.props.onUserSelect,
+                        onSelectAll: this.props.onUserSelectAll
+                    }}
                     searchPlaceholder="Rechercher"
                     search={true}
                     noDataText="Aucun utilisateur trouvé">

@@ -8,6 +8,7 @@ export const GROUPS_REQUEST = "GROUPS_REQUEST";
 export const GROUPS_SUCCESS = "GROUPS_SUCCESS";
 export const GROUPS_FAILURE = "GROUPS_FAILURE";
 export const GROUP_SELECTED = "GROUP_SELECTED";
+export const GROUP_ADD_ACTION_CALLBACK = "GROUP_ADD_CALLBACK";
 
 export function getAllGroups(){
     return dispatch => {
@@ -29,8 +30,11 @@ export function getAllGroups(){
 }
 
 export function groupSelected(group){
-    localStorage.setItem("sgroup", JSON.stringify(group));
-    return {type: GROUP_SELECTED, group}
+    return {type: GROUP_SELECTED, group};
+}
+
+export function addGroupSelectedActionCallback(actionCallback){
+    return {type: GROUP_ADD_ACTION_CALLBACK, actionCallback}
 }
 
 //

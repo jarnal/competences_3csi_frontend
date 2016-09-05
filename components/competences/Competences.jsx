@@ -34,8 +34,6 @@ class Competences extends React.Component {
                                     <div className="box-body">
                                         <div className="row">
                                             <ListCompetences
-                                                //group={this.state.selected_group}
-                                                //mode="default"
                                                 options = {this.props.selectOptions}
                                                 competences = {this.props.competences}
                                                 selectValue = {this.props.matiereSelected}

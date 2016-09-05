@@ -20,11 +20,11 @@ export function removeUser(user) {
     return {type: EVALUATION_REMOVE_USER, user};
 }
 
-export function addAllUser() {
-    return {type: EVALUATION_ADD_ALL_USER}
+export function addAllUsers(users) {
+    return {type: EVALUATION_ADD_ALL_USER, users}
 }
 
-export function removeAllUser() {
+export function removeAllUsers() {
     return {type: EVALUATION_REMOVE_ALL_USER}
 }
 
@@ -36,10 +36,10 @@ export function removeCompetence(competence) {
     return {type: EVALUATION_REMOVE_COMPETENCE, competence};
 }
 
-export function addAllCompetence() {
-    return {type: EVALUATION_ADD_ALL_COMPETENCE}
+export function addAllCompetences(competences) {
+    return {type: EVALUATION_ADD_ALL_COMPETENCE, competences}
 }
 
-export function removeAllCompetence() {
+export function removeAllCompetences() {
     return {type: EVALUATION_REMOVE_ALL_COMPETENCE}
 }

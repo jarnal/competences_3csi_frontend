@@ -48,7 +48,7 @@ class ListCompetences extends React.Component {
                         height="250"
                         striped={true}
                         hover={true}
-                        //selectRow={}
+                        selectRow={this.props.selectRow}
                         searchPlaceholder="Rechercher"
                         search={true}
                         noDataText="Aucune competence trouvé">

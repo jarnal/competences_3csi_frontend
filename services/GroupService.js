@@ -36,13 +36,13 @@ export function getAllGroupsAPI(callback){
  * @param id
  * @param callback
  */
-export function getGroupUsers(id, callback){
-    return $.get(
-        getFinalURL(id, "users"),
-        function (result) {
-            callback(result);
-        }
-    );
+export function getGroupUsersAPI(id, callback){
+    return request
+        .get(getFinalURL(id, "users"))
+        .set('Accept', 'application/json')
+        .end(function(err, res){
+            callback(err, res);
+        });
 }
 
 /**
@@ -50,7 +50,7 @@ export function getGroupUsers(id, callback){
  * @param id
  * @param callback
  */
-export function getGroupMatieres(id, callback){
+export function getGroupMatieresAPI(id, callback){
     return $.get(
         getFinalURL(id, "matieres"),
         function (result) {
@@ -64,7 +64,7 @@ export function getGroupMatieres(id, callback){
  * @param id
  * @param callback
  */
-export function getGroupExamens(id, callback){
+export function getGroupExamensAPI(id, callback){
    return $.get(
         getFinalURL(id, "examens"),
         function (result) {
@@ -78,7 +78,7 @@ export function getGroupExamens(id, callback){
  * @param id
  * @param callback
  */
-export function getGroup(id, callback){
+export function getGroupAPI(id, callback){
     return $.get(
         getFinalURL(id),
         function (result) {
@@ -92,7 +92,7 @@ export function getGroup(id, callback){
  * @param data
  * @param callback
  */
-export function postGroup(data, callback){
+export function postGroupAPI(data, callback){
     return $.ajax({
         type: "POST",
         url: getFinalURL(),
@@ -113,7 +113,7 @@ export function postGroup(data, callback){
  * @param data
  * @param callback
  */
-export function putGroup(id, data, callback){
+export function putGroupAPI(id, data, callback){
     return $.ajax({
         type: "PUT",
         url: getFinalURL(id),

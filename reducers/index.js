@@ -8,11 +8,15 @@ import promises from './promises'
 import matieres from './matieres'
 import competences from './competences'
 import groups from './groups'
+import evaluations from './evaluations'
+import users from './users'
 
 export default combineReducers({
     login,
     promises,
     matieres,
     competences,
-    groups
+    groups,
+    evaluations,
+    users
 })
