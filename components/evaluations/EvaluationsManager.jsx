@@ -23,13 +23,6 @@ class EvaluationManager extends React.Component {
             evaluation_rows: [],
             screenHeight: "100px"
         };
-
-       /*this.onUserSelect = this.onUserSelect.bind(this);
-        this.onUserSelectAll = this.onUserSelectAll.bind(this);
-        this.onCompetenceSelect = this.onCompetenceSelect.bind(this);
-        this.onCompetenceSelectAll = this.onCompetenceSelectAll.bind(this);
-        this.onExamenSelect = this.onExamenSelect.bind(this);
-        this.onAfterSaveCell = this.onAfterSaveCell.bind(this);*/
     }
 
     // when compoent will receive props, bind data
@@ -44,46 +37,6 @@ class EvaluationManager extends React.Component {
             this.state.users_selected = [userID];
         }
     }
-
-    // update evalations from services
-    /*updateEvaluationRows() {
-        let users_selected = this.state.users_selected;
-        let competences_selected = this.state.competences_selected;
-
-        // -
-        if (users_selected.length <= 0 || competences_selected.length <= 0)
-            return;
-
-        let that = this;
-        switch (this.props.mode) {
-            case "evaluations_libres":
-                if (this.props.isIntervenant) {
-                    UserService.getUserListCompetenceEvaluation(users_selected, competences_selected, (result) => {
-                        that.setState({
-                            evaluation_rows: result
-                        });
-                    });
-                } else {
-                    UserService.getUserListCompetenceEvaluationAuto(users_selected, competences_selected, (result) => {
-                        that.setState({
-                            evaluation_rows: result
-                        });
-                    });
-                }
-                break;
-            default:
-                // -
-                if (this.state.examen_id == null)
-                    return;
-
-                UserService.getUserListCompetenceEvaluationByExamen(this.state.examen_id, users_selected, competences_selected, (result) => {
-                    that.setState({
-                        evaluation_rows: result
-                    });
-                });
-                break;
-        }
-    }*/
 
     // - Custom options for users table
     getUserSelectRowProp() {
@@ -123,112 +76,7 @@ class EvaluationManager extends React.Component {
             $('div[class="react-bs-container-body"]').css('height', minHeight);
         });
     }
-    /*
-    // - check mode "evaluations libres" or "evaluations examens" and save data from services
-    onAfterSaveCell(row, cellName, cellValue) {
-        var that = this;
-        switch (this.props.mode) {
-            case "evaluations_libres":
-                if (this.props.isIntervenant) {
-                    EvaluationIntervenantService.post(row, (result) => {
-                        console.log(result);
-                    });
-                } else {
-                    EvaluationAutoService.post(row, (result) => {
-                        console.log(result);
-                    });
-                }
-                break;
-            default:
-                row.examen_id = that.state.examen_id;
-                EvaluationExamenService.post(row, (result) => {
-                    console.log(result);
-                });
-                break;
-        }
-    }
 
-    // - Save users selected
-    onUserSelect(row, isSelected) {
-        let users_selected = this.state.users_selected;
-        if (isSelected) {
-            users_selected.push(row.id);
-        }
-        else {
-            let unselected = users_selected.indexOf(row.id);
-            if (unselected != -1) {
-                users_selected.splice(unselected, 1);
-            }
-        }
-
-        this.setState({
-            users_selected: users_selected
-        });
-        this.updateEvaluationRows();
-    }
-
-    // Save all users
-    onUserSelectAll(isSelected, currentDisplayAndSelectedData) {
-        let users_selected = this.state.users_selected;
-        if (isSelected) {
-            for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
-                users_selected.push(currentDisplayAndSelectedData[i].id);
-            }
-        }
-        else {
-            users_selected = [];
-        }
-
-        this.setState({
-            users_selected: users_selected
-        });
-        this.updateEvaluationRows()
-    }
-
-    // get specified value
-    onCompetenceSelect(row, isSelected) {
-        let competences_selected = this.state.competences_selected;
-        if (isSelected) {
-            competences_selected.push(row.id);
-        }
-        else {
-            let unselected = competences_selected.indexOf(row.id);
-            if (unselected != -1) {
-                competences_selected.splice(unselected, 1);
-            }
-        }
-
-        this.setState({
-            competences_selected: competences_selected
-        });
-        this.updateEvaluationRows();
-    }
-
-    // - get all selected values
-    onCompetenceSelectAll(isSelected, currentDisplayAndSelectedData) {
-        let competences_selected = this.state.competences_selected;
-        if (isSelected) {
-            for (let i = 0; i < currentDisplayAndSelectedData.length; i++) {
-                competences_selected.push(currentDisplayAndSelectedData[i].id);
-            }
-        }
-        else {
-            competences_selected = [];
-        }
-
-        this.setState({
-            competences_selected: competences_selected
-        });
-        this.updateEvaluationRows();
-    }
-
-    // - when examen has been selected, bind data
-    onExamenSelect(value) {
-        this.setState({
-            examen_id: value
-        });
-    }
-    */
     // - render widget evaluations
     render() {
         return (
